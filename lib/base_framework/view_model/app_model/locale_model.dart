@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flustars/flustars.dart';
-import 'package:flutter_bedrock/generated/l10n.dart';
+import 'package:cloud_music/generated/l10n.dart';
 
 
 

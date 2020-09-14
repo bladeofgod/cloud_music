@@ -4,7 +4,7 @@
 */
 
 
-import 'package:flutter_bedrock/base_framework/widget_state/page_state.dart';
+import 'package:cloud_music/base_framework/widget_state/page_state.dart';
 import 'package:flutter/material.dart';
 
 class WithValuePage extends PageState{

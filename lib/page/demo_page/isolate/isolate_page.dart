@@ -7,11 +7,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bedrock/base_framework/config/net/bedrock_http.dart';
-import 'package:flutter_bedrock/base_framework/utils/isolate/app_private_ioslate.dart';
-import 'package:flutter_bedrock/base_framework/utils/isolate/factory/worker_isolate.dart';
+import 'package:cloud_music/base_framework/config/net/bedrock_http.dart';
+import 'package:cloud_music/base_framework/utils/isolate/app_private_ioslate.dart';
+import 'package:cloud_music/base_framework/utils/isolate/factory/worker_isolate.dart';
 
-import 'package:flutter_bedrock/base_framework/widget_state/page_state.dart';
+import 'package:cloud_music/base_framework/widget_state/page_state.dart';
 
 
 

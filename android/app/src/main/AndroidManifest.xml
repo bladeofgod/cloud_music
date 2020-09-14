@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.lijiaqi.flutter_bedrock">
+    package="com.lijiaqi.cloud_music">
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
          calls FlutterMain.startInitialization(this); in its onCreate method.
          In most cases you can leave this as-is, but you if you want to provide
@@ -29,7 +29,7 @@
 
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="flutter_bedrock"
+        android:label="cloud_music"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name="com.lijiaqi.bedrock.MainActivity"
@@ -52,7 +52,7 @@
         <!--自动升级获取文件uri-->
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.lijiaqi.flutter_bedrock.fileProvider"
+            android:authorities="com.lijiaqi.cloud_music.fileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

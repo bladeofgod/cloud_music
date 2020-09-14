@@ -1,10 +1,10 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bedrock/base_framework/ui/anim/page_route_anim/fade_animation.dart';
-import 'package:flutter_bedrock/base_framework/ui/anim/page_route_anim/no_animation.dart';
-import 'package:flutter_bedrock/base_framework/ui/anim/page_route_anim/size_scale_animation.dart';
-import 'package:flutter_bedrock/base_framework/ui/anim/page_route_anim/slide_animation.dart';
+import 'package:cloud_music/base_framework/ui/anim/page_route_anim/fade_animation.dart';
+import 'package:cloud_music/base_framework/ui/anim/page_route_anim/no_animation.dart';
+import 'package:cloud_music/base_framework/ui/anim/page_route_anim/size_scale_animation.dart';
+import 'package:cloud_music/base_framework/ui/anim/page_route_anim/slide_animation.dart';
 
 ///后期对此扩建
 

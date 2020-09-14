@@ -6,7 +6,7 @@
 
 import 'package:flustars/flustars.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_bedrock/page/mine/entity/user_entity.dart';
+import 'package:cloud_music/page/mine/entity/user_entity.dart';
 
 
 

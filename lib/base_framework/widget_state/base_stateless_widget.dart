@@ -4,8 +4,8 @@ import 'package:flustars/flustars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bedrock/base_framework/ui/behavior/over_scroll_behavior.dart';
-import 'package:flutter_bedrock/base_framework/utils/image_helper.dart';
+import 'package:cloud_music/base_framework/ui/behavior/over_scroll_behavior.dart';
+import 'package:cloud_music/base_framework/utils/image_helper.dart';
 
 /// Stateless widget 继承此类
 

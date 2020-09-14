@@ -8,10 +8,10 @@ import 'dart:isolate';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_bedrock/base_framework/config/net/base_http.dart';
-import 'package:flutter_bedrock/base_framework/config/net/bedrock_http.dart';
-import 'package:flutter_bedrock/base_framework/observe/app_status/app_status_observe.dart' as appObserve;
-import 'package:flutter_bedrock/base_framework/view_model/app_model/app_status_model.dart';
+import 'package:cloud_music/base_framework/config/net/base_http.dart';
+import 'package:cloud_music/base_framework/config/net/bedrock_http.dart';
+import 'package:cloud_music/base_framework/observe/app_status/app_status_observe.dart' as appObserve;
+import 'package:cloud_music/base_framework/view_model/app_model/app_status_model.dart';
 import 'package:oktoast/oktoast.dart';
 
 

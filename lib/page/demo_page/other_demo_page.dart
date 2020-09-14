@@ -5,13 +5,13 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bedrock/base_framework/config/router_manager.dart';
-import 'package:flutter_bedrock/base_framework/widget_state/base_state.dart';
-import 'package:flutter_bedrock/base_framework/widget_state/page_state.dart';
-import 'package:flutter_bedrock/page/demo_page/other/little_util_page.dart';
-import 'package:flutter_bedrock/page/demo_page/other/request_permission_page.dart';
-import 'package:flutter_bedrock/page/demo_page/other/scroll_page.dart';
-import 'package:flutter_bedrock/page/demo_page/other/timer_page.dart';
+import 'package:cloud_music/base_framework/config/router_manager.dart';
+import 'package:cloud_music/base_framework/widget_state/base_state.dart';
+import 'package:cloud_music/base_framework/widget_state/page_state.dart';
+import 'package:cloud_music/page/demo_page/other/little_util_page.dart';
+import 'package:cloud_music/page/demo_page/other/request_permission_page.dart';
+import 'package:cloud_music/page/demo_page/other/scroll_page.dart';
+import 'package:cloud_music/page/demo_page/other/timer_page.dart';
 
 ///实验室 随便写的。
 

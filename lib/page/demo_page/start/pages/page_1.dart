@@ -7,8 +7,8 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bedrock/base_framework/widget_state/page_state.dart';
-import 'package:flutter_bedrock/page/demo_page/start/pages/page_2.dart';
+import 'package:cloud_music/base_framework/widget_state/page_state.dart';
+import 'package:cloud_music/page/demo_page/start/pages/page_2.dart';
 
 class Page1 extends PageState{
   @override

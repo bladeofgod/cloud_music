@@ -6,8 +6,8 @@ import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/foundation.dart';
 import '../../utils/exception_pitcher.dart';
-import 'package:flutter_bedrock/base_framework/config/net/base_http.dart';
-import 'package:flutter_bedrock/base_framework/config/storage_manager.dart';
+import 'package:cloud_music/base_framework/config/net/base_http.dart';
+import 'package:cloud_music/base_framework/config/storage_manager.dart';
 
 
 

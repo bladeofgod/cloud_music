@@ -8,11 +8,11 @@
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bedrock/base_framework/config/router_manager.dart';
-import 'package:flutter_bedrock/base_framework/utils/image_helper.dart';
-import 'package:flutter_bedrock/base_framework/view_model/view_state.dart';
-import 'package:flutter_bedrock/base_framework/widget_state/base_state.dart';
-import 'package:flutter_bedrock/base_framework/widget_state/widget_state.dart';
+import 'package:cloud_music/base_framework/config/router_manager.dart';
+import 'package:cloud_music/base_framework/utils/image_helper.dart';
+import 'package:cloud_music/base_framework/view_model/view_state.dart';
+import 'package:cloud_music/base_framework/widget_state/base_state.dart';
+import 'package:cloud_music/base_framework/widget_state/widget_state.dart';
 
 
 /// * 如果是页面，继承 [PageState]

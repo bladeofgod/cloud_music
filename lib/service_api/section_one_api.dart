@@ -7,13 +7,13 @@
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_bedrock/base_framework/config/net/bedrock_http.dart';
-import 'package:flutter_bedrock/page/demo_page/main/fake_constant.dart';
-import 'package:flutter_bedrock/page/demo_page/main/first/entity/cache_entity.dart';
-import 'package:flutter_bedrock/page/demo_page/main/first/entity/first_card_entity.dart';
-import 'package:flutter_bedrock/page/demo_page/main/first/entity/first_entity.dart';
-import 'package:flutter_bedrock/page/demo_page/main/second/entity/second_entity.dart';
-import 'package:flutter_bedrock/page/mine/entity/user_entity.dart';
+import 'package:cloud_music/base_framework/config/net/bedrock_http.dart';
+import 'package:cloud_music/page/demo_page/main/fake_constant.dart';
+import 'package:cloud_music/page/demo_page/main/first/entity/cache_entity.dart';
+import 'package:cloud_music/page/demo_page/main/first/entity/first_card_entity.dart';
+import 'package:cloud_music/page/demo_page/main/first/entity/first_entity.dart';
+import 'package:cloud_music/page/demo_page/main/second/entity/second_entity.dart';
+import 'package:cloud_music/page/mine/entity/user_entity.dart';
 
 class SectionOne{
   static SectionOne _singleton;

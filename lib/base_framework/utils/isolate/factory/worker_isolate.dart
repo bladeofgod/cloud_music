@@ -10,8 +10,8 @@ import 'dart:math';
 
 
 
-import 'package:flutter_bedrock/base_framework/utils/isolate/factory/task_warpper.dart';
-import 'package:flutter_bedrock/base_framework/utils/isolate/factory/work_isolate_wrapper.dart';
+import 'package:cloud_music/base_framework/utils/isolate/factory/task_warpper.dart';
+import 'package:cloud_music/base_framework/utils/isolate/factory/work_isolate_wrapper.dart';
 import 'package:markdown_widget/markdown_widget.dart';
 import 'package:reflectable/reflectable.dart';
 

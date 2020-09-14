@@ -66,7 +66,7 @@ public class BedrockPlugin implements FlutterPlugin, ActivityAware, MethodChanne
 
     }
 
-    private static final String provider = "com.lijiaqi.flutter_bedrock.fileProvider";
+    private static final String provider = "com.lijiaqi.cloud_music.fileProvider";
 
     //安装
     private void invokeInstall(String apkPath){

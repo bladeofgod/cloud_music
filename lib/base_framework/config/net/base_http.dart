@@ -9,8 +9,8 @@ import 'package:dio/native_imp.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_bedrock/base_framework/config/net/bedrock_http.dart';
-import 'package:flutter_bedrock/base_framework/utils/platform_utils.dart';
+import 'package:cloud_music/base_framework/config/net/bedrock_http.dart';
+import 'package:cloud_music/base_framework/utils/platform_utils.dart';
 
 import '../frame_constant.dart';
 

@@ -6,7 +6,7 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bedrock/base_framework/utils/platform_utils.dart';
+import 'package:cloud_music/base_framework/utils/platform_utils.dart';
 import 'package:package_info/package_info.dart';
 
 

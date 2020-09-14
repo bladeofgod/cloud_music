@@ -3,8 +3,8 @@
 * Date : 2020/5/29
 */
 
-import 'package:flutter_bedrock/base_framework/view_model/single_view_state_model.dart';
-import 'package:flutter_bedrock/service_api/bedrock_repository_proxy.dart';
+import 'package:cloud_music/base_framework/view_model/single_view_state_model.dart';
+import 'package:cloud_music/service_api/bedrock_repository_proxy.dart';
 
 class ExceptionViewModel extends SingleViewStateModel{
 

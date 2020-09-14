@@ -1,4 +1,4 @@
-package com.lijiaqi.flutter_bedrock
+package com.lijiaqi.cloud_music
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

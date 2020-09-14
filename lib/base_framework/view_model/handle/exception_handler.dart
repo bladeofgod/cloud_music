@@ -8,11 +8,11 @@ import 'dart:io';
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bedrock/base_framework/view_model/interface/cache_data_factory.dart';
+import 'package:cloud_music/base_framework/view_model/interface/cache_data_factory.dart';
 import 'package:oktoast/oktoast.dart';
-import 'package:flutter_bedrock/base_framework/exception/un_authorized_exception.dart';
-import 'package:flutter_bedrock/base_framework/exception/user_unbind_exception.dart';
-import 'package:flutter_bedrock/base_framework/view_model/view_state_model.dart';
+import 'package:cloud_music/base_framework/exception/un_authorized_exception.dart';
+import 'package:cloud_music/base_framework/exception/user_unbind_exception.dart';
+import 'package:cloud_music/base_framework/view_model/view_state_model.dart';
 
 class ExceptionHandler{
 

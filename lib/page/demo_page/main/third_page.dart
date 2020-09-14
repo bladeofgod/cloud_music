@@ -1,15 +1,15 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bedrock/base_framework/config/router_manager.dart';
-import 'package:flutter_bedrock/base_framework/ui/widget/progress_widget.dart';
-import 'package:flutter_bedrock/base_framework/ui/widget/provider_widget.dart';
-import 'package:flutter_bedrock/base_framework/utils/platform_utils.dart';
-import 'package:flutter_bedrock/base_framework/view_model/app_model/app_cache_model.dart';
-import 'package:flutter_bedrock/base_framework/view_model/app_model/user_view_model.dart';
-import 'package:flutter_bedrock/base_framework/widget_state/base_state.dart';
-import 'package:flutter_bedrock/base_framework/widget_state/page_state.dart';
-import 'package:flutter_bedrock/page/demo_page/main/login/login_page.dart';
+import 'package:cloud_music/base_framework/config/router_manager.dart';
+import 'package:cloud_music/base_framework/ui/widget/progress_widget.dart';
+import 'package:cloud_music/base_framework/ui/widget/provider_widget.dart';
+import 'package:cloud_music/base_framework/utils/platform_utils.dart';
+import 'package:cloud_music/base_framework/view_model/app_model/app_cache_model.dart';
+import 'package:cloud_music/base_framework/view_model/app_model/user_view_model.dart';
+import 'package:cloud_music/base_framework/widget_state/base_state.dart';
+import 'package:cloud_music/base_framework/widget_state/page_state.dart';
+import 'package:cloud_music/page/demo_page/main/login/login_page.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 

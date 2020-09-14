@@ -2,9 +2,9 @@
 
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_bedrock/base_framework/view_model/app_model/user_view_model.dart';
-import 'package:flutter_bedrock/base_framework/view_model/single_view_state_model.dart';
-import 'package:flutter_bedrock/service_api/bedrock_repository_proxy.dart';
+import 'package:cloud_music/base_framework/view_model/app_model/user_view_model.dart';
+import 'package:cloud_music/base_framework/view_model/single_view_state_model.dart';
+import 'package:cloud_music/service_api/bedrock_repository_proxy.dart';
 import 'package:oktoast/oktoast.dart';
 
 class LoginViewModel extends SingleViewStateModel{

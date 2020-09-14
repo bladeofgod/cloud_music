@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bedrock/base_framework/widget_state/base_stateless_widget.dart';
+import 'package:cloud_music/base_framework/widget_state/base_stateless_widget.dart';
 
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:flutter_bedrock/base_framework/ui/widget/activity_indicator.dart';
-import 'package:flutter_bedrock/generated/l10n.dart';
+import 'package:cloud_music/base_framework/ui/widget/activity_indicator.dart';
+import 'package:cloud_music/generated/l10n.dart';
 
 /// 首页列表的header
 class HomeRefreshHeader extends BaseStatelessWidget {

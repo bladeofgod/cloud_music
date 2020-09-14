@@ -7,7 +7,7 @@
 //import 'package:flutter/cupertino.dart';
 //import 'package:flutter/material.dart';
 //
-//import 'package:flutter_bedrock/generated/l10n.dart';
+//import 'package:cloud_music/generated/l10n.dart';
 //
 //
 //

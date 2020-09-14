@@ -3,10 +3,10 @@
 * Date : 2020/5/29
 */
 
-import 'package:flutter_bedrock/base_framework/config/net/bedrock_http.dart';
-import 'package:flutter_bedrock/base_framework/exception/un_authorized_exception.dart';
-import 'package:flutter_bedrock/base_framework/exception/un_handle_exception.dart';
-import 'package:flutter_bedrock/base_framework/exception/user_unbind_exception.dart';
+import 'package:cloud_music/base_framework/config/net/bedrock_http.dart';
+import 'package:cloud_music/base_framework/exception/un_authorized_exception.dart';
+import 'package:cloud_music/base_framework/exception/un_handle_exception.dart';
+import 'package:cloud_music/base_framework/exception/user_unbind_exception.dart';
 
 class ExceptionPitcher{
   static ExceptionPitcher _instance;

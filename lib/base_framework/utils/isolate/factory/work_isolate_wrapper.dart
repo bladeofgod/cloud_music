@@ -7,7 +7,7 @@
 import 'dart:async';
 import 'dart:isolate';
 
-import 'package:flutter_bedrock/base_framework/utils/isolate/factory/worker_isolate.dart';
+import 'package:cloud_music/base_framework/utils/isolate/factory/worker_isolate.dart';
 
 
 class WorkIsolateWrapper {
