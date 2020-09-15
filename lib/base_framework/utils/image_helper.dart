@@ -52,7 +52,7 @@ class ImageHelper {
   }
 
   static String wrapAssetsBG(String url){
-    return 'assets/images/backgrounds/' + url + imageTail;
+    return 'assets/images/bgs/' + url + imageTail;
   }
 
   static String wrapAssetsLogo(String url){

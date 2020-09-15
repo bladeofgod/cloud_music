@@ -16,7 +16,7 @@ final BedRock bedRock = BedRock();
 
 class BedRock extends BaseHttp{
 
-  final String china = "https://wanandroid.com/";
+  final String china = "http://120.53.224.74:3000/";
 
 
   @override

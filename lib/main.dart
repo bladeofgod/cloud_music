@@ -1,17 +1,14 @@
 import 'dart:async';
 
+import 'package:cloud_music/page/splash_page.dart';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:cloud_music/base_framework/config/app_config.dart';
 import 'package:cloud_music/base_framework/config/global_provider_manager.dart';
-import 'package:cloud_music/base_framework/observe/own_navigator_observe.dart';
 import 'package:cloud_music/base_framework/view_model/app_model/locale_model.dart';
-import 'package:cloud_music/base_framework/widget_state/base_state.dart';
-import 'package:cloud_music/page/demo_page/demo_page.dart';
-import 'package:cloud_music/page/demo_page/exception/unknow_page.dart';
+
 import 'package:cloud_music/page/exception/exception_page.dart';
-import 'package:cloud_music/service_api/bedrock_repository_proxy.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
@@ -86,7 +83,7 @@ class MyApp extends StatelessWidget {
                 navigatorObservers: [
                   routeObserver
                 ],
-              home: DemoPageState().generateWidget(),
+              home: SplashPage().generateWidget(),
               ///改版啦，这里用不到，你可以删除
 //                onGenerateRoute: Router.generateRoute,
 //                onUnknownRoute: (settings){

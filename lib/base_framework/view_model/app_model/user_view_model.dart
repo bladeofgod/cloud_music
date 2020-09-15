@@ -6,7 +6,7 @@
 
 import 'package:flustars/flustars.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:cloud_music/page/mine/entity/user_entity.dart';
+
 
 
 
@@ -18,58 +18,58 @@ class UserViewModel extends ChangeNotifier{
 
 
 
-
-  UserEntity _userEntity;
-
-  get user => _userEntity;
-
-  String get getUserId => _userEntity.id.toString();
-  String get getUserName => _userEntity.nickName;
-
-
-
-  bool get hasUser => _userEntity != null;
-
-
-
-  String get userId => _userEntity == null ? "": _userEntity.id;
-
-//  是否显示 动态轮播图
-
-
-  UserViewModel(){
-    ///用户登陆后会在本地缓存用户实体，可以根据自己的实际需求改变
-    var entity = SpUtil.getObject(last_user_id);
-    if(entity != null){
-      _userEntity = UserEntity.fromJson(entity);
-    }else{
-      _userEntity = null;
-    }
-  }
-
-  updateUserModelInfo(){
-    notifyListeners();
-  }
-
-
-  saveUser(UserEntity userEntity){
-    if(userEntity == null){
-      return ;
-    }
-    _userEntity = userEntity;
-    notifyListeners();
-    SpUtil.putObject(last_user_id, userEntity);
-
-  }
+//
+//  UserEntity _userEntity;
+//
+//  get user => _userEntity;
+//
+//  String get getUserId => _userEntity.id.toString();
+//  String get getUserName => _userEntity.nickName;
+//
+//
+//
+//  bool get hasUser => _userEntity != null;
+//
+//
+//
+//  String get userId => _userEntity == null ? "": _userEntity.id;
+//
+////  是否显示 动态轮播图
+//
+//
+//  UserViewModel(){
+//    ///用户登陆后会在本地缓存用户实体，可以根据自己的实际需求改变
+//    var entity = SpUtil.getObject(last_user_id);
+//    if(entity != null){
+//      _userEntity = UserEntity.fromJson(entity);
+//    }else{
+//      _userEntity = null;
+//    }
+//  }
+//
+//  updateUserModelInfo(){
+//    notifyListeners();
+//  }
+//
+//
+//  saveUser(UserEntity userEntity){
+//    if(userEntity == null){
+//      return ;
+//    }
+//    _userEntity = userEntity;
+//    notifyListeners();
+//    SpUtil.putObject(last_user_id, userEntity);
+//
+//  }
 
 
 
   ///登出后，清除缓存，不再自动登录
-  userLogout(){
-    _userEntity = null;
-    notifyListeners();
-    SpUtil.remove(last_user_id);
-  }
+//  userLogout(){
+//    _userEntity = null;
+//    notifyListeners();
+//    SpUtil.remove(last_user_id);
+//  }
 
 }
 
