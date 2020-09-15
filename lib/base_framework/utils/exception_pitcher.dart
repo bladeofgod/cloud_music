@@ -25,11 +25,8 @@ class ExceptionPitcher{
   Exception transformException(ResponseData responseData){
     switch(responseData.code){
       ///仅为以下测试代码
-      case -2:
-      case 30001:
+      case 301:
         return UnAuthorizedException();
-      case 30003:
-        return UserUnbindException(responseData.message??"user unBind");
       default:
         return UnHandleException(responseData.message??"un handle exception");
     }

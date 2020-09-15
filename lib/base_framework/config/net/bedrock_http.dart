@@ -16,7 +16,7 @@ final BedRock bedRock = BedRock();
 
 class BedRock extends BaseHttp{
 
-  final String china = "http://120.53.224.74:3000/";
+  final String china = "http://120.53.224.74:3000";
 
 
   @override
@@ -63,8 +63,9 @@ class ApiInterceptor extends InterceptorsWrapper{
 
   @override
   Future onResponse(Response response) {
-
-    ResponseData responseData = ResponseData.fromJson(response.data);
+    ///根据网易云api 进行调整
+    /// api返回的数据类型比较蛋疼，所以实体中可能会有大量 dynamic类型,免费的也没啥可挑剔的...
+    ResponseData responseData = ResponseData.fromResponse(response);
     if(responseData.success){
       return bedRock.resolve(responseData);
     }else{
@@ -91,5 +92,12 @@ class ResponseData extends BaseResponseData {
     code = json['code'];
     message = json['message'];
     data = json['data'];
+  }
+  ///根据网易云api
+
+  ResponseData.fromResponse(Response response){
+    code = response.data['code'];
+    message = response.data['message'];
+    data = response.data;
   }
 }

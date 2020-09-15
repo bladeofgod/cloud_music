@@ -4,10 +4,13 @@
 */
 
 
-import 'package:cloud_music/service_api/section_one_api.dart';
+
+import 'package:cloud_music/service_api/discovery_api.dart';
 
 class BedrockRepositoryProxy{
   static BedrockRepositoryProxy _singleton;
+
+  factory BedrockRepositoryProxy()=>getInstance();
 
   BedrockRepositoryProxy._internal(){
     //do something
@@ -20,11 +23,11 @@ class BedrockRepositoryProxy{
     return _singleton;
   }
 
+  ///发现
+  final DiscoveryAPI discoveryAPI = DiscoveryAPI();
 
-  ///项目按模块划分 api   eg： 我的、首页、商品等等
-  SectionOne getSectionOne(){
-    return SectionOne();
-  }
+
+
 
 }
 

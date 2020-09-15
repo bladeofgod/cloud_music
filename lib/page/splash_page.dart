@@ -54,7 +54,6 @@ class SplashPage extends PageState{
 
   void initTimer() {
     final timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      debugPrint('timer ${timer.tick}');
       if(timer.tick > 4) return;
       setState(() {
         count = 4-timer.tick;
