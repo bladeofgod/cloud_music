@@ -17,10 +17,14 @@ class HomePage extends PageState{
           alignment: Alignment.center,
           child: RaisedButton(
             onPressed: (){
-              BedrockRepositoryProxy().discoveryAPI.getBanner(type: 1)
-                .then((list) {
-                  debugPrint('${list.toString()}');
+              BedrockRepositoryProxy().discoveryAPI.getMainPage()
+                .then((value) {
+                  debugPrint('$value');
               });
+//                  .getBanner(type: 1)
+//                .then((list) {
+//                  debugPrint('${list.toString()}');
+//              });
 
             },
             child: Text('get api'),
