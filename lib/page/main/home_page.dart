@@ -4,17 +4,28 @@
 */
 
 import 'package:cloud_music/base_framework/widget_state/page_state.dart';
+import 'package:cloud_music/page/main/discovery/discovery_page.dart';
+import 'package:cloud_music/page/main/discovery/widget/custom_tab_bar.dart';
+import 'package:cloud_music/page/main/mine/mine_page.dart';
+import 'package:cloud_music/page/main/video/video_page.dart';
+import 'package:cloud_music/page/main/village/village_page.dart';
 import 'package:cloud_music/service_api/bedrock_repository_proxy.dart';
 import 'package:flutter/material.dart';
 
+import 'discovery/vm/tabbar_vm.dart';
+
 class HomePage extends PageState{
 
+  TabBarViewModel tabController;
+
+  PageController pageController;
 
   double horPadding ;
 
   @override
   void initState() {
     horPadding = getWidthPx(20);
+    pageController = PageController(initialPage: 1);
     super.initState();
   }
 
@@ -28,9 +39,27 @@ class HomePage extends PageState{
           child: Column(
             children: <Widget>[
               buildAppBar(),
+              Expanded(child: buildBody()),
             ],
           ),
         ) );
+  }
+
+  Widget buildBody(){
+    return PageView(
+      controller: pageController,
+      onPageChanged: (index){
+        debugPrint('$index');
+        tabController.switchPage(index);
+      },
+      children: <Widget>[
+        MinePage().generateWidget(),
+        DiscoveryPage().generateWidget(),
+        VillagePage().generateWidget(),
+        VideoPage().generateWidget()
+
+      ],
+    );
   }
 
   Widget buildAppBar() {
@@ -103,7 +132,11 @@ class HomePage extends PageState{
 
   buildTab() {
     return Container(
-      color: Colors.white,
+      height: getWidthPx(80),
+      //color: Colors.greenAccent,
+      child: CustomTabBar((controller){
+        tabController = controller;
+      }).generateWidget(),
     );
   }
 

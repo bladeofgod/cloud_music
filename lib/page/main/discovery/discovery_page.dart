@@ -11,13 +11,14 @@ import 'package:cloud_music/page/main/discovery/discovery_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class DiscoveryPage extends PageState{
+class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
 
   UserViewModel _userViewModel;
   DiscoveryViewModel _discoveryViewModel;
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return switchStatusBar2Dark(
       child: switchStatusBar2Dark(
         child: Container(
@@ -45,6 +46,10 @@ class DiscoveryPage extends PageState{
   }
 
   Widget buildContent() {}
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
   
 }
 
