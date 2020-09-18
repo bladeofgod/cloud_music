@@ -4,7 +4,7 @@
 */
 
 
-class VideoCategoryEntity {
+class VideoGroupEntity {
   int id;
   String name;
   Null url;
@@ -12,7 +12,7 @@ class VideoCategoryEntity {
   bool selectTab;
   Null abExtInfo;
 
-  VideoCategoryEntity(
+  VideoGroupEntity(
       {this.id,
         this.name,
         this.url,
@@ -20,7 +20,7 @@ class VideoCategoryEntity {
         this.selectTab,
         this.abExtInfo});
 
-  VideoCategoryEntity.fromJson(Map<String, dynamic> json) {
+  VideoGroupEntity.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     url = json['url'];
