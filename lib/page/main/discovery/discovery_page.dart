@@ -68,7 +68,18 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
         ///banner
         getSizeBox(height: getWidthPx(40)),
         banner(),
+        ///dragon zone  PS: 此处api失效，只能写静态的了。
+        getSizeBox(height: getWidthPx(30)),
+        dragonBall(),
       ],
+    );
+  }
+
+  Widget dragonBall(){
+    return ListView(
+      children: _discoveryViewModel.balls.map((e){
+        return Container();
+      }).toList(),
     );
   }
 

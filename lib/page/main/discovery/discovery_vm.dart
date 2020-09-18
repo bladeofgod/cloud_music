@@ -8,8 +8,23 @@ import 'package:cloud_music/base_framework/view_model/refresh_list_view_state_mo
 import 'package:cloud_music/page/main/entity/discovery_banner_entity.dart';
 import 'package:cloud_music/page/main/entity/discovery_page_entity.dart';
 import 'package:cloud_music/service_api/bedrock_repository_proxy.dart';
+import '../entity/dragon_ball_entity.dart';
 
 class DiscoveryViewModel extends RefreshListViewStateModel{
+
+  ///dragon ball
+
+  final List<DragonBallEntity> balls = [
+    DragonBallEntity('每日推荐','pic'),
+    DragonBallEntity('私人FM','pic'),
+    DragonBallEntity('歌单','pic'),
+    DragonBallEntity('排行榜','pic'),
+    DragonBallEntity('直播','pic'),
+    DragonBallEntity('电台','pic'),
+    DragonBallEntity('火钳刘明','pic'),
+    DragonBallEntity('数字专区','pic'),
+    DragonBallEntity('畅聊','pic'),
+  ];
 
   List<DiscoveryBannerEntity> banners;
   DiscoveryPageEntity pageData;
