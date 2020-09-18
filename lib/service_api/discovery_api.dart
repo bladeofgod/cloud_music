@@ -14,8 +14,9 @@ import 'package:cloud_music/page/main/entity/discovery_page_entity.dart';
 *
 * */
 
+import 'base_api.dart';
 
-class DiscoveryAPI{
+class DiscoveryAPI extends BaseApi{
 
   ///获取发现-banner
   Future<List<DiscoveryBannerEntity>> getBanner({int type = 1})async{

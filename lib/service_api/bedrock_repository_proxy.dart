@@ -6,6 +6,7 @@
 
 
 import 'package:cloud_music/service_api/discovery_api.dart';
+import 'video_api.dart';
 
 class BedrockRepositoryProxy{
   static BedrockRepositoryProxy _singleton;
@@ -25,6 +26,8 @@ class BedrockRepositoryProxy{
 
   ///发现
   final DiscoveryAPI discoveryAPI = DiscoveryAPI();
+  ///视频
+  final VideoApi videoApi = VideoApi();
 
 
 
