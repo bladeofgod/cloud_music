@@ -72,15 +72,16 @@ class CustomTabBar extends WidgetState with SingleTickerProviderStateMixin{
     );
   }
 
+  static const double txtSize = 36;
   Widget buildTab() {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        wrap(TabBarItem(parentVM, '我的', 0).generateWidget(),0),
-        wrap(TabBarItem(parentVM, '发现', 1).generateWidget(),1),
-        wrap(TabBarItem(parentVM, '云村', 2).generateWidget(),2),
-        wrap(TabBarItem(parentVM, '视频', 3).generateWidget(),3),
+        wrap(TabBarItem(parentVM, '我的', 0,textSize: getSp(txtSize)).generateWidget(),0),
+        wrap(TabBarItem(parentVM, '发现', 1,textSize: getSp(txtSize)).generateWidget(),1),
+        wrap(TabBarItem(parentVM, '云村', 2,textSize: getSp(txtSize)).generateWidget(),2),
+        wrap(TabBarItem(parentVM, '视频', 3,textSize: getSp(txtSize)).generateWidget(),3),
 
       ],
     );
@@ -93,7 +94,7 @@ class CustomTabBar extends WidgetState with SingleTickerProviderStateMixin{
       },
       child: Container(
         alignment: Alignment.bottomCenter,
-        width: getWidthPx(120),
+        width: getWidthPx(110),
         child: child,
       ),
     );

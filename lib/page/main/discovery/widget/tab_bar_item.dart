@@ -36,7 +36,8 @@ class TabBarItem extends WidgetState {
           ?parentVM.textScaleFactor :
             (index == parentVM.getLastIndex())
                 ? parentVM.max-(parentVM.textScaleFactor-parentVM.min) : parentVM.min) ,
-      style: TextStyle(fontSize: textSize),);
+      style: TextStyle(fontSize: textSize,
+        color: index == parentVM.pageIndex?Colors.black:Colors.grey),);
   }
 
 }

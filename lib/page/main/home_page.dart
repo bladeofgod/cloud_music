@@ -20,11 +20,11 @@ class HomePage extends PageState{
 
   PageController pageController;
 
-  double horPadding ;
+  static double horPadding ;
 
   @override
   void initState() {
-    horPadding = getWidthPx(20);
+    horPadding = getWidthPx(30);
     pageController = PageController(initialPage: 1);
     super.initState();
   }
