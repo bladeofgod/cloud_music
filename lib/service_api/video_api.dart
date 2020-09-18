@@ -25,6 +25,14 @@ class VideoApi extends BaseApi{
 
   }
 
+  ///视频标签/分类下的视频
+  Future getGroupDetailVideoList({String id,int offset = 0})async{
+    var response = await bedRock.get('/video/group',
+        queryParameters: {'id':id,'offset':offset});
+    return response;
+  }
+
+
 
 
 }
