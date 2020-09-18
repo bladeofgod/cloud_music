@@ -17,11 +17,19 @@ import 'package:provider/provider.dart';
 class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
 
   @override
-  // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 
   UserViewModel _userViewModel;
   DiscoveryViewModel _discoveryViewModel;
+
+  PageController controller;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller = PageController(initialPage: 0,viewportFraction: 1);
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -69,11 +77,12 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
   Widget banner() {
     return Container(
       width: getWidthPx(750),height: getWidthPx(320),
-      padding: EdgeInsets.symmetric(horizontal: HomePage.horPadding),
+      //padding: EdgeInsets.symmetric(horizontal: HomePage.horPadding),
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: <Widget>[
           PageView(
+            controller: controller,
             onPageChanged: (index){
               _discoveryViewModel.switchBanner(index);
             },
@@ -97,6 +106,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
         int index = _discoveryViewModel.banners.indexOf(e);
         return Container(
           width: getWidthPx(10),height: getWidthPx(10),
+          margin: EdgeInsets.only(left: getWidthPx(10)),
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: index == _discoveryViewModel.bannerIndex ? Colors.red : Colors.grey.withOpacity(0.3),
@@ -108,7 +118,9 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
 
   Widget bannerItem(DiscoveryBannerEntity e) {
     return Container(
-      height: getWidthPx(320),width: getWidthPx(750)-HomePage.horPadding,
+      height: getWidthPx(320),
+      //width: getWidthPx(750)-HomePage.horPadding,
+      margin: EdgeInsets.symmetric(horizontal: HomePage.horPadding),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(getHeightPx(16)),
       ),
