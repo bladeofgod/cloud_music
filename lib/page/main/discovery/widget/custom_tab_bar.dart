@@ -11,11 +11,13 @@ import 'package:cloud_music/page/main/discovery/widget/tab_bar_item.dart';
 import 'package:flutter/material.dart';
 
 typedef TabBarController = void Function(TabBarViewModel controller);
+typedef TabClick = void Function(int index);
 
 class CustomTabBar extends WidgetState with SingleTickerProviderStateMixin{
   final TabBarController putOut;
+  final TabClick tabClick;
 
-  CustomTabBar(this.putOut);
+  CustomTabBar(this.putOut,this.tabClick);
 
   TabBarViewModel parentVM;
 
@@ -35,6 +37,11 @@ class CustomTabBar extends WidgetState with SingleTickerProviderStateMixin{
         parentVM.updateFactor(animation.value);
       }
 
+    });
+    controller.addStatusListener((status) {
+      if(status == AnimationStatus.completed){
+        parentVM.resetController();
+      }
     });
   }
   @override
@@ -70,20 +77,25 @@ class CustomTabBar extends WidgetState with SingleTickerProviderStateMixin{
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        wrap(TabBarItem(parentVM, '我的', 0).generateWidget()),
-        wrap(TabBarItem(parentVM, '发现', 1).generateWidget()),
-        wrap(TabBarItem(parentVM, '云村', 2).generateWidget()),
-        wrap(TabBarItem(parentVM, '视频', 3).generateWidget()),
+        wrap(TabBarItem(parentVM, '我的', 0).generateWidget(),0),
+        wrap(TabBarItem(parentVM, '发现', 1).generateWidget(),1),
+        wrap(TabBarItem(parentVM, '云村', 2).generateWidget(),2),
+        wrap(TabBarItem(parentVM, '视频', 3).generateWidget(),3),
 
       ],
     );
   }
 
-  Widget wrap(Widget child){
-    return Container(
-      alignment: Alignment.bottomCenter,
-      width: getWidthPx(120),
-      child: child,
+  Widget wrap(Widget child,int index){
+    return GestureDetector(
+      onTap: (){
+        tabClick(index);
+      },
+      child: Container(
+        alignment: Alignment.bottomCenter,
+        width: getWidthPx(120),
+        child: child,
+      ),
     );
   }
 

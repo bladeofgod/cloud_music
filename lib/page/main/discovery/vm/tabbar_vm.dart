@@ -30,7 +30,7 @@ class TabBarViewModel extends ChangeNotifier{
     pageIndex = index;
     record();
     notifyListeners();
-    controller.forward().whenComplete(resetController);
+    controller.forward();
   }
 
   double textScaleFactor = 1.3;

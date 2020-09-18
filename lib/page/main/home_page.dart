@@ -136,6 +136,9 @@ class HomePage extends PageState{
       //color: Colors.greenAccent,
       child: CustomTabBar((controller){
         tabController = controller;
+      },(index){
+        //tab click
+        pageController.jumpToPage(index);
       }).generateWidget(),
     );
   }
