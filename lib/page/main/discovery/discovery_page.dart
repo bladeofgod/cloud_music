@@ -5,13 +5,16 @@
 
 
 import 'package:cloud_music/base_framework/ui/widget/provider_widget.dart';
+import 'package:cloud_music/base_framework/utils/image_helper.dart';
 import 'package:cloud_music/base_framework/utils/show_image_util.dart';
 import 'package:cloud_music/base_framework/view_model/app_model/user_view_model.dart';
 import 'package:cloud_music/base_framework/widget_state/page_state.dart';
 import 'package:cloud_music/page/main/discovery/discovery_vm.dart';
 import 'package:cloud_music/page/main/entity/discovery_banner_entity.dart';
 import 'package:cloud_music/page/main/home_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
 class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
@@ -23,11 +26,30 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
   DiscoveryViewModel _discoveryViewModel;
 
   PageController controller;
+
+  PageController dbContaoller;
+  int dbIndex = 2;
+  double initOffset = -1;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     controller = PageController(initialPage: 0,viewportFraction: 1);
+    dbContaoller = PageController(initialPage: 2,viewportFraction: 1/5.5);
+    dbContaoller.addListener(() {
+      if(initOffset == -1) initOffset = dbContaoller.offset;
+      if(dbIndex == 2 && dbContaoller.position.userScrollDirection == ScrollDirection.forward){
+        dbContaoller.jumpTo(initOffset);
+      }
+
+    });
+  }
+  @override
+  void dispose() {
+    controller.dispose();
+    dbContaoller.dispose();
+    super.dispose();
   }
 
 
@@ -64,6 +86,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
 
   Widget buildContent() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         ///banner
         getSizeBox(height: getWidthPx(40)),
@@ -75,11 +98,32 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
     );
   }
 
+  final double dbSize = 750/5.6;
+  final double ballOffset = 30;
+
   Widget dragonBall(){
-    return ListView(
-      children: _discoveryViewModel.balls.map((e){
-        return Container();
-      }).toList(),
+    return Container(
+      width: getWidthPx(750),height: getWidthPx(750/5),
+      margin: EdgeInsets.only(top: getWidthPx(20),bottom: getWidthPx(50)),
+      child: PageView(
+        onPageChanged: (index)=>dbIndex = index,
+        controller: dbContaoller,
+        children: _discoveryViewModel.balls.map((e){
+          return Container(
+            alignment: Alignment.centerLeft,
+            width: getWidthPx(dbSize),height: getWidthPx(dbSize+10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Image.asset(ImageHelper.wrapAssetsIcon(e.imgUrl),
+                  height: getWidthPx(dbSize-ballOffset),
+                  width: getWidthPx(dbSize-ballOffset),),
+                Text('${e.title}',style: TextStyle(color: Colors.black,fontSize: getSp(22)),)
+              ],
+            ),
+          );
+        }).toList(),
+      ),
     );
   }
 

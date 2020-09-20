@@ -15,15 +15,15 @@ class DiscoveryViewModel extends RefreshListViewStateModel{
   ///dragon ball
 
   final List<DragonBallEntity> balls = [
-    DragonBallEntity('每日推荐','pic'),
-    DragonBallEntity('私人FM','pic'),
-    DragonBallEntity('歌单','pic'),
-    DragonBallEntity('排行榜','pic'),
-    DragonBallEntity('直播','pic'),
-    DragonBallEntity('电台','pic'),
-    DragonBallEntity('火钳刘明','pic'),
-    DragonBallEntity('数字专区','pic'),
-    DragonBallEntity('畅聊','pic'),
+    DragonBallEntity('每日推荐','daily_recom'),
+    DragonBallEntity('私人FM','p_fm'),
+    DragonBallEntity('歌单','song_list'),
+    DragonBallEntity('排行榜','rank'),
+    DragonBallEntity('直播','live'),
+    DragonBallEntity('电台','radio'),
+    DragonBallEntity('火钳刘明','sign_b_hot'),
+    DragonBallEntity('数字专区','digital_record'),
+    DragonBallEntity('畅聊','sing_chat'),
   ];
 
   List<DiscoveryBannerEntity> banners;
