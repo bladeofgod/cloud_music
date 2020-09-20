@@ -1,101 +1,6 @@
-/*
-* Author : LiJiqqi
-* Date : 2020/9/16
-*
-*/
-import 'package:cloud_music/page/main/entity/blocks/block_1.dart';
 
-import 'blocks/block_2.dart';
-import 'blocks/block_3.dart';
-import 'blocks/block_4.dart';
-import 'blocks/block_5.dart';
-import 'blocks/block_6.dart';
-import 'blocks/block_7.dart';
-import 'blocks/block_8.dart';
 
-class DiscoveryPageEntity {
-  dynamic cursor;
-  Map<String,dynamic> blocks;
-  //List<Blocks> blocks;
-  bool hasMore;
-  dynamic blockUUIDs;
-  PageConfig pageConfig;
-  GuideToast guideToast;
-
-  DiscoveryPageEntity(
-      {this.cursor,
-        this.blocks,
-        this.hasMore,
-        this.blockUUIDs,
-        this.pageConfig,
-        this.guideToast});
-
-  DiscoveryPageEntity.fromJson(Map<String, dynamic> json) {
-    cursor = json['cursor'];
-    if (json['blocks'] != null) {
-      //blocks = new List<Blocks>();
-      blocks = Map();
-      json['blocks'].forEach((v) {
-        int index = json['blocks'].indexOf(v);
-        //blocks.add(new Blocks.fromJson(v));
-        ///fuck
-        switch(index){
-          case 0:
-            blocks['block1'] = Block1.fromJson(v);
-            break;
-          case 1:
-            blocks['block1'] = Block2.fromJson(v);
-            break;
-          case 2:
-            blocks['block1'] = Block3.fromJson(v);
-            break;
-          case 3:
-            blocks['block1'] = Block4.fromJson(v);
-            break;
-          case 4:
-            blocks['block1'] = Block5.fromJson(v);
-            break;
-          case 5:
-            blocks['block1'] = Block6.fromJson(v);
-            break;
-          case 6:
-            blocks['block1'] = Block7.fromJson(v);
-            break;
-          case 7:
-            blocks['block1'] = Block8.fromJson(v);
-            break;
-        }
-      });
-    }
-    hasMore = json['hasMore'];
-    blockUUIDs = json['blockUUIDs'];
-    pageConfig = json['pageConfig'] != null
-        ? new PageConfig.fromJson(json['pageConfig'])
-        : null;
-    guideToast = json['guideToast'] != null
-        ? new GuideToast.fromJson(json['guideToast'])
-        : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['cursor'] = this.cursor;
-//    if (this.blocks != null) {
-//      data['blocks'] = this.blocks.map((v) => v.toJson()).toList();
-//    }
-    data['hasMore'] = this.hasMore;
-    data['blockUUIDs'] = this.blockUUIDs;
-    if (this.pageConfig != null) {
-      data['pageConfig'] = this.pageConfig.toJson();
-    }
-    if (this.guideToast != null) {
-      data['guideToast'] = this.guideToast.toJson();
-    }
-    return data;
-  }
-}
-
-class Blocks {
+class Block1 {
   String blockCode;
   String showType;
   String action;
@@ -104,7 +9,7 @@ class Blocks {
   List<Creatives> creatives;
   bool canClose;
 
-  Blocks(
+  Block1(
       {this.blockCode,
         this.showType,
         this.action,
@@ -113,7 +18,7 @@ class Blocks {
         this.creatives,
         this.canClose});
 
-  Blocks.fromJson(Map<String, dynamic> json) {
+  Block1.fromJson(Map<String, dynamic> json) {
     blockCode = json['blockCode'];
     showType = json['showType'];
     action = json['action'];
@@ -147,7 +52,38 @@ class Blocks {
   }
 }
 
+class UiElement {
+  MainTitle mainTitle;
+  MainTitle subTitle;
+  Button button;
 
+  UiElement({this.mainTitle, this.subTitle, this.button});
+
+  UiElement.fromJson(Map<String, dynamic> json) {
+    mainTitle = json['mainTitle'] != null
+        ? new MainTitle.fromJson(json['mainTitle'])
+        : null;
+    subTitle = json['subTitle'] != null
+        ? new MainTitle.fromJson(json['subTitle'])
+        : null;
+    button =
+    json['button'] != null ? new Button.fromJson(json['button']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.mainTitle != null) {
+      data['mainTitle'] = this.mainTitle.toJson();
+    }
+    if (this.subTitle != null) {
+      data['subTitle'] = this.subTitle.toJson();
+    }
+    if (this.button != null) {
+      data['button'] = this.button.toJson();
+    }
+    return data;
+  }
+}
 
 class MainTitle {
   String title;
@@ -169,7 +105,7 @@ class Button {
   String action;
   String actionType;
   String text;
-  dynamic iconUrl;
+  Null iconUrl;
 
   Button({this.action, this.actionType, this.text, this.iconUrl});
 
@@ -250,40 +186,7 @@ class Creatives {
   }
 }
 
-class UiElement {
-  MainTitle mainTitle;
-  Image image;
-  List<String> labelTexts;
-  MainTitle subTitle;
 
-  UiElement({this.mainTitle, this.image, this.labelTexts, this.subTitle});
-
-  UiElement.fromJson(Map<String, dynamic> json) {
-    mainTitle = json['mainTitle'] != null
-        ? new MainTitle.fromJson(json['mainTitle'])
-        : null;
-    image = json['image'] != null ? new Image.fromJson(json['image']) : null;
-    labelTexts = json['labelTexts']?.cast<String>();
-    subTitle = json['subTitle'] != null
-        ? new MainTitle.fromJson(json['subTitle'])
-        : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.mainTitle != null) {
-      data['mainTitle'] = this.mainTitle.toJson();
-    }
-    if (this.image != null) {
-      data['image'] = this.image.toJson();
-    }
-    data['labelTexts'] = this.labelTexts;
-    if (this.subTitle != null) {
-      data['subTitle'] = this.subTitle.toJson();
-    }
-    return data;
-  }
-}
 
 class Image {
   String imageUrl;
@@ -302,16 +205,16 @@ class Image {
 }
 
 class Resources {
-  dynamic uiElement;
+  Null uiElement;
   String resourceType;
   String resourceId;
-  dynamic resourceUrl;
+  Null resourceUrl;
   ResourceExtInfo resourceExtInfo;
-  dynamic action;
-  dynamic actionType;
+  Null action;
+  Null actionType;
   bool valid;
-  dynamic alg;
-  dynamic logInfo;
+  Null alg;
+  Null logInfo;
 
   Resources(
       {this.uiElement,
@@ -373,77 +276,6 @@ class ResourceExtInfo {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['playCount'] = this.playCount;
     data['highQuality'] = this.highQuality;
-    return data;
-  }
-}
-
-class PageConfig {
-  String refreshToast;
-  String nodataToast;
-  int refreshInterval;
-  dynamic title;
-  bool fullscreen;
-  List<String> abtest;
-  List<String> songLabelMarkPriority;
-  int songLabelMarkLimit;
-
-  PageConfig(
-      {this.refreshToast,
-        this.nodataToast,
-        this.refreshInterval,
-        this.title,
-        this.fullscreen,
-        this.abtest,
-        this.songLabelMarkPriority,
-        this.songLabelMarkLimit});
-
-  PageConfig.fromJson(Map<String, dynamic> json) {
-    refreshToast = json['refreshToast'];
-    nodataToast = json['nodataToast'];
-    refreshInterval = json['refreshInterval'];
-    title = json['title'];
-    fullscreen = json['fullscreen'];
-    abtest = json['abtest'].cast<String>();
-    songLabelMarkPriority = json['songLabelMarkPriority'].cast<String>();
-    songLabelMarkLimit = json['songLabelMarkLimit'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['refreshToast'] = this.refreshToast;
-    data['nodataToast'] = this.nodataToast;
-    data['refreshInterval'] = this.refreshInterval;
-    data['title'] = this.title;
-    data['fullscreen'] = this.fullscreen;
-    data['abtest'] = this.abtest;
-    data['songLabelMarkPriority'] = this.songLabelMarkPriority;
-    data['songLabelMarkLimit'] = this.songLabelMarkLimit;
-    return data;
-  }
-}
-
-class GuideToast {
-  bool hasGuideToast;
-  List<dynamic> toastList;
-
-  GuideToast({this.hasGuideToast, this.toastList});
-
-  GuideToast.fromJson(Map<String, dynamic> json) {
-    hasGuideToast = json['hasGuideToast'];
-//    if (json['toastList'] != null) {
-//      toastList = new List<dynamic>();
-//      json['toastList'].forEach((v) {
-//        toastList.add(new dynamic.fromJson(v));
-//      });
-//    }
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['hasGuideToast'] = this.hasGuideToast;
-    if (this.toastList != null) {
-      data['toastList'] = this.toastList.map((v) => v.toJson()).toList();
-    }
     return data;
   }
 }
