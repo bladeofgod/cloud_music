@@ -106,7 +106,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
             getSizeBox(height: getWidthPx(40)),
             banner(),
             ///dragon zone  PS: 此处api失效，只能写静态的了。
-            getSizeBox(height: getWidthPx(30)),
+            getSizeBox(height: getWidthPx(20)),
             dragonBall(),
             ///对应接口没找到，自由发挥了
             ///人气推荐
@@ -139,7 +139,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
             },
             child: circleBtn(Row(children: [
               Icon(Icons.play_arrow,size: 22,),Text('播放全部'),
-            ],)),
+            ],),30),
           )),
           getSizeBox(height: getWidthPx(20)),
           ///page
@@ -176,14 +176,44 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
   
   Widget pageInnerItem(block2.Resources resources){
     return Container(
-      width: getWidthPx(750*0.9),height: getWidthPx(120),
+      width: getWidthPx(750*0.9),height: getWidthPx(140),
+      margin: EdgeInsets.only(bottom: getWidthPx(20)),
       child: Stack(
         children: [
-//          Positioned(
-//            left: 0,
-//            child: ShowImageUtil.showImageWithDefaultError(
-//              resources., , height),
-//          ),
+          Positioned(
+            left: 0,
+            child: ShowImageUtil.showImageWithDefaultError(
+              resources.uiElement.image.imageUrl, getWidthPx(140), getWidthPx(140)
+                    ,borderRadius: getWidthPx(10)),
+          ),
+          ///title
+          Positioned(
+            left: getWidthPx(150),
+            top: getWidthPx(20),
+            child: Text('${resources.uiElement.mainTitle.title}',style: TextStyle(color: Colors.black
+                ,fontSize: getSp(30)),),
+          ),
+          ///sub title
+          Positioned(
+            left: getWidthPx(150),
+            bottom: getWidthPx(20),
+            child: Text('${resources.uiElement?.subTitle?.title??''}',style: TextStyle(color: Colors.grey
+                ,fontSize: getSp(30)),),
+          ),
+          ///play btn
+          Align(
+            alignment: Alignment.centerRight,
+            child: GestureDetector(
+              onTap: (){
+                //todo
+              },
+              child: Container(
+                color: Colors.white,
+                margin: EdgeInsets.only(right: getWidthPx(60)),
+                child: Icon(Icons.play_circle_outline,color: Colors.redAccent,size: getWidthPx(60),),
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -205,7 +235,6 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
   Widget popSongRecommend(){
     block1.Block1 block = _discoveryViewModel.pageData.blocks['block1'];
     return Container(
-      //color: Colors.red,
       width: getWidthPx(750),
       //height: getWidthPx(470),
       child: Column(
@@ -215,7 +244,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
             onTap: (){
               //todo
             },
-            child: circleBtn(Text('查看更多')),
+            child: circleBtn(Text('查看更多'),30),
           )),
           ///list
           listHor(block),
@@ -227,7 +256,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
 
   Widget listHor(block1.Block1 blocks){
     return Container(
-      width: getWidthPx(750),height: getWidthPx(370),
+      width: getWidthPx(750),height: getWidthPx(360),
       child: ListView(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
@@ -303,13 +332,13 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
     );
   }
 
-  Widget circleBtn(Widget child){
+  Widget circleBtn(Widget child,double radius){
     return Container(
       alignment: Alignment.center,
       height: getWidthPx(54),
       padding: EdgeInsets.symmetric(horizontal: getWidthPx(20)),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(getHeightPx(20)),
+        borderRadius: BorderRadius.circular(getHeightPx(radius)),
         border: Border.all(color: Colors.black,width: getWidthPx(1))
       ),
       child: child,
@@ -323,7 +352,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
   Widget dragonBall(){
     return Container(
       width: getWidthPx(750),height: getWidthPx(750/5),
-      margin: EdgeInsets.only(top: getWidthPx(20),bottom: getWidthPx(50)),
+      margin: EdgeInsets.only(top: getWidthPx(20),bottom: getWidthPx(20)),
       child: PageView(
         onPageChanged: (index)=>dbIndex = index,
         controller: dbContaoller,
