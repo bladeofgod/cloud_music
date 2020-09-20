@@ -66,9 +66,9 @@ class ExtInfo {
   RecLiveDTO recLiveDTO;
   String coverTag;
   String privateTag;
-  Null borderTag;
+  dynamic borderTag;
   String startStreamTagName;
-  List<Null> tags;
+  List<dynamic> tags;
   DynamicCover dynamicCover;
   int liveId;
   String title;
@@ -83,14 +83,14 @@ class ExtInfo {
   int startTime;
   int endTime;
   int roomId;
-  Null channelId;
+  dynamic channelId;
   int liveType;
   int appKeyType;
   int type;
   int startStreamTag;
   int agoraRoomNo;
   String bgCoverUrl;
-  Null backgroundAnimateUrl;
+  dynamic backgroundAnimateUrl;
 
   ExtInfo(
       {this.popularity,
@@ -141,9 +141,9 @@ class ExtInfo {
     borderTag = json['borderTag'];
     startStreamTagName = json['startStreamTagName'];
 //    if (json['tags'] != null) {
-//      tags = new List<Null>();
+//      tags = new List<dynamic>();
 //      json['tags'].forEach((v) {
-//        tags.add(new Null.fromJson(v));
+//        tags.add(new dynamic.fromJson(v));
 //      });
 //    }
     dynamicCover = json['dynamicCover'] != null
@@ -231,7 +231,7 @@ class UserInfo {
   int liveRoomNo;
   int vipType;
   int gender;
-  Null artistName;
+  dynamic artistName;
 
   UserInfo(
       {this.userId,
@@ -282,10 +282,10 @@ class RecLiveDTO {
   String anchorId;
   int songId;
   int accompanimentId;
-  Null supplemetParam;
+  dynamic supplemetParam;
   String ops;
   int recCoverId;
-  Null recCover;
+  dynamic recCover;
 
   RecLiveDTO(
       {this.skipUrl,
@@ -334,7 +334,7 @@ class RecLiveDTO {
 class DynamicCover {
   int priorityLevel;
   int type;
-  Null playUrl;
+  dynamic playUrl;
 
   DynamicCover({this.priorityLevel, this.type, this.playUrl});
 
@@ -447,7 +447,7 @@ class Button {
   String action;
   String actionType;
   String text;
-  Null iconUrl;
+  dynamic iconUrl;
 
   Button({this.action, this.actionType, this.text, this.iconUrl});
 

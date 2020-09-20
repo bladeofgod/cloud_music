@@ -103,7 +103,7 @@ class Button {
   String action;
   String actionType;
   String text;
-  Null iconUrl;
+  dynamic iconUrl;
 
   Button({this.action, this.actionType, this.text, this.iconUrl});
 
@@ -203,16 +203,16 @@ class Image {
 }
 
 class Resources {
-  Null uiElement;
+  dynamic uiElement;
   String resourceType;
   String resourceId;
-  Null resourceUrl;
+  dynamic resourceUrl;
   ResourceExtInfo resourceExtInfo;
-  Null action;
-  Null actionType;
+  dynamic action;
+  dynamic actionType;
   bool valid;
-  Null alg;
-  Null logInfo;
+  dynamic alg;
+  dynamic logInfo;
 
   Resources(
       {this.uiElement,

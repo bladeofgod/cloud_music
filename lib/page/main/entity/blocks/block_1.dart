@@ -56,10 +56,12 @@ class UiElement {
   MainTitle mainTitle;
   MainTitle subTitle;
   Button button;
+  Image image;
 
   UiElement({this.mainTitle, this.subTitle, this.button});
 
   UiElement.fromJson(Map<String, dynamic> json) {
+    image = Image.fromJson(json['image']);
     mainTitle = json['mainTitle'] != null
         ? new MainTitle.fromJson(json['mainTitle'])
         : null;
@@ -81,9 +83,14 @@ class UiElement {
     if (this.button != null) {
       data['button'] = this.button.toJson();
     }
+    if(this.image != null){
+      data['image'] = this.image.toJson();
+    }
     return data;
   }
 }
+
+
 
 class MainTitle {
   String title;
@@ -105,7 +112,7 @@ class Button {
   String action;
   String actionType;
   String text;
-  Null iconUrl;
+  dynamic iconUrl;
 
   Button({this.action, this.actionType, this.text, this.iconUrl});
 
@@ -194,6 +201,7 @@ class Image {
   Image({this.imageUrl});
 
   Image.fromJson(Map<String, dynamic> json) {
+    if(json != null &&json['imageUrl'] != null)
     imageUrl = json['imageUrl'];
   }
 
@@ -205,16 +213,16 @@ class Image {
 }
 
 class Resources {
-  Null uiElement;
+  dynamic uiElement;
   String resourceType;
   String resourceId;
-  Null resourceUrl;
+  dynamic resourceUrl;
   ResourceExtInfo resourceExtInfo;
-  Null action;
-  Null actionType;
+  dynamic action;
+  dynamic actionType;
   bool valid;
-  Null alg;
-  Null logInfo;
+  dynamic alg;
+  dynamic logInfo;
 
   Resources(
       {this.uiElement,

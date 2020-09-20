@@ -103,7 +103,7 @@ class Button {
   String action;
   String actionType;
   String text;
-  Null iconUrl;
+  dynamic iconUrl;
 
   Button({this.action, this.actionType, this.text, this.iconUrl});
 

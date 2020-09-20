@@ -7,10 +7,10 @@
 class VideoGroupEntity {
   int id;
   String name;
-  Null url;
-  Null relatedVideoType;
+  dynamic url;
+  dynamic relatedVideoType;
   bool selectTab;
-  Null abExtInfo;
+  dynamic abExtInfo;
 
   VideoGroupEntity(
       {this.id,

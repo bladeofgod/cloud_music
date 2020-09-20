@@ -36,33 +36,33 @@ class DiscoveryPageEntity {
       //blocks = new List<Blocks>();
       blocks = Map();
       json['blocks'].forEach((v) {
-        int index = json['blocks'].indexOf(v);
+        //int index = json['blocks'].indexOf(v);
         //blocks.add(new Blocks.fromJson(v));
         ///fuck
-        switch(index){
-          case 0:
+        switch(v['blockCode']){
+          case 'HOMEPAGE_BLOCK_PLAYLIST_RCMD':
             blocks['block1'] = Block1.fromJson(v);
             break;
-          case 1:
-            blocks['block1'] = Block2.fromJson(v);
+          case 'HOMEPAGE_BLOCK_STYLE_RCMD':
+            blocks['block2'] = Block2.fromJson(v);
             break;
-          case 2:
-            blocks['block1'] = Block3.fromJson(v);
+          case 'HOMEPAGE_BLOCK_OFFICIAL_PLAYLIST':
+            blocks['block3'] = Block3.fromJson(v);
             break;
-          case 3:
-            blocks['block1'] = Block4.fromJson(v);
+          case 'HOMEPAGE_BLOCK_MLOG':
+            blocks['block4'] = Block4.fromJson(v);
             break;
-          case 4:
-            blocks['block1'] = Block5.fromJson(v);
+          case 'HOMEPAGE_BLOCK_LISTEN_LIVE':
+            blocks['block5'] = Block5.fromJson(v);
             break;
-          case 5:
-            blocks['block1'] = Block6.fromJson(v);
+          case 'HOMEPAGE_BLOCK_NEW_ALBUM_NEW_SONG':
+            blocks['block6'] = Block6.fromJson(v);
             break;
-          case 6:
-            blocks['block1'] = Block7.fromJson(v);
+          case 'HOMEPAGE_BLOCK_PORTRAIT_RCMD':
+            blocks['block7'] = Block7.fromJson(v);
             break;
-          case 7:
-            blocks['block1'] = Block8.fromJson(v);
+          case 'HOMEPAGE_BLOCK_DJRADIO_RCMD':
+            blocks['block8'] = Block8.fromJson(v);
             break;
         }
       });

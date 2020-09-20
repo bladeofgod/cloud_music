@@ -100,7 +100,7 @@ class Button {
   String action;
   String actionType;
   String text;
-  Null iconUrl;
+  dynamic iconUrl;
 
   Button({this.action, this.actionType, this.text, this.iconUrl});
 
@@ -159,7 +159,7 @@ class Resources {
   UiElement uiElement;
   String resourceType;
   String resourceId;
-  Null resourceUrl;
+  dynamic resourceUrl;
   ResourceExtInfo resourceExtInfo;
   String action;
   String actionType;
@@ -265,7 +265,7 @@ class Artists {
   String picUrl;
   String img1v1Url;
   int albumSize;
-  List<Null> alias;
+  List<dynamic> alias;
   String trans;
   int musicSize;
   int topicPerson;
@@ -282,8 +282,8 @@ class Artists {
     img1v1Url = json['img1v1Url'];
     albumSize = json['albumSize'];
 //    if (json['alias'] != null) {
-//      alias = new List<Null>();
-//      json['alias'].forEach((v) { alias.add(new Null.fromJson(v)); });
+//      alias = new List<dynamic>();
+//      json['alias'].forEach((v) { alias.add(new dynamic.fromJson(v)); });
 //    }
     trans = json['trans'];
     musicSize = json['musicSize'];
@@ -314,7 +314,7 @@ class SongData {
   String name;
   int id;
   int position;
-  List<Null> alias;
+  List<dynamic> alias;
   int status;
   int fee;
   int copyrightId;
@@ -331,25 +331,25 @@ class SongData {
   int dayPlays;
   int hearTime;
   String ringtone;
-  Null crbt;
-  Null audition;
+  dynamic crbt;
+  dynamic audition;
   String copyFrom;
   String commentThreadId;
-  Null rtUrl;
+  dynamic rtUrl;
   int ftype;
-  List<Null> rtUrls;
+  List<dynamic> rtUrls;
   int copyright;
-  Null transName;
-  Null sign;
+  dynamic transName;
+  dynamic sign;
   int mark;
   int mvid;
   HMusic hMusic;
   HMusic mMusic;
   HMusic lMusic;
   HMusic bMusic;
-  Null mp3Url;
+  dynamic mp3Url;
   int rtype;
-  Null rurl;
+  dynamic rurl;
 
   SongData({this.name, this.id, this.position, this.alias, this.status, this.fee, this.copyrightId, this.disc, this.no, this.artists, this.album, this.starred, this.popularity, this.score, this.starredNum, this.duration, this.playedNum, this.dayPlays, this.hearTime, this.ringtone, this.crbt, this.audition, this.copyFrom, this.commentThreadId, this.rtUrl, this.ftype, this.rtUrls, this.copyright, this.transName, this.sign, this.mark, this.mvid, this.hMusic, this.mMusic, this.lMusic, this.bMusic, this.mp3Url, this.rtype, this.rurl});
 
@@ -358,8 +358,8 @@ class SongData {
     id = json['id'];
     position = json['position'];
 //    if (json['alias'] != null) {
-//      alias = new List<Null>();
-//      json['alias'].forEach((v) { alias.add(new Null.fromJson(v)); });
+//      alias = new List<dynamic>();
+//      json['alias'].forEach((v) { alias.add(new dynamic.fromJson(v)); });
 //    }
     status = json['status'];
     fee = json['fee'];
@@ -387,8 +387,8 @@ class SongData {
     rtUrl = json['rtUrl'];
     ftype = json['ftype'];
 //    if (json['rtUrls'] != null) {
-//      rtUrls = new List<Null>();
-//      json['rtUrls'].forEach((v) { rtUrls.add(new Null.fromJson(v)); });
+//      rtUrls = new List<dynamic>();
+//      json['rtUrls'].forEach((v) { rtUrls.add(new dynamic.fromJson(v)); });
 //    }
     copyright = json['copyright'];
     transName = json['transName'];
@@ -469,14 +469,14 @@ class SongData {
 
 class HMusic {
   String name;
-  int id;
-  int size;
+  num id;
+  num size;
   String extension;
-  int sr;
-  int dfsId;
-  int bitrate;
-  int playTime;
-  int volumeDelta;
+  num sr;
+  num dfsId;
+  num bitrate;
+  num playTime;
+  num volumeDelta;
 
   HMusic({this.name, this.id, this.size, this.extension, this.sr, this.dfsId, this.bitrate, this.playTime, this.volumeDelta});
 
@@ -521,7 +521,7 @@ class SongPrivilege {
   bool cs;
   int maxbr;
   int fl;
-  Null pc;
+  dynamic pc;
   bool toast;
   int flag;
   bool paidBigBang;
@@ -620,14 +620,14 @@ class Album {
   String company;
   String briefDesc;
   Artists artist;
-  List<Null> songs;
-  List<Null> alias;
+  List<dynamic> songs;
+  List<dynamic> alias;
   int status;
   int copyrightId;
   String commentThreadId;
   List<Artists> artists;
   String subType;
-  Null transName;
+  dynamic transName;
   int mark;
   String picIdStr;
 
@@ -650,12 +650,12 @@ class Album {
     briefDesc = json['briefDesc'];
     artist = json['artist'] != null ? new Artists.fromJson(json['artist']) : null;
 //    if (json['songs'] != null) {
-//      songs = new List<Null>();
-//      json['songs'].forEach((v) { songs.add(new Null.fromJson(v)); });
+//      songs = new List<dynamic>();
+//      json['songs'].forEach((v) { songs.add(new dynamic.fromJson(v)); });
 //    }
 //    if (json['alias'] != null) {
-//      alias = new List<Null>();
-//      json['alias'].forEach((v) { alias.add(new Null.fromJson(v)); });
+//      alias = new List<dynamic>();
+//      json['alias'].forEach((v) { alias.add(new dynamic.fromJson(v)); });
 //    }
     status = json['status'];
     copyrightId = json['copyrightId'];

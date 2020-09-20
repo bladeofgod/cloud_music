@@ -10,6 +10,8 @@ import 'package:cloud_music/base_framework/utils/show_image_util.dart';
 import 'package:cloud_music/base_framework/view_model/app_model/user_view_model.dart';
 import 'package:cloud_music/base_framework/widget_state/page_state.dart';
 import 'package:cloud_music/page/main/discovery/discovery_vm.dart';
+import 'package:cloud_music/page/main/entity/blocks/block_1.dart' as block1;
+import 'package:cloud_music/page/main/entity/blocks/block_2.dart' as block2;
 import 'package:cloud_music/page/main/entity/discovery_banner_entity.dart';
 import 'package:cloud_music/page/main/entity/discovery_page_entity.dart' as pageEntity;
 import 'package:cloud_music/page/main/home_page.dart';
@@ -125,7 +127,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
 
 
   Widget youAndWhat(){
-    var block = _discoveryViewModel.pageData.blocks[1];
+    block2.Block2 block = _discoveryViewModel.pageData.blocks['block2'];
     return Container(
       width: getWidthPx(750),
       child: Column(
@@ -148,17 +150,20 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
 
   }
 
-  Widget songPage(pageEntity.Blocks blocks){
+  Widget songPage(block2.Block2 blocks){
     //final pageNum = (blocks.creatives.length/3).ceil();
-    return PageView(
-      controller: youAndContraoller,
-      children: blocks.creatives.map((e){
-        return songPageItem(e);
-      }).toList(),
+    return Container(
+      width: getWidthPx(750),height: getWidthPx(500),
+      child: PageView(
+        controller: youAndContraoller,
+        children: blocks.creatives.map((e){
+          return songPageItem(e);
+        }).toList(),
+      ),
     );
   }
   
-  Widget songPageItem(pageEntity.Creatives creatives){
+  Widget songPageItem(block2.Creatives creatives){
     return Container(
       width: getWidthPx(750*0.9),height: getWidthPx(500),
       child: Column(
@@ -169,16 +174,16 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
     );
   }
   
-  Widget pageInnerItem(pageEntity.Resources resources){
+  Widget pageInnerItem(block2.Resources resources){
     return Container(
       width: getWidthPx(750*0.9),height: getWidthPx(120),
       child: Stack(
         children: [
-          Positioned(
-            left: 0,
-            child: ShowImageUtil.showImageWithDefaultError(
-              resources., , height),
-          ),
+//          Positioned(
+//            left: 0,
+//            child: ShowImageUtil.showImageWithDefaultError(
+//              resources., , height),
+//          ),
         ],
       ),
     );
@@ -198,7 +203,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
   }
 
   Widget popSongRecommend(){
-    var block = _discoveryViewModel.pageData.blocks[0];
+    block1.Block1 block = _discoveryViewModel.pageData.blocks['block1'];
     return Container(
       //color: Colors.red,
       width: getWidthPx(750),
@@ -220,7 +225,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
     );
   }
 
-  Widget listHor(pageEntity.Blocks blocks){
+  Widget listHor(block1.Block1 blocks){
     return Container(
       width: getWidthPx(750),height: getWidthPx(370),
       child: ListView(
@@ -233,7 +238,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
     );
   }
 
-  Widget buildItem0(pageEntity.Creatives c,bool isLast){
+  Widget buildItem0(block1.Creatives c,bool isLast){
     return Container(
       width: getWidthPx(250),height: getWidthPx(300),
       margin: EdgeInsets.only(left: HomePage.horPadding,
@@ -251,7 +256,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
     );
   }
 
-  Widget item0Image(pageEntity.Creatives c){
+  Widget item0Image(block1.Creatives c){
     return Container(
       width: getWidthPx(250),height: getWidthPx(250),
       child: Stack(
@@ -275,7 +280,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
     );
   }
 
-  Widget item0Title(pageEntity.Creatives c){
+  Widget item0Title(block1.Creatives c){
     return Text('${c.uiElement.mainTitle.title}',style: TextStyle(
       color: Colors.black,fontSize: getSp(24)
     ),maxLines: 2,overflow: TextOverflow.ellipsis,);

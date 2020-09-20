@@ -51,8 +51,8 @@ class ExtInfo {
   String moduleName;
   String moduleId;
   String orpheusUrl;
-  Null alg;
-  Null logInfo;
+  dynamic alg;
+  dynamic logInfo;
 
   ExtInfo(
       {this.squareFeedViewDTOList,
@@ -98,8 +98,8 @@ class SquareFeedViewDTOList {
   int position;
   Resource resource;
   String alg;
-  Null logInfo;
-  Null reason;
+  dynamic logInfo;
+  dynamic reason;
 
   SquareFeedViewDTOList(
       {this.id,
@@ -186,15 +186,15 @@ class MlogBaseData {
   String text;
   String interveneText;
   String coverUrl;
-  Null coverDynamicUrl;
+  dynamic coverDynamicUrl;
   int coverHeight;
   int coverWidth;
   int coverColor;
   Talk talk;
-  Null mlogLocation;
-  Null mlogLocationDTO;
-  Null audio;
-  Null audioDTO;
+  dynamic mlogLocation;
+  dynamic mlogLocationDTO;
+  dynamic audio;
+  dynamic audioDTO;
 
   MlogBaseData(
       {this.id,
@@ -253,16 +253,16 @@ class MlogBaseData {
 
 class Talk {
   int talkId;
-  Null talkName;
+  dynamic talkName;
   String talkDesc;
-  Null coverUrl;
+  dynamic coverUrl;
   int coverHeight;
   int coverWidth;
   int type;
   int shareCount;
   int follows;
   int participations;
-  Null rcmdInfo;
+  dynamic rcmdInfo;
   bool followed;
 
   Talk(
@@ -316,9 +316,9 @@ class MlogExt {
   int commentCount;
   int likedCount;
   int shareCount;
-  Null rcmdInfo;
-  Null strongPushMark;
-  Null strongPushIcon;
+  dynamic rcmdInfo;
+  dynamic strongPushMark;
+  dynamic strongPushIcon;
 
   MlogExt(
       {this.commentCount,
@@ -439,7 +439,7 @@ class Button {
   String action;
   String actionType;
   String text;
-  Null iconUrl;
+  dynamic iconUrl;
 
   Button({this.action, this.actionType, this.text, this.iconUrl});
 

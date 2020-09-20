@@ -97,7 +97,7 @@ class HomePage extends PageState{
             ),
             Positioned(
               right: 0,
-              top: getWidthPx(12),
+              top: getWidthPx(20),
               child: msgTip(),
             ),
           ],
