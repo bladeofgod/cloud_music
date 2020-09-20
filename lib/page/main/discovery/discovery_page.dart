@@ -26,7 +26,9 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
 
   UserViewModel _userViewModel;
   DiscoveryViewModel _discoveryViewModel;
-
+  
+  PageController youAndContraoller;
+  
   PageController controller;
 
   PageController dbContaoller;
@@ -37,6 +39,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
   void initState() {
     // TODO: implement initState
     super.initState();
+    youAndContraoller = PageController(initialPage: 0,viewportFraction: 0.9);
     controller = PageController(initialPage: 0,viewportFraction: 1);
     dbContaoller = PageController(initialPage: 2,viewportFraction: 1/5.5);
     dbContaoller.addListener(() {
@@ -106,6 +109,9 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
             ///对应接口没找到，自由发挥了
             ///人气推荐
             popSongRecommend(),
+            ///我与民谣 bla bla... 注意 实体内songPrivilege的id
+            ///或者resourceId可以获取到mp3 url 其他不行
+            youAndWhat(),
 
             getSizeBox(height: getWidthPx(100)),
             ///footer
@@ -113,6 +119,67 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
             getSizeBox(height: getWidthPx(100))
           ],
         ),
+      ),
+    );
+  }
+
+
+  Widget youAndWhat(){
+    var block = _discoveryViewModel.pageData.blocks[1];
+    return Container(
+      width: getWidthPx(750),
+      child: Column(
+        children: [
+          ///title
+          titleRow(block.uiElement.subTitle.title,GestureDetector(
+            onTap: (){
+              //todo
+            },
+            child: circleBtn(Row(children: [
+              Icon(Icons.play_arrow,size: 22,),Text('播放全部'),
+            ],)),
+          )),
+          getSizeBox(height: getWidthPx(20)),
+          ///page
+          songPage(block),
+        ],
+      ),
+    );
+
+  }
+
+  Widget songPage(pageEntity.Blocks blocks){
+    //final pageNum = (blocks.creatives.length/3).ceil();
+    return PageView(
+      controller: youAndContraoller,
+      children: blocks.creatives.map((e){
+        return songPageItem(e);
+      }).toList(),
+    );
+  }
+  
+  Widget songPageItem(pageEntity.Creatives creatives){
+    return Container(
+      width: getWidthPx(750*0.9),height: getWidthPx(500),
+      child: Column(
+        children: creatives.resources.map<Widget>((res) {
+            return pageInnerItem(res);
+        }).toList(),
+      ),
+    );
+  }
+  
+  Widget pageInnerItem(pageEntity.Resources resources){
+    return Container(
+      width: getWidthPx(750*0.9),height: getWidthPx(120),
+      child: Stack(
+        children: [
+          Positioned(
+            left: 0,
+            child: ShowImageUtil.showImageWithDefaultError(
+              resources., , height),
+          ),
+        ],
       ),
     );
   }
@@ -133,12 +200,18 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
   Widget popSongRecommend(){
     var block = _discoveryViewModel.pageData.blocks[0];
     return Container(
+      //color: Colors.red,
       width: getWidthPx(750),
       //height: getWidthPx(470),
       child: Column(
         children: [
           ///title
-          titleRow(block),
+          titleRow(block.uiElement.subTitle.title,GestureDetector(
+            onTap: (){
+              //todo
+            },
+            child: circleBtn(Text('查看更多')),
+          )),
           ///list
           listHor(block),
         ],
@@ -149,7 +222,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
 
   Widget listHor(pageEntity.Blocks blocks){
     return Container(
-      width: getWidthPx(750),height: getWidthPx(470),
+      width: getWidthPx(750),height: getWidthPx(370),
       child: ListView(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
@@ -204,27 +277,22 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
 
   Widget item0Title(pageEntity.Creatives c){
     return Text('${c.uiElement.mainTitle.title}',style: TextStyle(
-      color: Colors.black,fontSize: getSp(20)
-    ),);
+      color: Colors.black,fontSize: getSp(24)
+    ),maxLines: 2,overflow: TextOverflow.ellipsis,);
   }
 
   double blockTitleSize = 32;
   
-  Widget titleRow(pageEntity.Blocks blocks){
+  Widget titleRow(String title,Widget tailChild){
     return Container(
       padding: EdgeInsets.symmetric(horizontal: HomePage.horPadding),
       width: getWidthPx(750),height: getWidthPx(80),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('${blocks.uiElement.subTitle.title}',style: TextStyle(color: Colors.black,
+          Text(title,style: TextStyle(color: Colors.black,
           fontSize: getSp(blockTitleSize),fontWeight: FontWeight.bold),),
-          GestureDetector(
-            onTap: (){
-              //todo
-            },
-            child: circleBtn(Text('查看更多')),
-          ),
+          tailChild,
         ],
       ),
     );
