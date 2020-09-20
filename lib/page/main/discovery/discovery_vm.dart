@@ -8,9 +8,21 @@ import 'package:cloud_music/base_framework/view_model/refresh_list_view_state_mo
 import 'package:cloud_music/page/main/entity/discovery_banner_entity.dart';
 import 'package:cloud_music/page/main/entity/discovery_page_entity.dart';
 import 'package:cloud_music/service_api/bedrock_repository_proxy.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../entity/dragon_ball_entity.dart';
 
 class DiscoveryViewModel extends RefreshListViewStateModel{
+
+  RefreshController refreshController;
+  DiscoveryViewModel(){
+    refreshController = RefreshController();
+  }
+
+  String adjustPlayCount(int count){
+    return count < 10000 ? '$count'
+        : '${(count/10000).ceil()}万';
+  }
+
 
   ///dragon ball
 

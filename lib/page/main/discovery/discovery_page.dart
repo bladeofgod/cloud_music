@@ -11,11 +11,13 @@ import 'package:cloud_music/base_framework/view_model/app_model/user_view_model.
 import 'package:cloud_music/base_framework/widget_state/page_state.dart';
 import 'package:cloud_music/page/main/discovery/discovery_vm.dart';
 import 'package:cloud_music/page/main/entity/discovery_banner_entity.dart';
+import 'package:cloud_music/page/main/entity/discovery_page_entity.dart' as pageEntity;
 import 'package:cloud_music/page/main/home_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
 
@@ -85,18 +87,162 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
   }
 
   Widget buildContent() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        ///banner
-        getSizeBox(height: getWidthPx(40)),
-        banner(),
-        ///dragon zone  PS: 此处api失效，只能写静态的了。
-        getSizeBox(height: getWidthPx(30)),
-        dragonBall(),
-      ],
+    return SmartRefresher(
+      controller:_discoveryViewModel.refreshController ,
+      enablePullDown: true,
+      enablePullUp: false,
+      header: ClassicHeader(),
+      onRefresh: _discoveryViewModel.initData,
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            ///banner
+            getSizeBox(height: getWidthPx(40)),
+            banner(),
+            ///dragon zone  PS: 此处api失效，只能写静态的了。
+            getSizeBox(height: getWidthPx(30)),
+            dragonBall(),
+            ///对应接口没找到，自由发挥了
+            ///人气推荐
+            popSongRecommend(),
+
+            getSizeBox(height: getWidthPx(100)),
+            ///footer
+            footer(),
+            getSizeBox(height: getWidthPx(100))
+          ],
+        ),
+      ),
     );
   }
+
+  Widget footer(){
+    return GestureDetector(
+      onTap: (){
+        //todo
+      },
+      child: Container(
+        width: getWidthPx(750),
+        child: Text('${_discoveryViewModel.pageData.pageConfig.nodataToast}',
+          style: TextStyle(color: Colors.black,fontSize: getSp(22)),),
+      ),
+    );
+  }
+
+  Widget popSongRecommend(){
+    var block = _discoveryViewModel.pageData.blocks[0];
+    return Container(
+      width: getWidthPx(750),
+      //height: getWidthPx(470),
+      child: Column(
+        children: [
+          ///title
+          titleRow(block),
+          ///list
+          listHor(block),
+        ],
+      ),
+
+    );
+  }
+
+  Widget listHor(pageEntity.Blocks blocks){
+    return Container(
+      width: getWidthPx(750),height: getWidthPx(470),
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
+        children: blocks.creatives.map((e){
+          return buildItem0(e,e == blocks.creatives.last);
+        }).toList(),
+      ),
+    );
+  }
+
+  Widget buildItem0(pageEntity.Creatives c,bool isLast){
+    return Container(
+      width: getWidthPx(250),height: getWidthPx(300),
+      margin: EdgeInsets.only(left: HomePage.horPadding,
+          right: isLast?getWidthPx(HomePage.horPadding):0),
+      child: Column(
+        children: [
+          ///image
+          item0Image(c),
+
+          getSizeBox(height: getWidthPx(10)),
+          ///title
+          item0Title(c),
+        ],
+      ),
+    );
+  }
+
+  Widget item0Image(pageEntity.Creatives c){
+    return Container(
+      width: getWidthPx(250),height: getWidthPx(250),
+      child: Stack(
+        children: [
+          ShowImageUtil.showImageWithDefaultError(c.uiElement.image.imageUrl,
+              getWidthPx(250), getWidthPx(250),borderRadius: getHeightPx(10)),
+          Positioned(
+            right: getWidthPx(5),top: getWidthPx(5),
+            child: Row(
+              children: [
+                Icon(Icons.play_arrow,color: Colors.white,size: getWidthPx(25),),
+                Text(
+                   _discoveryViewModel.adjustPlayCount(c.resources.first.resourceExtInfo.playCount),
+                    style:TextStyle(color: Colors.white,fontSize: getSp(20)),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget item0Title(pageEntity.Creatives c){
+    return Text('${c.uiElement.mainTitle.title}',style: TextStyle(
+      color: Colors.black,fontSize: getSp(20)
+    ),);
+  }
+
+  double blockTitleSize = 32;
+  
+  Widget titleRow(pageEntity.Blocks blocks){
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: HomePage.horPadding),
+      width: getWidthPx(750),height: getWidthPx(80),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text('${blocks.uiElement.subTitle.title}',style: TextStyle(color: Colors.black,
+          fontSize: getSp(blockTitleSize),fontWeight: FontWeight.bold),),
+          GestureDetector(
+            onTap: (){
+              //todo
+            },
+            child: circleBtn(Text('查看更多')),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget circleBtn(Widget child){
+    return Container(
+      alignment: Alignment.center,
+      height: getWidthPx(54),
+      padding: EdgeInsets.symmetric(horizontal: getWidthPx(20)),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(getHeightPx(20)),
+        border: Border.all(color: Colors.black,width: getWidthPx(1))
+      ),
+      child: child,
+    );
+  }
+
 
   final double dbSize = 750/5.6;
   final double ballOffset = 30;
