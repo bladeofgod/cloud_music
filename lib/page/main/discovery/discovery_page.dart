@@ -10,6 +10,7 @@ import 'package:cloud_music/base_framework/utils/show_image_util.dart';
 import 'package:cloud_music/base_framework/view_model/app_model/user_view_model.dart';
 import 'package:cloud_music/base_framework/widget_state/page_state.dart';
 import 'package:cloud_music/page/main/discovery/discovery_vm.dart';
+import 'package:cloud_music/page/main/discovery/widget/music_calendar.dart';
 import 'package:cloud_music/page/main/entity/blocks/block_1.dart' as block1;
 import 'package:cloud_music/page/main/entity/blocks/block_2.dart' as block2;
 import 'package:cloud_music/page/main/entity/discovery_banner_entity.dart';
@@ -114,6 +115,10 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
             ///我与民谣 bla bla... 注意 实体内songPrivilege的id
             ///或者resourceId可以获取到mp3 url 其他不行
             youAndWhat(),
+            getSizeBox(height: getWidthPx(60)),
+            ///block3  音乐日历
+            musicCalendar(),
+            getSizeBox(height: getWidthPx(60)),
 
             getSizeBox(height: getWidthPx(100)),
             ///footer
@@ -123,6 +128,10 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
         ),
       ),
     );
+  }
+
+  Widget musicCalendar(){
+    return MusicCalendar(_discoveryViewModel.pageData.blocks['block3']).generateWidget();
   }
 
 

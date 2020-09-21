@@ -54,10 +54,12 @@ class UiElement {
   MainTitle mainTitle;
   MainTitle subTitle;
   Button button;
+  Image image;
 
   UiElement({this.mainTitle, this.subTitle, this.button});
 
   UiElement.fromJson(Map<String, dynamic> json) {
+    image = json['image'] != null ? Image.fromJson(json['image']):null;
     mainTitle = json['mainTitle'] != null
         ? new MainTitle.fromJson(json['mainTitle'])
         : null;
@@ -70,6 +72,9 @@ class UiElement {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    if(image != null){
+      data['image'] = image.toJson();
+    }
     if (this.mainTitle != null) {
       data['mainTitle'] = this.mainTitle.toJson();
     }
