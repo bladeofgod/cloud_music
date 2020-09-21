@@ -72,7 +72,7 @@ class MusicCalendarVM extends ChangeNotifier{
         });
         return;
       }
-      opacity =(opacity+0.1) > 1 ? 1.0 : (opacity+0.1);
+      opacity =(opacity+0.1).clamp(0.0, 1.0);
       notifyListeners();
     });
 
