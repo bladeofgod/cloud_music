@@ -13,9 +13,14 @@ class MusicCalendarVM extends ChangeNotifier{
   final Block3 block3;
   final List<Creatives> creatives;
 
-  final Duration interval = Duration(seconds: 3);
+  AnimationController fadeController;
+  Animation fadeAnim;
+
+  final Duration interval = Duration(seconds: 5);
   Stream clock;
   StreamSubscription streamSubscription;
+
+  bool destroy = false;
 
   MusicCalendarVM(this.block3, this.creatives){
     clock = Stream.periodic(interval,(index){
@@ -23,9 +28,26 @@ class MusicCalendarVM extends ChangeNotifier{
     });
 
     streamSubscription = clock.listen((i) async{
-      incrementIndex();
+      if(destroy)return;
+      debugPrint('${fadeController.status}');
+      if(fadeController.status == AnimationStatus.completed|| fadeController.status == AnimationStatus.dismissed){
+        fadeController.forward().whenComplete((){
+          incrementIndex();
+          fadeController.reverse();
+        });
+      }
+
+
     });
     streamSubscription.pause();
+
+  }
+
+  animationListener(){
+
+  }
+
+  animStatusListener(AnimationStatus status){
 
   }
 
@@ -34,7 +56,9 @@ class MusicCalendarVM extends ChangeNotifier{
 
 
   init(){
+    debugPrint('init');
     if(streamSubscription.isPaused){
+      debugPrint('init');
       streamSubscription.resume();
     }
   }

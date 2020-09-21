@@ -566,14 +566,14 @@ class Album {
 
 class HMusic {
   dynamic name;
-  int id;
-  int size;
+  num id;
+  num size;
   String extension;
-  int sr;
-  int dfsId;
-  int bitrate;
-  int playTime;
-  int volumeDelta;
+  num sr;
+  num dfsId;
+  num bitrate;
+  num playTime;
+  num volumeDelta;
 
   HMusic({this.name, this.id, this.size, this.extension, this.sr, this.dfsId, this.bitrate, this.playTime, this.volumeDelta});
 

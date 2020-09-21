@@ -31,21 +31,22 @@ class MusicCalendar extends WidgetState with SingleTickerProviderStateMixin{
 
 
 
-  AnimationController fadeController;
-  Animation fadeAnim;
-
-
 
   @override
   void initState() {
     //fatherVM = Provider.of<DiscoveryViewModel>(context,listen: false);
     super.initState();
-    fadeController = AnimationController(vsync: this,duration: Duration(seconds: 100));
-    fadeAnim = Tween(begin: 0.0,end: 1.0).animate(fadeController);
+    musicCalendarVM.fadeController = AnimationController(vsync: this,duration: Duration(milliseconds: 200));
+    musicCalendarVM.fadeAnim = Tween(begin: 1.0,end: 0.0).animate(musicCalendarVM.fadeController);
+    musicCalendarVM.fadeController.stop();
+    musicCalendarVM.fadeController.addListener(musicCalendarVM.animationListener);
+    musicCalendarVM.fadeController.addStatusListener((musicCalendarVM.animStatusListener));
   }
   @override
   void dispose() {
-    fadeController.dispose();
+    musicCalendarVM?.destroy = true;
+    musicCalendarVM?.fadeController?.dispose();
+    musicCalendarVM?.streamSubscription?.cancel();
     musicCalendarVM?.streamSubscription?.cancel();
     super.dispose();
   }
@@ -100,10 +101,13 @@ class MusicCalendar extends WidgetState with SingleTickerProviderStateMixin{
           
           Positioned(
             top: getWidthPx(60),
-            child: Container(
-              width: getWidthPx(430),
-              child: Text('${creatives[musicCalendarVM.currentIndex].uiElement.mainTitle.title}',
-                style: TextStyle(color: Colors.grey,fontSize: getSp(32)),maxLines: 2,),
+            child: FadeTransition(
+              opacity: musicCalendarVM.fadeAnim,
+              child: Container(
+                width: getWidthPx(430),
+                child: Text('${creatives[musicCalendarVM.currentIndex].uiElement.mainTitle.title}',
+                  style: TextStyle(color: Colors.grey,fontSize: getSp(32)),maxLines: 2,),
+              ),
             ),
           ),
 
