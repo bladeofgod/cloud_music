@@ -36,8 +36,10 @@ class MusicCalendar extends WidgetState with SingleTickerProviderStateMixin{
   void initState() {
     //fatherVM = Provider.of<DiscoveryViewModel>(context,listen: false);
     super.initState();
+    musicCalendarVM.aboveRightMax = getWidthPx(20);
+    musicCalendarVM.aboveBottomMax = getWidthPx(20);
     musicCalendarVM.fadeController = AnimationController(vsync: this,duration: Duration(milliseconds: 200));
-    musicCalendarVM.fadeAnim = Tween(begin: 1.0,end: 0.0).animate(musicCalendarVM.fadeController);
+    musicCalendarVM.fadeAnim = Tween<double>(begin: 1.0,end: 0.0).animate(musicCalendarVM.fadeController);
     musicCalendarVM.fadeController.stop();
     musicCalendarVM.fadeController.addListener(musicCalendarVM.animationListener);
     musicCalendarVM.fadeController.addStatusListener((musicCalendarVM.animStatusListener));
@@ -131,17 +133,36 @@ class MusicCalendar extends WidgetState with SingleTickerProviderStateMixin{
           Positioned(
             right: 0,
             bottom: 0,
-            child: ShowImageUtil.showImageWithDefaultError(creatives[musicCalendarVM.currentIndex<creatives.length-2
-                ?musicCalendarVM.currentIndex+1 : 0].uiElement.image.imageUrl
-                , getWidthPx(130), getWidthPx(130),borderRadius: getHeightPx(10)),
+            child: Opacity(
+              opacity: musicCalendarVM.opacity,
+              child: ShowImageUtil.showImageWithDefaultError(creatives[musicCalendarVM.currentIndex<=creatives.length-2
+                  ?musicCalendarVM.currentIndex+1 : 0].uiElement.image.imageUrl
+                  , getWidthPx(130), getWidthPx(130),borderRadius: getHeightPx(10)),
+            ),
+          ),
+          ///fake
+          Positioned(
+            right: musicCalendarVM.right,
+            bottom: musicCalendarVM.bottom,
+            child: Visibility(
+              visible:musicCalendarVM.showFake ,
+              child: ShowImageUtil.showImageWithDefaultError(creatives[musicCalendarVM.fakeIndex].uiElement.image.imageUrl
+                  , getWidthPx(130), getWidthPx(130),borderRadius: getHeightPx(10)),
+            ),
           ),
           ///above
           Positioned(
-            top: 0,
             left: 0,
-            child: ShowImageUtil.showImageWithDefaultError(creatives[musicCalendarVM.currentIndex].uiElement.image.imageUrl
-                , getWidthPx(130), getWidthPx(130),borderRadius: getHeightPx(10)),
+            top: 0,
+//            right: 0,
+//            bottom: 0,
+            child: FadeTransition(
+              opacity: musicCalendarVM.fadeAnim,
+              child: ShowImageUtil.showImageWithDefaultError(creatives[musicCalendarVM.currentIndex].uiElement.image.imageUrl
+                  , getWidthPx(130), getWidthPx(130),borderRadius: getHeightPx(10)),
+            ),
           ),
+
 
 
         ],
