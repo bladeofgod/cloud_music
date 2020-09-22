@@ -34,7 +34,6 @@ class MusicCalendarVM extends ChangeNotifier{
 
     streamSubscription = clock.listen((i) async{
       if(destroy)return;
-      debugPrint('${fadeController.status}');
       if(fadeController.status == AnimationStatus.completed|| fadeController.status == AnimationStatus.dismissed){
         ///title和 above 渐隐，同时fake上移
         fadeController.forward().whenComplete((){
@@ -103,9 +102,7 @@ class MusicCalendarVM extends ChangeNotifier{
 
 
   init(){
-    debugPrint('init');
     if(streamSubscription.isPaused){
-      debugPrint('init');
       streamSubscription.resume();
     }
   }
