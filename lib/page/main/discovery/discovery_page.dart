@@ -109,7 +109,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
       controller:_discoveryViewModel.refreshController ,
       enablePullDown: true,
       enablePullUp: false,
-      header: ClassicHeader(),
+      header: WaterDropHeader(),
       onRefresh: _discoveryViewModel.initData,
       child: SingleChildScrollView(
         child: Column(
@@ -142,16 +142,125 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
             getSizeBox(height: getWidthPx(60)),
             ///block6
             block6Widget(),
-
+            ///block7 复用block5
+            block7Widget(),
+            ///就这了，没有数据了
             getSizeBox(height: getWidthPx(100)),
             ///footer
             footer(),
-            getSizeBox(height: getWidthPx(100))
+            getSizeBox(height: getWidthPx(200))
           ],
         ),
       ),
     );
   }
+  /*
+  * block7
+  *
+  * */
+
+  Widget block7Widget(){
+    block5.Block5 b5 = _discoveryViewModel.pageData.blocks['block5'];
+    return Container(
+      width: getWidthPx(750),
+      //height: getWidthPx(470),
+      child: Column(
+        children: [
+          ///title
+          titleRow(b5.uiElement.subTitle.title,GestureDetector(
+            onTap: (){
+              //todo
+            },
+            child: circleBtn(Text('查看更多'),30),
+          ),headChild: Icon(Icons.audiotrack,color: Colors.pink,size: getWidthPx(40),)),
+          ///list
+          listb7(b5),
+
+        ],
+      ),
+
+    );
+  }
+
+
+  Widget listb7(block5.Block5 blocks){
+    return Container(
+      width: getWidthPx(750),height: getWidthPx(360),
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
+        children: blocks.extInfo.map((e){
+          return buildB7Item0(e,e == blocks.extInfo.last);
+        }).toList(),
+      ),
+    );
+  }
+
+  Widget buildB7Item0(block5.ExtInfo c,bool isLast){
+    return Container(
+      width: getWidthPx(250),height: getWidthPx(350),
+      margin: EdgeInsets.only(left: HomePage.horPadding,
+          right: isLast?getWidthPx(HomePage.horPadding):0),
+      child: Stack(
+        children: [
+          ///image
+          itemB7Image(c),
+
+          ///title
+          Positioned(
+            top: getWidthPx(60),
+            child: itemB7Title(c),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget itemB7Image(block5.ExtInfo c){
+    return Container(
+      width: getWidthPx(250),height: getWidthPx(350),
+      child: Stack(
+        children: [
+          ShowImageUtil.showImageWithDefaultError(c.userInfo.avatarUrl,
+              getWidthPx(250), getWidthPx(350),borderRadius: getHeightPx(10)),
+          Positioned(
+            left: 0,top: 0,
+            child: Container(
+              padding: EdgeInsets.all(getWidthPx(5)),
+              decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.3),
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(getHeightPx(10)),bottomRight: Radius.circular(getHeightPx(10)))
+              ),
+              child: Row(
+                children: [
+                  Icon(Icons.equalizer,color: Colors.white,size: getWidthPx(25),),
+                  getSizeBox(width: getWidthPx(5)),
+                  Text(
+                    ' ${c.coverTag}',
+                    style:TextStyle(color: Colors.white,fontSize: getSp(20)),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget itemB7Title(block5.ExtInfo c){
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: HomePage.horPadding),
+      width: getWidthPx(250),
+      alignment: Alignment.center,
+      child: Text('${c.title}',style: TextStyle(
+          color: Colors.white,fontSize: getSp(36),fontWeight: FontWeight.bold
+      ),maxLines: 2,overflow: TextOverflow.ellipsis,),
+    );
+  }
+
+
+
 
   /*
   * block6
@@ -337,7 +446,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
               //todo
             },
             child: circleBtn(Text('查看更多'),30),
-          )),
+          ),headChild: Icon(Icons.voice_chat,color: Colors.deepOrange,size: getWidthPx(40),)),
           ///list
           listb5(b5),
 
@@ -433,7 +542,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
               //todo
             },
             child: circleBtn(Text('查看更多'),30),
-          )),
+          ),headChild: Icon(Icons.spa,color: Colors.green,size: getWidthPx(40),)),
           ///list
           listBlock4(b4),
         ],
@@ -532,7 +641,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
             child: circleBtn(Row(children: [
               Icon(Icons.play_arrow,size: 22,),Text('播放全部'),
             ],),30),
-          )),
+          ),headChild: Icon(Icons.brightness_high,color: Colors.purple,size: getWidthPx(40),)),
           getSizeBox(height: getWidthPx(20)),
           ///page
           songPage(block),
@@ -618,11 +727,14 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
     return GestureDetector(
       onTap: (){
         //todo
+        _discoveryViewModel.refreshController.requestRefresh();
       },
       child: Container(
+        color: Colors.white,
+        alignment: Alignment.topCenter,
         width: getWidthPx(750),
-        child: Text('${_discoveryViewModel.pageData.pageConfig.nodataToast}',
-          style: TextStyle(color: Colors.black,fontSize: getSp(22)),),
+        child: Text('${_discoveryViewModel.pageData.pageConfig.nodataToast} 点击刷新',
+          style: TextStyle(color: Colors.blueAccent,fontSize: getSp(22)),),
       ),
     );
   }
@@ -640,7 +752,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
               //todo
             },
             child: circleBtn(Text('查看更多'),30),
-          )),
+          ),headChild: Icon(Icons.toys,color: Colors.orange,size: getWidthPx(40),)),
           ///list
           listHor(block),
         ],
@@ -712,15 +824,19 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
 
   double blockTitleSize = 32;
   
-  Widget titleRow(String title,Widget tailChild){
+  Widget titleRow(String title,Widget tailChild,{Widget headChild }){
     return Container(
       padding: EdgeInsets.symmetric(horizontal: HomePage.horPadding),
       width: getWidthPx(750),height: getWidthPx(80),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          headChild??Container(),
           Text(title,style: TextStyle(color: Colors.black,
           fontSize: getSp(blockTitleSize),fontWeight: FontWeight.bold),),
+          Expanded(
+            child: Container(),
+          ),
           tailChild,
         ],
       ),
