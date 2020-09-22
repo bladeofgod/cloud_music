@@ -13,6 +13,7 @@ import 'package:cloud_music/page/main/discovery/discovery_vm.dart';
 import 'package:cloud_music/page/main/discovery/widget/music_calendar.dart';
 import 'package:cloud_music/page/main/entity/blocks/block_1.dart' as block1;
 import 'package:cloud_music/page/main/entity/blocks/block_2.dart' as block2;
+import 'package:cloud_music/page/main/entity/blocks/block_4.dart' as block4;
 import 'package:cloud_music/page/main/entity/discovery_banner_entity.dart';
 import 'package:cloud_music/page/main/entity/discovery_page_entity.dart' as pageEntity;
 import 'package:cloud_music/page/main/home_page.dart';
@@ -110,7 +111,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
             getSizeBox(height: getWidthPx(20)),
             dragonBall(),
             ///对应接口没找到，自由发挥了
-            ///人气推荐
+            ///人气推荐  block1
             popSongRecommend(),
             ///我与民谣 bla bla... 注意 实体内songPrivilege的id
             ///或者resourceId可以获取到mp3 url 其他不行
@@ -118,6 +119,12 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
             getSizeBox(height: getWidthPx(60)),
             ///block3  音乐日历
             musicCalendar(),
+            getSizeBox(height: getWidthPx(60)),
+            ///没有找到合适的数据 还用block1
+            popSongRecommend(),
+            getSizeBox(height: getWidthPx(60)),
+            ///block4
+            block4Widget(),
             getSizeBox(height: getWidthPx(60)),
 
             getSizeBox(height: getWidthPx(100)),
@@ -129,6 +136,98 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
       ),
     );
   }
+
+  Widget block4Widget(){
+    block4.Block4 b4 = _discoveryViewModel.pageData.blocks['block4'];
+
+    return Container(
+      width: getWidthPx(750),
+      //height: getWidthPx(470),
+      child: Column(
+        children: [
+          ///title
+          titleRow(b4.uiElement.subTitle.title,GestureDetector(
+            onTap: (){
+              //todo
+            },
+            child: circleBtn(Text('查看更多'),30),
+          )),
+          ///list
+          listBlock4(b4),
+        ],
+      ),
+
+    );
+  }
+
+  Widget listBlock4(block4.Block4 blocks){
+    return Container(
+      width: getWidthPx(750),height: getWidthPx(430),
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
+        children: blocks.extInfo.squareFeedViewDTOList.map((e){
+          return b4Item(e,e == blocks.extInfo.squareFeedViewDTOList.last);
+        }).toList(),
+      ),
+    );
+  }
+
+  Widget b4Item(block4.SquareFeedViewDTOList c,bool isLast){
+    return Container(
+      width: getWidthPx(250),height: getWidthPx(370),
+      margin: EdgeInsets.only(left: HomePage.horPadding,
+          right: isLast?getWidthPx(HomePage.horPadding):0),
+      child: Stack(
+        children: [
+          ///image
+          b4Item0Image(c),
+
+          //getSizeBox(height: getWidthPx(10)),
+          ///title
+          Positioned(
+            top: getWidthPx(300),
+            child: b4Item0Title(c),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget b4Item0Image(block4.SquareFeedViewDTOList c){
+    return Container(
+      width: getWidthPx(250),height: getWidthPx(320),
+      child: Stack(
+        children: [
+          ShowImageUtil.showImageWithDefaultError(c.resource.mlogBaseData.coverUrl,
+              getWidthPx(250), getWidthPx(320),borderRadius: getHeightPx(10)),
+          Positioned(
+            left: getWidthPx(20),bottom: getWidthPx(25),
+            child: Text(
+              '${c.resource.mlogExt.likedCount} 赞',
+              style:TextStyle(color: Colors.white,fontSize: getSp(24)),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget b4Item0Title(block4.SquareFeedViewDTOList c){
+    return Container(
+      padding: EdgeInsets.only(top: getWidthPx(15)),
+      height: getWidthPx(100),width: getWidthPx(250),
+      decoration: BoxDecoration(
+        color: Color.fromRGBO(240, 240, 240, 1),
+        borderRadius: BorderRadius.only(bottomRight: Radius.circular(getHeightPx(10)),bottomLeft: Radius.circular(getHeightPx(10)))
+      ),
+      child: Text('${c.resource.mlogBaseData.text}',style: TextStyle(
+          color: Colors.black,fontSize: getSp(24)
+      ),maxLines: 2,overflow: TextOverflow.ellipsis,),
+    );
+  }
+
+  ///block3
 
   Widget musicCalendar(){
     return MusicCalendar(_discoveryViewModel.pageData.blocks['block3']).generateWidget();
