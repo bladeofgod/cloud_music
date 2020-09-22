@@ -14,6 +14,7 @@ import 'package:cloud_music/page/main/discovery/widget/music_calendar.dart';
 import 'package:cloud_music/page/main/entity/blocks/block_1.dart' as block1;
 import 'package:cloud_music/page/main/entity/blocks/block_2.dart' as block2;
 import 'package:cloud_music/page/main/entity/blocks/block_4.dart' as block4;
+import 'package:cloud_music/page/main/entity/blocks/block_5.dart' as block5;
 import 'package:cloud_music/page/main/entity/discovery_banner_entity.dart';
 import 'package:cloud_music/page/main/entity/discovery_page_entity.dart' as pageEntity;
 import 'package:cloud_music/page/main/home_page.dart';
@@ -126,6 +127,9 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
             ///block4
             block4Widget(),
             getSizeBox(height: getWidthPx(60)),
+            ///block5
+            block5Widget(),
+
 
             getSizeBox(height: getWidthPx(100)),
             ///footer
@@ -134,6 +138,28 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
           ],
         ),
       ),
+    );
+  }
+
+  Widget block5Widget(){
+    block5.Block5 b5 = _discoveryViewModel.pageData.blocks['block5'];
+    return Container(
+      width: getWidthPx(750),
+      //height: getWidthPx(470),
+      child: Column(
+        children: [
+          ///title
+          titleRow(b5.uiElement.subTitle.title,GestureDetector(
+            onTap: (){
+              //todo
+            },
+            child: circleBtn(Text('查看更多'),30),
+          )),
+          ///list
+
+        ],
+      ),
+
     );
   }
 
