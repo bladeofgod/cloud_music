@@ -156,12 +156,85 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
             child: circleBtn(Text('查看更多'),30),
           )),
           ///list
+          listb5(b5),
 
         ],
       ),
 
     );
   }
+
+
+  Widget listb5(block5.Block5 blocks){
+    return Container(
+      width: getWidthPx(750),height: getWidthPx(360),
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
+        children: blocks.extInfo.map((e){
+          return buildB5Item0(e,e == blocks.extInfo.last);
+        }).toList(),
+      ),
+    );
+  }
+
+  Widget buildB5Item0(block5.ExtInfo c,bool isLast){
+    return Container(
+      width: getWidthPx(250),height: getWidthPx(300),
+      margin: EdgeInsets.only(left: HomePage.horPadding,
+          right: isLast?getWidthPx(HomePage.horPadding):0),
+      child: Column(
+        children: [
+          ///image
+          itemB5Image(c),
+
+          getSizeBox(height: getWidthPx(10)),
+          ///title
+          itemB5Title(c),
+        ],
+      ),
+    );
+  }
+
+  Widget itemB5Image(block5.ExtInfo c){
+    return Container(
+      width: getWidthPx(250),height: getWidthPx(250),
+      child: Stack(
+        children: [
+          ShowImageUtil.showImageWithDefaultError(c.verticalCover,
+              getWidthPx(250), getWidthPx(250),borderRadius: getHeightPx(10)),
+          Positioned(
+            left: 0,top: 0,
+            child: Container(
+              padding: EdgeInsets.all(getWidthPx(5)),
+              decoration: BoxDecoration(
+                color: Color.fromRGBO(34, 34, 34, 0.3),
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(getHeightPx(10)),bottomRight: Radius.circular(getHeightPx(10)))
+              ),
+              child: Row(
+                children: [
+                  Icon(Icons.whatshot,color: Colors.red,size: getWidthPx(25),),
+                  getSizeBox(width: getWidthPx(5)),
+                  Text(
+                    '${c.popularity} · ${c.coverTag}',
+                    style:TextStyle(color: Colors.white,fontSize: getSp(20)),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget itemB5Title(block5.ExtInfo c){
+    return Text('${c.title}',style: TextStyle(
+        color: Colors.black,fontSize: getSp(24)
+    ),maxLines: 2,overflow: TextOverflow.ellipsis,);
+  }
+
+  ///--------------------
 
   Widget block4Widget(){
     block4.Block4 b4 = _discoveryViewModel.pageData.blocks['block4'];
