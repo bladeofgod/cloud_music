@@ -42,12 +42,34 @@ class Block6 {
   }
 }
 
+class SubTitle {
+  String title;
+
+
+  SubTitle({this.title, });
+
+  SubTitle.fromJson(Map<String, dynamic> json) {
+    title = json['title'];
+
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['title'] = this.title;
+
+    return data;
+  }
+}
 class UiElement {
   MainTitle mainTitle;
+  Image image;
+  SubTitle subTitle;
 
   UiElement({this.mainTitle});
 
   UiElement.fromJson(Map<String, dynamic> json) {
+    image = json['image'] != null ? Image.fromJson(json['image']) : null;
+    subTitle = json['subTitle'] != null ? SubTitle.fromJson(json['subTitle']) : null;
     mainTitle = json['mainTitle'] != null
         ? new MainTitle.fromJson(json['mainTitle'])
         : null;
@@ -55,6 +77,12 @@ class UiElement {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    if(image != null){
+      data['image'] = image.toJson();
+    }
+    if(subTitle != null){
+      data['subTitle'] = subTitle.toJson();
+    }
     if (this.mainTitle != null) {
       data['mainTitle'] = this.mainTitle.toJson();
     }

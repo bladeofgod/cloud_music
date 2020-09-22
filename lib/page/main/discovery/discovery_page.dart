@@ -15,6 +15,7 @@ import 'package:cloud_music/page/main/entity/blocks/block_1.dart' as block1;
 import 'package:cloud_music/page/main/entity/blocks/block_2.dart' as block2;
 import 'package:cloud_music/page/main/entity/blocks/block_4.dart' as block4;
 import 'package:cloud_music/page/main/entity/blocks/block_5.dart' as block5;
+import 'package:cloud_music/page/main/entity/blocks/block_6.dart' as block6;
 import 'package:cloud_music/page/main/entity/discovery_banner_entity.dart';
 import 'package:cloud_music/page/main/entity/discovery_page_entity.dart' as pageEntity;
 import 'package:cloud_music/page/main/home_page.dart';
@@ -24,6 +25,14 @@ import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+/*
+* 因为数据结构不标准，导致这个页面内的代码有很多冗余
+*
+* 一些widget没法复用，大家见谅哈。PS：免费的api，这样已经很不错了。
+*
+* 其它页面估计也有这种情况
+* */
+
 class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
 
   @override
@@ -31,8 +40,8 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
 
   UserViewModel _userViewModel;
   DiscoveryViewModel _discoveryViewModel;
-  
-  PageController youAndContraoller;
+
+  PageController youAndContraoller,b6Controller;
   
   PageController controller;
 
@@ -45,6 +54,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
     // TODO: implement initState
     super.initState();
     youAndContraoller = PageController(initialPage: 0,viewportFraction: 0.9);
+    b6Controller = PageController(initialPage: 0,viewportFraction: 0.9);
     controller = PageController(initialPage: 0,viewportFraction: 1);
     dbContaoller = PageController(initialPage: 2,viewportFraction: 1/5.5);
     dbContaoller.addListener(() {
@@ -129,7 +139,9 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
             getSizeBox(height: getWidthPx(60)),
             ///block5
             block5Widget(),
-
+            getSizeBox(height: getWidthPx(60)),
+            ///block6
+            block6Widget(),
 
             getSizeBox(height: getWidthPx(100)),
             ///footer
@@ -141,6 +153,177 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
     );
   }
 
+  /*
+  * block6
+  *
+  * */
+
+  Widget b6TitleRow(){
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: HomePage.horPadding),
+      width: getWidthPx(750),height: getWidthPx(80),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          GestureDetector(
+            onTap: (){
+              _discoveryViewModel.switchB6Index(0);
+            },
+            child: Text('新歌',style: TextStyle(color:_discoveryViewModel.showB6Index == 0
+                ? Colors.black : Colors.grey,
+                fontSize: getSp(blockTitleSize),fontWeight: FontWeight.bold),),
+          ),
+          getSizeBox(width: getWidthPx(20)),
+          Container(
+            width: getWidthPx(1),height: getWidthPx(60),
+            color: Colors.grey,
+          ),
+          getSizeBox(width: getWidthPx(20)),
+          GestureDetector(
+            onTap: (){
+              _discoveryViewModel.switchB6Index(1);
+            },
+            child: Text('新碟',style: TextStyle(color:_discoveryViewModel.showB6Index == 1
+                ? Colors.black : Colors.grey,
+                fontSize: getSp(blockTitleSize),fontWeight: FontWeight.bold),),
+          ),
+          Expanded(
+            child: SizedBox(),
+          ),
+          GestureDetector(
+            onTap: (){
+              //todo
+            },
+            child: circleBtn(Row(children: [
+              Icon(Icons.play_arrow,size: 22,),Text('播放全部'),
+            ],),30),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget block6Widget(){
+    //block6.Block6 b6 = _discoveryViewModel.pageData.blocks['block6'];
+    return Container(
+      width: getWidthPx(750),
+      child: Column(
+        children: [
+          ///title
+          b6TitleRow(),
+          getSizeBox(height: getWidthPx(20)),
+          ///page
+          songPageB6(),
+        ],
+      ),
+    );
+
+  }
+
+  Widget songPageB6(){
+    //final pageNum = (blocks.creatives.length/3).ceil();
+    return Container(
+      width: getWidthPx(750),height: getWidthPx(500),
+      child: PageView(
+        controller: b6Controller,
+        children:_discoveryViewModel.showB6Index == 0 ?
+        _discoveryViewModel.newSongs.map((e){
+          return songPageItemB6(e);
+        }).toList()
+          :
+        _discoveryViewModel.newPlates.map((e){
+          return songPageItemB6(e);
+        }).toList(),
+      ),
+    );
+  }
+
+  Widget songPageItemB6(block6.Creatives creatives){
+    return Container(
+      width: getWidthPx(750*0.9),height: getWidthPx(500),
+      child: Column(
+        children: creatives.resources.map<Widget>((res) {
+          return pageInnerItemB6(res);
+        }).toList(),
+      ),
+    );
+  }
+
+  Widget pageInnerItemB6(block6.Resources resources){
+    String artists = '';
+    resources?.resourceExtInfo?.artists?.forEach((element) {
+      artists = '${element.name}/';
+    });
+    return Container(
+      width: getWidthPx(750*0.9),height: getWidthPx(140),
+      margin: EdgeInsets.only(bottom: getWidthPx(20)),
+      child: Stack(
+        children: [
+          Positioned(
+            left: 0,
+            child: ShowImageUtil.showImageWithDefaultError(
+                resources.uiElement.image.imageUrl, getWidthPx(140), getWidthPx(140)
+                ,borderRadius: getWidthPx(10)),
+          ),
+          ///title
+          Positioned(
+            left: getWidthPx(150),
+            top: getWidthPx(20),
+            child: Container(
+              width: getWidthPx(380),
+              child: Text.rich(
+                  TextSpan(
+                      children: [
+                        TextSpan(
+                            text:'${resources.uiElement.mainTitle.title}',
+                            style: TextStyle(color: Colors.black
+                                ,fontSize: getSp(30))
+                        ),
+                        TextSpan(
+                            text:' - $artists',
+                            style: TextStyle(color: Colors.grey
+                                ,fontSize: getSp(24))
+                        )
+                      ]
+                  ),overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ),
+
+
+          ///sub title
+          Positioned(
+            left: getWidthPx(150),
+            bottom: getWidthPx(20),
+            child: Container(
+              width: getWidthPx(380),
+              child: Text('${resources.uiElement?.subTitle?.title??''}',style: TextStyle(color: Colors.grey
+                  ,fontSize: getSp(24)),overflow: TextOverflow.ellipsis,),
+            ),
+          ),
+          ///play btn
+          Align(
+            alignment: Alignment.centerRight,
+            child: GestureDetector(
+              onTap: (){
+                //todo
+              },
+              child: Container(
+                color: Colors.white,
+                margin: EdgeInsets.only(right: getWidthPx(60)),
+                child: Icon(Icons.play_circle_outline,color: Colors.redAccent,size: getWidthPx(60),),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+
+/*
+* block 5
+* */
   Widget block5Widget(){
     block5.Block5 b5 = _discoveryViewModel.pageData.blocks['block5'];
     return Container(
@@ -332,7 +515,9 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
     return MusicCalendar(_discoveryViewModel.pageData.blocks['block3']).generateWidget();
   }
 
-
+/*
+*
+* */
   Widget youAndWhat(){
     block2.Block2 block = _discoveryViewModel.pageData.blocks['block2'];
     return Container(
@@ -404,8 +589,11 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
           Positioned(
             left: getWidthPx(150),
             bottom: getWidthPx(20),
-            child: Text('${resources.uiElement?.subTitle?.title??''}',style: TextStyle(color: Colors.grey
-                ,fontSize: getSp(30)),),
+            child: Container(
+              width: getWidthPx(380),
+              child: Text('${resources.uiElement?.subTitle?.title??''}',style: TextStyle(color: Colors.grey
+                  ,fontSize: getSp(30)),overflow: TextOverflow.ellipsis,),
+            ),
           ),
           ///play btn
           Align(
