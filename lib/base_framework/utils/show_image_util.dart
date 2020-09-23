@@ -23,6 +23,10 @@ class ShowImageUtil{
   static const String W600 = "-w600";
   static const String W1000 = "-w1000";
 
+  static const String img50 = '?param=150y150';
+  static const String img200 = '?param=200y200';
+  static const String imgBanner = '?param=400y200';
+
   /*
   * show image with default & error widget
   *

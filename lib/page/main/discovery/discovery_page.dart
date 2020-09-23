@@ -219,7 +219,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
       width: getWidthPx(250),height: getWidthPx(350),
       child: Stack(
         children: [
-          ShowImageUtil.showImageWithDefaultError(c.userInfo.avatarUrl,
+          ShowImageUtil.showImageWithDefaultError(c.userInfo.avatarUrl+ShowImageUtil.img200,
               getWidthPx(250), getWidthPx(350),borderRadius: getHeightPx(10)),
           Positioned(
             left: 0,top: 0,
@@ -369,7 +369,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
           Positioned(
             left: 0,
             child: ShowImageUtil.showImageWithDefaultError(
-                resources.uiElement.image.imageUrl, getWidthPx(140), getWidthPx(140)
+                resources.uiElement.image.imageUrl+ShowImageUtil.img50, getWidthPx(140), getWidthPx(140)
                 ,borderRadius: getWidthPx(10)),
           ),
           ///title
@@ -491,7 +491,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
       width: getWidthPx(250),height: getWidthPx(250),
       child: Stack(
         children: [
-          ShowImageUtil.showImageWithDefaultError(c.verticalCover,
+          ShowImageUtil.showImageWithDefaultError(c.verticalCover+ShowImageUtil.img50,
               getWidthPx(250), getWidthPx(250),borderRadius: getHeightPx(10)),
           Positioned(
             left: 0,top: 0,
@@ -588,7 +588,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
       width: getWidthPx(250),height: getWidthPx(320),
       child: Stack(
         children: [
-          ShowImageUtil.showImageWithDefaultError(c.resource.mlogBaseData.coverUrl,
+          ShowImageUtil.showImageWithDefaultError(c.resource.mlogBaseData.coverUrl+ShowImageUtil.img50,
               getWidthPx(250), getWidthPx(320),borderRadius: getHeightPx(10)),
           Positioned(
             left: getWidthPx(20),bottom: getWidthPx(25),
@@ -682,7 +682,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
           Positioned(
             left: 0,
             child: ShowImageUtil.showImageWithDefaultError(
-              resources.uiElement.image.imageUrl, getWidthPx(140), getWidthPx(140)
+              resources.uiElement.image.imageUrl+ShowImageUtil.img50, getWidthPx(140), getWidthPx(140)
                     ,borderRadius: getWidthPx(10)),
           ),
           ///title
@@ -795,7 +795,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
       width: getWidthPx(250),height: getWidthPx(250),
       child: Stack(
         children: [
-          ShowImageUtil.showImageWithDefaultError(c.uiElement.image.imageUrl,
+          ShowImageUtil.showImageWithDefaultError(c.uiElement.image.imageUrl+ShowImageUtil.img50,
               getWidthPx(250), getWidthPx(250),borderRadius: getHeightPx(10)),
           Positioned(
             right: getWidthPx(5),top: getWidthPx(5),
@@ -938,7 +938,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
       ),
       child: Stack(
         children: <Widget>[
-          ShowImageUtil.showImageWithDefaultError(e.pic, getWidthPx(750)-HomePage.horPadding, getWidthPx(320),
+          ShowImageUtil.showImageWithDefaultError(e.pic+ShowImageUtil.imgBanner, getWidthPx(750)-HomePage.horPadding, getWidthPx(320),
             borderRadius: getHeightPx(16),boxFit: BoxFit.cover),
           ///tag
           Positioned(
