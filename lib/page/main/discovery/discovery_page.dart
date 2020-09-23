@@ -107,7 +107,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
       controller:_discoveryViewModel.refreshController ,
       enablePullDown: true,
       enablePullUp: false,
-      header: WaterDropHeader(),
+      header: MaterialClassicHeader(),
       onRefresh: _discoveryViewModel.initData,
       child: SingleChildScrollView(
         child: Column(

@@ -29,8 +29,8 @@
 
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="cloud_music"
-        android:icon="@mipmap/ic_launcher">
+        android:label="网易云音乐"
+        android:icon="@mipmap/logo_163">
         <activity
             android:name="com.lijiaqi.bedrock.MainActivity"
             android:launchMode="singleTop"
