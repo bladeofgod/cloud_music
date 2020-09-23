@@ -138,7 +138,7 @@ class Profile {
     this.followed, this.backgroundUrl, this.detailDescription, this.gender, this.accountStatus,
     this.vipType, this.avatarImgId, this.nickname, this.birthday, this.city, this.userType,
     this.backgroundImgId, this.avatarUrl, this.province, this.defaultAvatar, this.djStatus
-    , this.mutual, this.remarkName, this.expertTags, this.authStatus, this.signature, this.authority, this.avatarImgIdStr, this.followeds, this.follows, this.eventCount, this.playlistCount, this.playlistBeSubscribedCount});
+    , this.mutual, this.remarkName, this.expertTags, this.authStatus, this.signature, this.authority, this.followeds, this.follows, this.eventCount, this.playlistCount, this.playlistBeSubscribedCount});
 
   Profile.fromJson(Map<String, dynamic> json) {
     avatarImgIdStr = json['avatarImgIdStr'];
