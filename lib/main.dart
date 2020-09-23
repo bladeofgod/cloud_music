@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cloud_music/page/login/login_page.dart';
 import 'package:cloud_music/page/splash_page.dart';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
@@ -83,7 +84,7 @@ class MyApp extends StatelessWidget {
                 navigatorObservers: [
                   routeObserver
                 ],
-              home: SplashPage().generateWidget(),
+              home: LoginPage().generateWidget(),
               ///改版啦，这里用不到，你可以删除
 //                onGenerateRoute: Router.generateRoute,
 //                onUnknownRoute: (settings){
