@@ -77,29 +77,27 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
   Widget build(BuildContext context) {
     super.build(context);
     return switchStatusBar2Dark(
-      child: switchStatusBar2Dark(
-        child: Consumer<UserViewModel>(
-          builder: (ctx,userModel,child){
-            _userViewModel = userModel;
-            return ProviderWidget<DiscoveryViewModel>(
-              model: DiscoveryViewModel(),
-              onModelReady: (model){
-                model.initData();
-              },
-              builder: (ctx,disVM,child){
-                if(disVM.busy){
-                  return Container(
-                    child: Center(
-                      child: Text('loading'),
-                    ),
-                  );
-                }
-                _discoveryViewModel = disVM;
-                return buildContent();
-              },
-            );
-          },
-        ),
+      child: Consumer<UserViewModel>(
+        builder: (ctx,userModel,child){
+          _userViewModel = userModel;
+          return ProviderWidget<DiscoveryViewModel>(
+            model: DiscoveryViewModel(),
+            onModelReady: (model){
+              model.initData();
+            },
+            builder: (ctx,disVM,child){
+              if(disVM.busy){
+                return Container(
+                  child: Center(
+                    child: Text('loading'),
+                  ),
+                );
+              }
+              _discoveryViewModel = disVM;
+              return buildContent();
+            },
+          );
+        },
       ),
     );
   }
