@@ -43,10 +43,10 @@ class LoginApi extends BaseApi{
   Future<UserEntity> loginByPhonePWD(String phone,String pwd)async{
     var response = await bedRock.get('/login/cellphone',
         queryParameters: {'phone':phone,'password':pwd});
-    if(response == null || response.data['code'] != 200){
+    if(response == null || response.data.code != 200){
       return null;
     }else{
-      return UserEntity.fromJson(response.data);
+      return UserEntity.fromJson(response.data.data);
     }
   }
 

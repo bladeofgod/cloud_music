@@ -4,10 +4,14 @@
 */
 
 
+import 'package:cloud_music/base_framework/exception/base_exception.dart';
+import 'package:cloud_music/base_framework/exception/un_handle_exception.dart';
 import 'package:cloud_music/base_framework/view_model/single_view_state_model.dart';
 import 'package:cloud_music/page/main/entity/user_entity.dart';
 import 'package:cloud_music/service_api/bedrock_repository_proxy.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:oktoast/oktoast.dart';
 
 /*
 * 没有多余的手机号了，没法写注册了
@@ -99,7 +103,20 @@ class RegisterVM extends SingleViewStateModel{
   }
 
   Future<UserEntity> login()async{
-    return await BedrockRepositoryProxy().loginApi.loginByPhonePWD(phone, pwd);
+    UserEntity userEntity;
+    try{
+      userEntity = await BedrockRepositoryProxy().loginApi.loginByPhonePWD(phone, pwd);
+
+    } catch (e){
+      if(e is DioError){
+        if(e.error is UnHandleException){
+          showToast('${e.error.message}');
+        }
+      }
+
+
+    }
+    return userEntity ;
   }
 
 

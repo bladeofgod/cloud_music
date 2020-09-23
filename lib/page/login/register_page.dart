@@ -93,7 +93,7 @@ class RegisterPage extends PageState{
           border: Border(bottom: BorderSide(color: Colors.grey,width: getWidthPx(1)))
       ),
       child: TextField(
-        controller: registerVM.phoneController,
+        controller: registerVM.pwdController,
         onChanged: (text){
           registerVM.setPWD(text);
         },
@@ -103,7 +103,7 @@ class RegisterPage extends PageState{
           hintText: '请输入密码',hintStyle: TextStyle(color: Colors.grey,fontSize: getSp(30)),
           suffixIcon:GestureDetector(
             onTap: (){
-              if(registerVM.phoneController != null){
+              if(registerVM.pwdController != null){
                 registerVM.clearPWD();
               }
             },
@@ -209,9 +209,7 @@ class RegisterPage extends PageState{
           return;
         }
         registerVM.login().then((userEntity){
-          if(userEntity == null || userEntity.code != 200){
-            showToast('登录失败');
-          }else{
+          if(userEntity != null && userEntity.code == 200){
             userViewModel.saveUser(userEntity);
             popUntil(predicate: (route)=>route.settings.name == '$HomePage');
           }
