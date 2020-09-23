@@ -89,7 +89,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
               if(disVM.busy){
                 return Container(
                   child: Center(
-                    child: Text('loading'),
+                    child: CircularProgressIndicator(),
                   ),
                 );
               }
