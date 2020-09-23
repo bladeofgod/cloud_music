@@ -11,6 +11,7 @@ import 'package:cloud_music/base_framework/widget_state/page_state.dart';
 import 'package:cloud_music/page/login/vm/login_vm.dart';
 import 'package:cloud_music/page/login/widget/logo_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 
 
@@ -43,6 +44,9 @@ class LoginPage extends PageState{
                     getSizeBox(height: getWidthPx(400)),
                     GestureDetector(
                       onTap: (){
+                        if(!isAgree){
+                          showHint();
+                        }
                         
                       },
                       child: buildBtn('立即登录', Colors.white, redColor),
@@ -50,6 +54,11 @@ class LoginPage extends PageState{
                     getSizeBox(height: getWidthPx(40)),
                     GestureDetector(
                       onTap: (){
+                        if(!isAgree){
+                          showHint();
+                        }else{
+                          pop();
+                        }
 
                       },
                       child: buildBtn('立即体验', redColor, Colors.white),
@@ -66,6 +75,10 @@ class LoginPage extends PageState{
           );
         },
       ));
+  }
+
+  void showHint(){
+    showToast('请勾选下方的同意');
   }
 
   Widget contractWidget(){
