@@ -22,7 +22,7 @@ class VillageVM extends RefreshListViewStateModel<VillageEntity>{
 
   @override
   Future<List<VillageEntity>> loadData({int pageNum}) {
-    return BedrockRepositoryProxy().villa
+    return BedrockRepositoryProxy();
   }
 
 }
