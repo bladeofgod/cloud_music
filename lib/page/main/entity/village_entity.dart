@@ -186,30 +186,30 @@ class Song {
   int pst;
   int t;
   List<Ar> ar;
-  List<Null> alia;
+  List<dynamic> alia;
   int pop;
   int st;
-  Null rt;
+  dynamic rt;
   int fee;
   int v;
-  Null crbt;
+  dynamic crbt;
   String cf;
   Al al;
   int dt;
   H h;
   H m;
   H l;
-  Null a;
+  dynamic a;
   String cd;
   int no;
-  Null rtUrl;
+  dynamic rtUrl;
   int ftype;
-  List<Null> rtUrls;
+  List<dynamic> rtUrls;
   int djId;
   int copyright;
   int sId;
   int mv;
-  Null rurl;
+  dynamic rurl;
   int rtype;
   int mst;
   int cp;
@@ -262,9 +262,9 @@ class Song {
       });
     }
 //    if (json['alia'] != null) {
-//      alia = new List<Null>();
+//      alia = new List<dynamic>();
 //      json['alia'].forEach((v) {
-//        alia.add(new Null.fromJson(v));
+//        alia.add(new dynamic.fromJson(v));
 //      });
 //    }
     pop = json['pop'];
@@ -285,9 +285,9 @@ class Song {
     rtUrl = json['rtUrl'];
     ftype = json['ftype'];
 //    if (json['rtUrls'] != null) {
-//      rtUrls = new List<Null>();
+//      rtUrls = new List<dynamic>();
 //      json['rtUrls'].forEach((v) {
-//        rtUrls.add(new Null.fromJson(v));
+//        rtUrls.add(new dynamic.fromJson(v));
 //      });
 //    }
     djId = json['djId'];
@@ -357,8 +357,8 @@ class Song {
 class Ar {
   int id;
   String name;
-  List<Null> tns;
-  List<Null> alias;
+  List<dynamic> tns;
+  List<dynamic> alias;
 
   Ar({this.id, this.name, this.tns, this.alias});
 
@@ -366,15 +366,15 @@ class Ar {
     id = json['id'];
     name = json['name'];
 //    if (json['tns'] != null) {
-//      tns = new List<Null>();
+//      tns = new List<dynamic>();
 //      json['tns'].forEach((v) {
-//        tns.add(new Null.fromJson(v));
+//        tns.add(new dynamic.fromJson(v));
 //      });
 //    }
 //    if (json['alias'] != null) {
-//      alias = new List<Null>();
+//      alias = new List<dynamic>();
 //      json['alias'].forEach((v) {
-//        alias.add(new Null.fromJson(v));
+//        alias.add(new dynamic.fromJson(v));
 //      });
 //    }
   }
@@ -397,7 +397,7 @@ class Al {
   int id;
   String name;
   String picUrl;
-  List<Null> tns;
+  List<dynamic> tns;
   int pic;
 
   Al({this.id, this.name, this.picUrl, this.tns, this.pic});
@@ -407,9 +407,9 @@ class Al {
     name = json['name'];
     picUrl = json['picUrl'];
 //    if (json['tns'] != null) {
-//      tns = new List<Null>();
+//      tns = new List<dynamic>();
 //      json['tns'].forEach((v) {
-//        tns.add(new Null.fromJson(v));
+//        tns.add(new dynamic.fromJson(v));
 //      });
 //    }
     pic = json['pic'];

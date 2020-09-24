@@ -122,8 +122,8 @@ class Profile {
   int djStatus;
 
   bool mutual;
-  Null remarkName;
-  Null expertTags;
+  dynamic remarkName;
+  dynamic expertTags;
   int authStatus;
   String signature;
   int authority;

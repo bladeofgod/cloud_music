@@ -25,6 +25,7 @@ class VillagePage extends PageState with AutomaticKeepAliveClientMixin{
             return ProviderWidget<VillageVM>(
               model: VillageVM(),
               onModelReady: (model){
+                model.initData();
 
               },
               builder: (ctx,model,child){
@@ -36,7 +37,12 @@ class VillagePage extends PageState with AutomaticKeepAliveClientMixin{
                   );
                 }
                 villageVM = model;
-                return content();
+                return Container(
+                  color: Color.fromRGBO(238, 238, 238, 1),
+                  padding: EdgeInsets.only(left: getWidthPx(30),right: getWidthPx(30),
+                    bottom: getWidthPx(100)),
+                  child: content(),
+                );
               },
             );
           },
@@ -49,14 +55,31 @@ class VillagePage extends PageState with AutomaticKeepAliveClientMixin{
         enablePullDown: true,
         enablePullUp: false,
         header: MaterialClassicHeader(),
-    onRefresh: _discoveryViewModel.initData,
-    )
+    onRefresh: villageVM.initData,
+      child: GridView.builder(
+        itemCount: villageVM.list.length,
+    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: 2,mainAxisSpacing: getWidthPx(20),crossAxisSpacing: getWidthPx(10),
+      childAspectRatio: 0.5
+    ),
+    itemBuilder: (ctx,index){
+          return buildItem(index);
+    }));
+  }
+
+  Widget buildItem(int index) {
+    return Container(
+      margin: EdgeInsets.only(top: (index==0||index==1)?getWidthPx(20):0),
+      color: Colors.red,
+    );
   }
 
 
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
+
+
 
 }
 
