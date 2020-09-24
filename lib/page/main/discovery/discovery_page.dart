@@ -159,6 +159,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
 
   Widget block7Widget(){
     block5.Block5 b5 = _discoveryViewModel.pageData.blocks['block5'];
+    if(b5 == null) return Container();
     return Container(
       width: getWidthPx(750),
       //height: getWidthPx(470),
@@ -312,6 +313,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
 
   Widget block6Widget(){
     //block6.Block6 b6 = _discoveryViewModel.pageData.blocks['block6'];
+    if(_discoveryViewModel.newSongs.isEmpty) return Container();
     return Container(
       width: getWidthPx(750),
       child: Column(
@@ -433,6 +435,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
 * */
   Widget block5Widget(){
     block5.Block5 b5 = _discoveryViewModel.pageData.blocks['block5'];
+    if(b5 == null) return Container();
     return Container(
       width: getWidthPx(750),
       //height: getWidthPx(470),
@@ -528,7 +531,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
 
   Widget block4Widget(){
     block4.Block4 b4 = _discoveryViewModel.pageData.blocks['block4'];
-
+    if(b4 == null) return Container();
     return Container(
       width: getWidthPx(750),
       //height: getWidthPx(470),

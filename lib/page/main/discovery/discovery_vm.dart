@@ -88,6 +88,7 @@ class DiscoveryViewModel extends RefreshListViewStateModel{
 
   void extractData() {
     block6.Block6 b6 = pageData.blocks['block6'];
+    if(b6 == null) return;
     if(b6.creatives != null && b6.creatives.isNotEmpty){
       b6.creatives.forEach((element) {
         if(element.uiElement.mainTitle.title.trim() == '新歌'){

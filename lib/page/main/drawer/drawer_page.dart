@@ -116,7 +116,13 @@ class DrawerPage extends PageState with SingleTickerProviderStateMixin{
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   outerLittle(Icons.brightness_2, '夜间模式'),
-                  outerLittle(Icons.settings, '设置'),
+                  GestureDetector(
+                    onTap: (){
+                      userViewModel.userLogout();
+                      push(LoginPage());
+                    },
+                    child: outerLittle(Icons.settings, '切换账号'),
+                  ),
                   GestureDetector(
                     onTap: (){
                       SystemNavigator.pop();
