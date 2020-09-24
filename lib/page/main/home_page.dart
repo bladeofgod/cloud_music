@@ -6,6 +6,7 @@
 import 'package:cloud_music/base_framework/widget_state/page_state.dart';
 import 'package:cloud_music/page/main/discovery/discovery_page.dart';
 import 'package:cloud_music/page/main/discovery/widget/custom_tab_bar.dart';
+import 'package:cloud_music/page/main/drawer/drawer_page.dart';
 import 'package:cloud_music/page/main/mine/mine_page.dart';
 import 'package:cloud_music/page/main/video/video_page.dart';
 import 'package:cloud_music/page/main/village/village_page.dart';
@@ -86,6 +87,7 @@ class HomePage extends PageState{
     return GestureDetector(
       onTap: (){
         //todo
+        push(DrawerPage());
       },
       child: Container(
         width: getWidthPx(80),height: getWidthPx(80),
