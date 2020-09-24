@@ -31,6 +31,8 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 * 一些widget没法复用，大家见谅哈。PS：免费的api，这样已经很不错了。
 *
 * 其它页面估计也有这种情况
+*
+* news ：  接口返回的数据格式会变，数量也会变...
 * */
 
 class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
