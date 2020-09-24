@@ -33,9 +33,9 @@ class TabBarViewModel extends ChangeNotifier{
     controller.forward();
   }
 
-  double textScaleFactor = 1.3;
+  double textScaleFactor = 1.2;
   updateFactor(double newV){
-    textScaleFactor = newV;
+    textScaleFactor = newV > textScaleFactor ? newV.clamp(1.0, 1.2) : textScaleFactor;
     notifyListeners();
   }
 

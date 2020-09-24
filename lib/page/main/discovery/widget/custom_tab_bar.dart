@@ -22,17 +22,16 @@ class CustomTabBar extends WidgetState with SingleTickerProviderStateMixin{
   TabBarViewModel parentVM;
 
   final double min = 1.0;
-  final double max = 1.3;
+  final double max = 1.2;
 
   AnimationController controller;
   Animation animation;
   @override
   void initState() {
     super.initState();
-    controller = AnimationController(duration: Duration(milliseconds: 100),vsync: this);
+    controller = AnimationController(duration: Duration(milliseconds: 50),vsync: this);
     animation = Tween<double>(begin: min,end: max).animate(controller);
     controller.addListener(() {
-      debugPrint('animation ${animation.value}');
       if(!parentVM.isResetting){
         parentVM.updateFactor(animation.value);
       }
