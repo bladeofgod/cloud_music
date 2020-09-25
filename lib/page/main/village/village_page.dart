@@ -3,6 +3,8 @@
 * Date : 2020/9/17
 */
 
+import 'dart:math';
+
 import 'package:cloud_music/base_framework/ui/widget/provider_widget.dart';
 import 'package:cloud_music/base_framework/utils/show_image_util.dart';
 import 'package:cloud_music/base_framework/view_model/app_model/user_view_model.dart';
@@ -26,6 +28,29 @@ class VillagePage extends PageState with AutomaticKeepAliveClientMixin,
   void initState() {
     controller = TabController(initialIndex: 0,length: 2,vsync: this);
     super.initState();
+    controller.addListener(() {
+      if(controller.index == 1 && villageVM.startList.isEmpty){
+        WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+          ///当初忘了拆分了，只能这样写了
+          Future.delayed(Duration(milliseconds: 50)).then((value)async{
+            await villageVM?.scrollController?.requestRefresh()
+                ?.whenComplete(() {
+              villageVM.scrollController.refreshCompleted();
+              setState(() {
+
+              });
+            });
+          });
+        });
+
+      }
+    });
+  }
+  @override
+  void dispose() {
+    controller.dispose();
+    // TODO: implement dispose
+    super.dispose();
   }
 
   @override
@@ -66,12 +91,14 @@ class VillagePage extends PageState with AutomaticKeepAliveClientMixin,
                       ),
                       Expanded(
                         child: Container(
-                          color: Color.fromRGBO(238, 238, 238, 1),
-                          padding: EdgeInsets.only(left: getWidthPx(30),right: getWidthPx(30)),
+
                           child: TabBarView(
                             controller: controller,
                             children: <Widget>[
+                              ///应该拆成两个 文件，忘了拆了，就这样吧。
+                              ///广场
                               content(),
+                              ///关注
                               follow(),
                             ],
                           ),
@@ -94,39 +121,184 @@ class VillagePage extends PageState with AutomaticKeepAliveClientMixin,
   }
 
   Widget follow(){
-    if(villageVM.busy){
-      return Container(
-        child: Center(
-          child: CircularProgressIndicator(),
+
+    return Container(
+      color: Colors.white,
+      child: SmartRefresher(
+        controller:villageVM.scrollController ,
+        enablePullDown: true,
+        enablePullUp: false,
+        header: MaterialClassicHeader(),
+        onRefresh: villageVM.getStar,
+        child: CustomScrollView(
+          slivers: <Widget>[
+
+            sliverWrapper(Divider(height: getWidthPx(2),color: Color.fromRGBO(238, 238, 238, 1),)),
+            ///我的云quan
+            myCloud(),
+            sliverWrapper(Divider(height: getWidthPx(2),color: Color.fromRGBO(238, 238, 238, 1),)),
+            ///box
+            myFollow(),
+            ///star title
+            startTitle(),
+            ///list
+            startList(),
+          ],
         ),
-      );
-    }
-    return Container();
+      ),
+    );
+  }
+
+  Widget startList(){
+    return sliverWrapper(Container(
+      height: getWidthPx(400),
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: villageVM.startList.map((e){
+          final int index = villageVM.startList.indexOf(e);
+          final int fans = Random().nextInt(10000);
+          return Container(
+            width: getWidthPx(340),height: getWidthPx(460),
+            margin: EdgeInsets.only(left: index ==0 ? getWidthPx(140):0),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(getHeightPx(6)),
+                border: Border.all(color: Color.fromRGBO(238, 238, 238, 1),
+                    width: getWidthPx(1))
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                ShowImageUtil.showImageWithDefaultError(e.picUrl + ShowImageUtil.img50, 
+                    getWidthPx(150), getWidthPx(150),borderRadius: getWidthPx(75)),
+                getSizeBox(height: getWidthPx(10)),
+                Text('${e.name}',style: TextStyle(color: Colors.black,fontSize: getSp(28)),),
+                Text('$fans 粉丝',style: TextStyle(color: Colors.grey,fontSize: getSp(24)),),
+                getSizeBox(height: getWidthPx(20)),
+                GestureDetector(
+                  onTap: (){
+                    //todo
+                  },
+                  child: Container(
+                    width: getWidthPx(140),height: getWidthPx(50),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(getWidthPx(25)),
+                      color: Colors.red
+                    ),
+                    alignment: Alignment.center,
+                    child: Text('${e.followed?'已关注':'+ 关注'}',style: TextStyle(
+                        color: Colors.white,fontSize: getSp(26)
+                    ),),
+                  ),
+                ),
+              ],
+            ),
+          );
+        }).toList(),
+      ),
+    ));
+  }
+
+  Widget startTitle(){
+    return SliverToBoxAdapter(
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: getWidthPx(20)),
+        height: getWidthPx(120),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              width: getWidthPx(80),height: getWidthPx(80),
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,color: Colors.red
+              ),
+              child: Icon(Icons.person_add,color: Colors.white,size: getWidthPx(60),),
+            ),
+            getSizeBox(width: getWidthPx(20)),
+            Text('你可能感兴趣的人',style: TextStyle(color: Colors.black,fontSize: getSp(30),),),
+            Expanded(
+              child: const SizedBox(),
+            ),
+            Text('查看更多',style: TextStyle(color: Colors.grey,fontSize: getSp(30),),),
+            getSizeBox(width: getWidthPx(20)),
+            Icon(Icons.chevron_right,size: getWidthPx(40),),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget myFollow(){
+    return sliverWrapper(Container(
+
+      height: getWidthPx(500),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Icon(Icons.inbox,size: getWidthPx(200),color: Colors.red,),
+          getSizeBox(height: getWidthPx(30)),
+          Text('你还没有关注的人哦',style: TextStyle(color: Colors.black,fontSize: getSp(36)),),
+          getSizeBox(height: getWidthPx(20)),
+          Text('快去多多关注感兴趣的人吧',style: TextStyle(color: Colors.grey,fontSize: getSp(32)),),
+        ],
+      ),
+    ));
+  }
+
+  Widget myCloud(){
+    return SliverToBoxAdapter(
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: getWidthPx(20)),
+        height: getWidthPx(120),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              width: getWidthPx(80),height: getWidthPx(80),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,color: Colors.lightBlueAccent
+              ),
+              child: Icon(Icons.vpn_lock,color: Colors.white,size: getWidthPx(60),),
+            ),
+            getSizeBox(width: getWidthPx(20)),
+            Text('我的云圈',style: TextStyle(color: Colors.grey,fontSize: getSp(30),),),
+            Expanded(
+              child: const SizedBox(),
+            ),
+            Icon(Icons.chevron_right,size: getWidthPx(40),),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget content(){
     if(villageVM.busy){
       return Container(
+
         child: Center(
           child: CircularProgressIndicator(),
         ),
       );
     }
-    return SmartRefresher(
-        controller:villageVM.refreshController ,
-        enablePullDown: true,
-        enablePullUp: false,
-        header: MaterialClassicHeader(),
-    onRefresh: villageVM.initData,
-      child: GridView.builder(
-        itemCount: villageVM.list.length,
-    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-      crossAxisCount: 2,mainAxisSpacing: getWidthPx(20),crossAxisSpacing: getWidthPx(10),
-      childAspectRatio: 0.5
-    ),
-    itemBuilder: (ctx,index){
-          return buildItem(index);
-    }));
+    return Container(
+      color: Color.fromRGBO(238, 238, 238, 1),
+      padding: EdgeInsets.only(left: getWidthPx(30),right: getWidthPx(30)),
+      child: SmartRefresher(
+          controller:villageVM.refreshController ,
+          enablePullDown: true,
+          enablePullUp: false,
+          header: MaterialClassicHeader(),
+          onRefresh: villageVM.initData,
+          child: GridView.builder(
+              itemCount: villageVM.list.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,mainAxisSpacing: getWidthPx(20),crossAxisSpacing: getWidthPx(10),
+                  childAspectRatio: 0.5
+              ),
+              itemBuilder: (ctx,index){
+                return buildItem(index);
+              })),
+    );
   }
 
   Widget buildItem(int index) {

@@ -170,6 +170,12 @@ abstract class PageState extends BaseState with WidgetGenerator,RouteAware,_Rout
     );
   }
 
+  Widget sliverWrapper(Widget child){
+    return SliverToBoxAdapter(
+      child: child,
+    );
+  }
+
   //////////////////////////////////////////////////////
   ///页面出/入 监测
   //////////////////////////////////////////////////////

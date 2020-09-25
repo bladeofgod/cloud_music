@@ -5,6 +5,7 @@
 
 
 import 'package:cloud_music/base_framework/config/net/bedrock_http.dart';
+import 'package:cloud_music/page/main/entity/top_10_entity.dart';
 import 'package:cloud_music/page/main/entity/village_entity.dart';
 import 'package:cloud_music/service_api/base_api.dart';
 
@@ -20,6 +21,18 @@ class VillageApi extends BaseApi{
       }).toList();
     }
 
+  }
+
+  Future<List<TopStarEntity>> getTop10()async{
+    var response = await bedRock.get('/top/artists',
+      queryParameters: {'offset':0,'limit':10});
+    if(response == null){
+      return null;
+    }else{
+      return response.data.data['artists'].map<TopStarEntity>((json){
+        return TopStarEntity.fromJson(json);
+      }).toList();
+    }
   }
 
 }
