@@ -21,6 +21,8 @@ class HomePage extends PageState{
 
   PageController pageController;
 
+  int pageIndex = 1;
+
   static double horPadding ;
   static double bottomPadding;
 
@@ -30,6 +32,9 @@ class HomePage extends PageState{
     bottomPadding = getWidthPx(100);
     pageController = PageController(initialPage: 1);
     super.initState();
+    pageController.addListener(() {
+
+    });
   }
 
   @override
@@ -65,14 +70,14 @@ class HomePage extends PageState{
     return PageView(
       controller: pageController,
       onPageChanged: (index){
-        debugPrint('$index');
         tabController.switchPage(index);
+        pageIndex = index;
       },
       children: <Widget>[
-        MinePage().generateWidget(),
-        DiscoveryPage().generateWidget(),
-        VillagePage().generateWidget(),
-        VideoPage().generateWidget()
+        wrapWithNotify(MinePage().generateWidget()),
+        wrapWithNotify(DiscoveryPage().generateWidget()),
+        wrapWithNotify(VillagePage().generateWidget()),
+        wrapWithNotify(VideoPage().generateWidget())
 
       ],
     );
@@ -158,6 +163,54 @@ class HomePage extends PageState{
         pageController.jumpToPage(index);
       }).generateWidget(),
     );
+  }
+
+  Widget wrapWithNotify(Widget child){
+    return NotificationListener<ScrollNotification>(
+      child: child,
+      onNotification: (notification){
+        //todo
+        return false;
+      },
+    );
+  }
+
+  double lastPixels;
+  bool handleNotification(ScrollNotification notification){
+    final ScrollMetrics metrics = notification.metrics;
+    final ScrollPosition pos = pageController.position;
+    if(metrics.axis == Axis.horizontal){
+      if(lastPixels != null){
+        if(metrics.atEdge){
+
+          final double dis = metrics.pixels - lastPixels;
+          log('juuuuu   ${((pageIndex+1)*pos.viewportDimension)+dis}');
+          if(dis <0){
+            //to left
+          }else if(dis > 0){
+            //to right
+          }
+          debugPrint('jump to  $dis');
+          //pageController.jumpTo(((pageIndex+1)*pos.viewportDimension)+dis);
+          //lastPixels = metrics.pixels;
+        }else{
+          lastPixels = metrics.pixels;
+        }
+
+      }else{
+        lastPixels = metrics.pixels;
+      }
+    }
+//    log('${metrics.pixels}');
+//    log('${metrics.axisDirection}');
+//    log('${metrics.atEdge}');
+
+    return true;
+
+  }
+
+  void log(String info){
+    debugPrint('notification----$info');
   }
 
 }
