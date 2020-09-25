@@ -22,10 +22,12 @@ class HomePage extends PageState{
   PageController pageController;
 
   static double horPadding ;
+  static double bottomPadding;
 
   @override
   void initState() {
     horPadding = getWidthPx(30);
+    bottomPadding = getWidthPx(100);
     pageController = PageController(initialPage: 1);
     super.initState();
   }
@@ -40,7 +42,20 @@ class HomePage extends PageState{
           child: Column(
             children: <Widget>[
               buildAppBar(),
-              Expanded(child: buildBody()),
+              Expanded(child: Stack(
+                children: <Widget>[
+                  buildBody(),
+                  Positioned(
+                    bottom: 0,
+                    child: Container(
+                      color: Colors.white,
+                      width: getWidthPx(750),height: bottomPadding,
+                      alignment: Alignment.center,
+                      child: Text('功能区域...待开发'),
+                    ),
+                  ),
+                ],
+              )),
             ],
           ),
         ) );

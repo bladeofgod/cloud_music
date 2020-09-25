@@ -25,6 +25,7 @@ class ShowImageUtil{
 
   static const String img50 = '?param=150y150';
   static const String img200 = '?param=200y200';
+  static const String img400V = '?param=200y400';
   static const String imgBanner = '?param=400y200';
 
   /*
@@ -34,14 +35,14 @@ class ShowImageUtil{
   static Widget showImageWithDefaultError(String url,double width,
       double height,{
     String imageType = TEST,
-        double borderRadius = 0,
+        double borderRadius = 0,BorderRadius borderStyle,
     Widget defaultImg,
         Widget errorImg,
         BoxFit boxFit : BoxFit.cover}){
     //print("image url ________$url$W400");
     //debugPrint("banner circle radius  : $borderRadius");
     return ClipRRect(
-      borderRadius:BorderRadius.all(Radius.circular(borderRadius)) ,
+      borderRadius:borderStyle??BorderRadius.all(Radius.circular(borderRadius)) ,
       child: ExtendedImage.network(
         "$url$imageType",
         width: width,
