@@ -151,7 +151,7 @@ class VillagePage extends PageState with AutomaticKeepAliveClientMixin,
 
   Widget startList(){
     return sliverWrapper(Container(
-      height: getWidthPx(400),
+      height: getWidthPx(460),
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: villageVM.startList.map((e){
@@ -169,7 +169,7 @@ class VillagePage extends PageState with AutomaticKeepAliveClientMixin,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 ShowImageUtil.showImageWithDefaultError(e.picUrl + ShowImageUtil.img50, 
-                    getWidthPx(150), getWidthPx(150),borderRadius: getWidthPx(75)),
+                    getWidthPx(180), getWidthPx(180),borderRadius: getWidthPx(90)),
                 getSizeBox(height: getWidthPx(10)),
                 Text('${e.name}',style: TextStyle(color: Colors.black,fontSize: getSp(28)),),
                 Text('$fans 粉丝',style: TextStyle(color: Colors.grey,fontSize: getSp(24)),),
