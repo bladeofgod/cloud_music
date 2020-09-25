@@ -44,9 +44,9 @@ class TopStarEntity {
     img1v1Id = json['img1v1Id'];
     topicPerson = json['topicPerson'];
 //    if (json['alias'] != null) {
-//      alias = new List<Null>();
+//      alias = new List<dynamic>();
 //      json['alias'].forEach((v) {
-//        alias.add(new Null.fromJson(v));
+//        alias.add(new dynamic.fromJson(v));
 //      });
 //    }
     picId = json['picId'];
