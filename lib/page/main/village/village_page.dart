@@ -15,9 +15,18 @@ import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 
-class VillagePage extends PageState with AutomaticKeepAliveClientMixin{
+class VillagePage extends PageState with AutomaticKeepAliveClientMixin,
+  SingleTickerProviderStateMixin{
 
   VillageVM villageVM;
+
+  int currentIndex = 0;
+  TabController controller;
+  @override
+  void initState() {
+    controller = TabController(initialIndex: 0,length: 2,vsync: this);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,19 +41,44 @@ class VillagePage extends PageState with AutomaticKeepAliveClientMixin{
 
               },
               builder: (ctx,model,child){
-                if(model.busy){
-                  return Container(
-                    child: Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  );
-                }
+
                 villageVM = model;
                 return Container(
-                  color: Color.fromRGBO(238, 238, 238, 1),
-                  padding: EdgeInsets.only(left: getWidthPx(30),right: getWidthPx(30),
+                  padding: EdgeInsets.only(
                     bottom: HomePage.bottomPadding),
-                  child: content(),
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        color: Colors.white,
+                        height: getWidthPx(120),
+                        alignment: Alignment.bottomCenter,
+                        child: TabBar(
+                          controller: controller,
+                          tabs: <Widget>[
+                            tabItem('广场', 0),
+                            tabItem('关注', 1),
+                          ],
+                          indicatorColor: Colors.red,
+                          indicatorPadding: EdgeInsets.symmetric(horizontal: getWidthPx(150)),
+                          labelColor: Colors.red,
+                          unselectedLabelColor: Colors.black,
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          color: Color.fromRGBO(238, 238, 238, 1),
+                          padding: EdgeInsets.only(left: getWidthPx(30),right: getWidthPx(30)),
+                          child: TabBarView(
+                            controller: controller,
+                            children: <Widget>[
+                              content(),
+                              follow(),
+                            ],
+                          ),
+                        )
+                      ),
+                    ],
+                  ),
                 );
               },
             );
@@ -52,7 +86,32 @@ class VillagePage extends PageState with AutomaticKeepAliveClientMixin{
         ));
   }
 
+  Widget tabItem(String title,int index){
+    return Text(title,style: TextStyle(
+        //color: index == currentIndex ? Colors.red
+         // :Colors.black,
+        fontSize: getSp(32)),);
+  }
+
+  Widget follow(){
+    if(villageVM.busy){
+      return Container(
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+    return Container();
+  }
+
   Widget content(){
+    if(villageVM.busy){
+      return Container(
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
     return SmartRefresher(
         controller:villageVM.refreshController ,
         enablePullDown: true,
