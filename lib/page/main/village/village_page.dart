@@ -107,7 +107,7 @@ class VillagePage extends PageState with AutomaticKeepAliveClientMixin{
                   child: const SizedBox(),
                 ),
 
-                Text('${entity.likedCount}赞',style: TextStyle(fontSize: getSp(24),
+                Text('${villageVM.getLikeCount(entity.likedCount)}赞',style: TextStyle(fontSize: getSp(24),
                     color: Colors.grey),),
                 getSizeBox(width: getWidthPx(8)),
                 GestureDetector(
