@@ -33,8 +33,9 @@ class VillageVM extends RefreshListViewStateModel<VillageEntity>{
       .then((value){
         if(value != null){
           startList.addAll(value);
+          notifyListeners();
         }
-    }).whenComplete(() => scrollController.loadComplete());
+    }).whenComplete(() => scrollController.refreshCompleted());
   }
 
 

@@ -32,7 +32,7 @@ class VillagePage extends PageState with AutomaticKeepAliveClientMixin,
       if(controller.index == 1 && villageVM.startList.isEmpty){
         WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
           ///当初忘了拆分了，只能这样写了
-          Future.delayed(Duration(milliseconds: 50)).then((value)async{
+          Future.delayed(Duration(milliseconds: 100)).then((value)async{
             await villageVM?.scrollController?.requestRefresh()
                 ?.whenComplete(() {
               villageVM.scrollController.refreshCompleted();
