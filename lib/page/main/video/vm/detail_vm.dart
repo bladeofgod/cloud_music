@@ -12,7 +12,7 @@ import 'package:cloud_music/page/main/video/public_vm.dart';
 import 'package:cloud_music/service_api/bedrock_repository_proxy.dart';
 
 class DetailVM extends RefreshListViewStateModel<VideoEntity>
-  with PublicVM{
+  with PublicVMHandler{
 
   final VideoGroupEntity groupEntity;
 
@@ -21,7 +21,7 @@ class DetailVM extends RefreshListViewStateModel<VideoEntity>
 
   @override
   Future<List<VideoEntity>> loadData({int pageNum}) {
-    return BedrockRepositoryProxy().videoApi.getGroupDetailVideoList()
+    return BedrockRepositoryProxy().videoApi.getGroupDetailVideoList(id: groupEntity.id);
   }
 
 

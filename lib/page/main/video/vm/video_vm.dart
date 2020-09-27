@@ -18,6 +18,7 @@ class VideoPageVM extends SingleViewStateModel<List<VideoGroupEntity>>{
 
   @override
   onCompleted(data) {
+    groupList.clear();
     groupList.addAll(data);
 
   }

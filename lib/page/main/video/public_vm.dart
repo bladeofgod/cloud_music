@@ -4,7 +4,7 @@
 */
 
 
-class PublicVM{
+class PublicVMHandler{
 
   String getVideoDuration(int ms){
     int seconds = (ms/1000).floor();
@@ -35,6 +35,10 @@ class PublicVM{
   String getCommentCount(int count){
     return count>1000?'${(count/1000).toStringAsFixed(1)}千'
         :'$count';
+  }
+
+  String getDescriShortly(String description){
+    return description.length < 20 ? description : description.substring(0,20);
   }
 
 }

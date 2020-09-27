@@ -17,13 +17,28 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class DetailPage extends PageState{
+class DetailPage extends PageState with AutomaticKeepAliveClientMixin{
 
+  TabController parentController;
+
+  final int index;
   final VideoGroupEntity entity;
   final DetailVM detailVM;
 
-  DetailPage(this.entity)
+  DetailPage(this.entity,this.index,this.parentController)
     :detailVM = DetailVM(entity);
+
+  int currentIndex = 0;
+
+  @override
+  void initState() {
+    parentController.addListener(() {
+      if(mounted){
+        currentIndex = parentController.index;
+      }
+    });
+    super.initState();
+  }
 
 
   @override
@@ -66,11 +81,14 @@ class DetailPage extends PageState{
   Widget item(int index){
     final VideoEntity entity = detailVM.list[index];
     return Container(
-      width: getWidthPx(750),height: getWidthPx(600),
+      color: Colors.white,
+      width: getWidthPx(750),height: getWidthPx(584),
       padding: EdgeInsets.all(getWidthPx(20)),
+      margin: EdgeInsets.only(bottom: getWidthPx(20)),
       child: Column(
         children: <Widget>[
           coverImg(entity),
+          getSizeBox(height: getWidthPx(10)),
           ///title
           title(entity),
           getSizeBox(height: getWidthPx(10)),
@@ -92,11 +110,11 @@ class DetailPage extends PageState{
 
   coverImg(VideoEntity entity) {
     return Container(
-      height: getWidthPx(400),
+      height: getWidthPx(350),
       child: Stack(
         alignment: Alignment.center,
         children: <Widget>[
-          ShowImageUtil.showImageWithDefaultError(entity.data.coverUrl + ShowImageUtil.img200
+          ShowImageUtil.showImageWithDefaultError(entity.data.coverUrl + ShowImageUtil.imgBanner
               , getWidthPx(710), getWidthPx(400),borderRadius: getHeightPx(20)),
           ///play btn
           GestureDetector(
@@ -106,30 +124,33 @@ class DetailPage extends PageState{
             child: Icon(Icons.play_arrow,color: Colors.white.withOpacity(0.8),size: getWidthPx(80),),
           ),
           ///describe
+          if(entity.data.description!= null && entity.data.description.isNotEmpty)
           Positioned(
             right: getWidthPx(margin),top: getWidthPx(margin),
             child: Container(
               height: getWidthPx(30),
-              padding: EdgeInsets.all(getWidthPx(15)),
+              //width: getWidthPx(200),
+              padding: EdgeInsets.symmetric(horizontal: getWidthPx(10)),
               decoration: BoxDecoration(
                 color: Color.fromRGBO(240, 240, 240, 0.3),
                 borderRadius: BorderRadius.circular(getHeightPx(10))
               ),
-              child: Text('${entity.data.description}',style: TextStyle(color: Colors.white
-                  ,fontSize: getSp(20)) ,),
+              child: Text('${detailVM.getDescriShortly(entity.data.description)}',style: TextStyle(color: Colors.white
+                  ,fontSize: getSp(20)),maxLines: 1,overflow: TextOverflow.ellipsis ,),
             ),
           ),
           ///playtime
           Positioned(
             left: getWidthPx(margin),bottom:getWidthPx(margin) ,
             child: Container(
-              height: getWidthPx(30),
+              alignment: Alignment.center,
+              //height: getWidthPx(30),
               child: Row(
                 children: <Widget>[
-                  Icon(Icons.play_circle_outline,size: getWidthPx(18),color: Colors.white,),
+                  Icon(Icons.play_circle_outline,size: getWidthPx(22),color: Colors.white,),
                   getSizeBox(width: getWidthPx(10)),
                   Text('${detailVM.getPlayTimes(entity.data.playTime)}',
-                    style: TextStyle(color: Colors.white,fontSize: getSp(18)),)
+                    style: TextStyle(color: Colors.white,fontSize: getSp(22)),)
                 ],
               ),
             ),
@@ -141,10 +162,10 @@ class DetailPage extends PageState{
               height: getWidthPx(30),
               child: Row(
                 children: <Widget>[
-                  Icon(Icons.equalizer,size: getWidthPx(18),color: Colors.white,),
+                  Icon(Icons.equalizer,size: getWidthPx(22),color: Colors.white,),
                   getSizeBox(width: getWidthPx(10)),
                   Text('${detailVM.getVideoDuration(entity.data.durationms)}',
-                    style: TextStyle(color: Colors.white,fontSize: getSp(18)),)
+                    style: TextStyle(color: Colors.white,fontSize: getSp(22)),)
                 ],
               ),
             ),
@@ -181,59 +202,75 @@ class DetailPage extends PageState{
       height: getWidthPx(80),
       child: Row(
         children: <Widget>[
-          ShowImageUtil.showImageWithDefaultError(entity.data.creator.avatarUrl
+          ShowImageUtil.showImageWithDefaultError(entity.data.creator.avatarUrl + ShowImageUtil.img50
               , getWidthPx(80), getWidthPx(80),borderRadius: getWidthPx(40)),
           getSizeBox(width: getWidthPx(20)),
           Text('${entity.data.creator.nickname}',style: TextStyle(color: Colors.black,
-                fontSize: getSp(20)),),
+                fontSize: getSp(26)),),
           Expanded(
             child: const SizedBox(),
           ),
           ///赞
           Container(
             height: getWidthPx(80),
+            width: getWidthPx(100),
             child: Stack(
+              alignment: Alignment.center,
               children: <Widget>[
                 GestureDetector(
                   onTap: (){
                     //todo
                   },
-                  child: Icon(Icons.thumb_up,size: getWidthPx(30),
+                  child: Icon(Icons.thumb_up,size: getWidthPx(40),
                     color:entity.data.praised ?Colors.red: Colors.grey,),
                 ),
-                Positioned(right: 0,
-                  top: 0,
+                Positioned(left: getWidthPx(55), top: getWidthPx(5),
                   child: Text(detailVM.getPraisedCount(entity.data.praisedCount),
-                    style: TextStyle(fontSize: getSp(14),color: Colors.grey),),)
+                    style: TextStyle(fontSize: getSp(16),color: Colors.grey),),)
               ],
             ),
           ),
+          getSizeBox(width: getWidthPx(10)),
           ///评论
           Container(
             height: getWidthPx(80),
+            width: getWidthPx(100),
             child: Stack(
+              alignment: Alignment.center,
               children: <Widget>[
                 GestureDetector(
                   onTap: (){
                     //todo
                   },
-                  child: Icon(Icons.comment,size: getWidthPx(30),
+                  child: Icon(Icons.message,size: getWidthPx(40),
                     color:Colors.grey,),
                 ),
-                Positioned(right: 0,
-                  top: 0,
-                  child: Text(detailVM.getPraisedCount(entity.data.praisedCount),
-                    style: TextStyle(fontSize: getSp(14),color: Colors.grey),),)
+                Positioned(left: getWidthPx(45), top: getWidthPx(0),
+                  child: Container(
+                    padding: EdgeInsets.all(getWidthPx(8)),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle
+                    ),child: Text(detailVM.getPraisedCount(entity.data.praisedCount),
+                    style: TextStyle(fontSize: getSp(16),color: Colors.grey),),
+                  ),)
               ],
             ),
           ),
           ///more
           getSizeBox(width: getWidthPx(40)),
-          Icon(Icons.more_vert,size: getWidthPx(20),color: Colors.grey,)
+          Icon(Icons.more_vert,size: getWidthPx(40),color: Colors.grey,)
 
         ],
       ),
     );
+  }
+
+  @override
+  bool get wantKeepAlive => needKeep();
+
+  bool needKeep() {
+    return (index - currentIndex).abs() < 5;
   }
   
 
