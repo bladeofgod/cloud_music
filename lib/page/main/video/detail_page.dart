@@ -278,7 +278,7 @@ class DetailPage extends PageState with AutomaticKeepAliveClientMixin{
   bool get wantKeepAlive => needKeep();
 
   bool needKeep() {
-    return (index - currentIndex).abs() < 5;
+    return (index - currentIndex).abs() < 3;
   }
   
 
