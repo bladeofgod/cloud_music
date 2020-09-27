@@ -4,6 +4,7 @@
 */
 
 import 'package:cloud_music/base_framework/config/net/bedrock_http.dart';
+import 'package:cloud_music/page/main/entity/mine/user_like_entity.dart';
 import 'package:cloud_music/page/main/entity/recommend_song_entity.dart';
 import 'package:cloud_music/page/main/entity/user_song_entity.dart';
 import 'package:cloud_music/service_api/base_api.dart';
@@ -39,5 +40,19 @@ class MineApi extends BaseApi{
       }).toList();
     }
   }
+  ///获取用户喜欢的音乐 [1,2,3,4,5]
+
+  Future<UserLikeEntity> getUserLikeSongs({int userId})async{
+    var response = await bedRock.get('/likelist',
+      queryParameters: {'uid':userId});
+    if(response == null){
+      return null;
+    }else{
+      return UserLikeEntity.fromList(response.data.data['ids']);
+    }
+  }
+
+  ///获取用户详情
+
 
 }
