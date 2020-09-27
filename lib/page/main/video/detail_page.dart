@@ -43,6 +43,7 @@ class DetailPage extends PageState with AutomaticKeepAliveClientMixin{
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Consumer<UserViewModel>(
       builder: (ctx,userModel,child){
         return ProviderWidget<DetailVM>(
