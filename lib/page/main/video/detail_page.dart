@@ -56,6 +56,14 @@ class DetailPage extends PageState with AutomaticKeepAliveClientMixin{
                 child: Center(child: CircularProgressIndicator(),),
               );
             }
+            if(model.empty){
+              return Container(
+                child: Center(child: RaisedButton(
+                  child: Text('暂无推荐视频，请稍后再试'),
+                  onPressed: model.initData,
+                ),),
+              );
+            }
             return Container(
               color: Color.fromRGBO(238, 238, 238, 1),
               child: SmartRefresher(
