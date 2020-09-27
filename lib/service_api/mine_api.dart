@@ -4,6 +4,7 @@
 */
 
 import 'package:cloud_music/base_framework/config/net/bedrock_http.dart';
+import 'package:cloud_music/page/main/entity/mine/user_detail_entity.dart';
 import 'package:cloud_music/page/main/entity/mine/user_like_entity.dart';
 import 'package:cloud_music/page/main/entity/recommend_song_entity.dart';
 import 'package:cloud_music/page/main/entity/user_song_entity.dart';
@@ -53,6 +54,15 @@ class MineApi extends BaseApi{
   }
 
   ///获取用户详情
-
+  
+  Future<UserDetailEntity> getDetailData({int uid})async{
+    var response = await bedRock.get('/user/detail',
+      queryParameters: {'uid':uid});
+    if(response == null){
+      return null;
+    }else{
+      return UserDetailEntity.fromJson(response.data.data);
+    }
+  }
 
 }

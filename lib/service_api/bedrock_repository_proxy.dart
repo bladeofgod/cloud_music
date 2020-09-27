@@ -7,6 +7,7 @@
 
 import 'package:cloud_music/service_api/discovery_api.dart';
 import 'package:cloud_music/service_api/login_api.dart';
+import 'package:cloud_music/service_api/mine_api.dart';
 import 'package:cloud_music/service_api/village_api.dart';
 import 'video_api.dart';
 
@@ -34,7 +35,8 @@ class BedrockRepositoryProxy{
   final LoginApi loginApi = LoginApi();
   ///云村
   final VillageApi villageApi = VillageApi();
-
+  ///我的
+  final MineApi mineApi = MineApi();
 
 
 

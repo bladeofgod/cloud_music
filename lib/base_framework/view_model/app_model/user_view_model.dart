@@ -24,7 +24,7 @@ class UserViewModel extends ChangeNotifier{
 
   get user => _userEntity;
 
-  String get userId => _userEntity.profile.userId.toString();
+  int get userId => _userEntity.profile.userId;
   String get userName => _userEntity.profile.nickname;
   String get userAvatar => _userEntity.profile.avatarUrl;
 
