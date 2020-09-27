@@ -8,7 +8,7 @@ class VideoPageVM extends SingleViewStateModel<List<VideoGroupEntity>>{
 
   final List<VideoGroupEntity> groupList = [];
   VideoPageVM(){
-    groupList.add(VideoGroupEntity(name: '推荐',id: 00001));
+    //groupList.add(VideoGroupEntity(name: '推荐',id: 00001));
   }
 
   @override
