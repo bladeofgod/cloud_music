@@ -17,7 +17,7 @@ class VillageVM extends RefreshListViewStateModel<VillageEntity>{
 
 
   String getLikeCount(int count){
-    return count < 10000 ? '$count' : '${(count/10000).toStringAsFixed(1)} 万';
+    return count < 10000 ? '$count' : '${(count/10000).floor()} 万';
   }
 
 

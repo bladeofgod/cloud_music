@@ -22,13 +22,13 @@ class VillagePageEntity{
   }
 }
 class VillageEntity {
-  int id;
+  num id;
   String threadId;
   String content;
-  int time;
+  num time;
   SimpleUserInfo simpleUserInfo;
-  int likedCount;
-  int replyCount;
+  num likedCount;
+  num replyCount;
   SimpleResourceInfo simpleResourceInfo;
   bool liked;
 
@@ -79,11 +79,11 @@ class VillageEntity {
 }
 
 class SimpleUserInfo {
-  int userId;
+  num userId;
   String nickname;
   String avatar;
   bool followed;
-  int userType;
+  num userType;
 
   SimpleUserInfo(
       {this.userId, this.nickname, this.avatar, this.followed, this.userType});
@@ -108,7 +108,7 @@ class SimpleUserInfo {
 }
 
 class SimpleResourceInfo {
-  int songId;
+  num songId;
   String threadId;
   String name;
   List<Artists> artists;
@@ -162,7 +162,7 @@ class SimpleResourceInfo {
 }
 
 class Artists {
-  int id;
+  num id;
   String name;
 
   Artists({this.id, this.name});
@@ -182,38 +182,38 @@ class Artists {
 
 class Song {
   String name;
-  int id;
-  int pst;
-  int t;
+  num id;
+  num pst;
+  num t;
   List<Ar> ar;
   List<dynamic> alia;
-  int pop;
-  int st;
+  num pop;
+  num st;
   dynamic rt;
-  int fee;
-  int v;
+  num fee;
+  num v;
   dynamic crbt;
   String cf;
   Al al;
-  int dt;
+  num dt;
   H h;
   H m;
   H l;
   dynamic a;
   String cd;
-  int no;
+  num no;
   dynamic rtUrl;
-  int ftype;
+  num ftype;
   List<dynamic> rtUrls;
-  int djId;
-  int copyright;
-  int sId;
-  int mv;
+  num djId;
+  num copyright;
+  num sId;
+  num mv;
   dynamic rurl;
-  int rtype;
-  int mst;
-  int cp;
-  int publishTime;
+  num rtype;
+  num mst;
+  num cp;
+  num publishTime;
 
   Song(
       {this.name,
@@ -355,7 +355,7 @@ class Song {
 }
 
 class Ar {
-  int id;
+  num id;
   String name;
   List<dynamic> tns;
   List<dynamic> alias;
@@ -394,11 +394,11 @@ class Ar {
 }
 
 class Al {
-  int id;
+  num id;
   String name;
   String picUrl;
   List<dynamic> tns;
-  int pic;
+  num pic;
 
   Al({this.id, this.name, this.picUrl, this.tns, this.pic});
 
@@ -429,10 +429,10 @@ class Al {
 }
 
 class H {
-  int br;
-  int fid;
-  int size;
-  int vd;
+  num br;
+  num fid;
+  num size;
+  num vd;
 
   H({this.br, this.fid, this.size, this.vd});
 
@@ -454,20 +454,20 @@ class H {
 }
 
 class Privilege {
-  int id;
-  int fee;
-  int payed;
-  int st;
-  int pl;
-  int dl;
-  int sp;
-  int cp;
-  int subp;
+  num id;
+  num fee;
+  num payed;
+  num st;
+  num pl;
+  num dl;
+  num sp;
+  num cp;
+  num subp;
   bool cs;
-  int maxbr;
-  int fl;
+  num maxbr;
+  num fl;
   bool toast;
-  int flag;
+  num flag;
   bool preSell;
 
   Privilege(

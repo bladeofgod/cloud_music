@@ -282,7 +282,8 @@ class VillagePage extends PageState with AutomaticKeepAliveClientMixin,
     }
     return Container(
       color: Color.fromRGBO(238, 238, 238, 1),
-      padding: EdgeInsets.only(left: getWidthPx(30),right: getWidthPx(30)),
+      padding: EdgeInsets.only(left: getWidthPx(30),right: getWidthPx(30),
+        bottom: getWidthPx(50)),
       child: SmartRefresher(
           controller:villageVM.refreshController ,
           enablePullDown: true,

@@ -32,15 +32,21 @@ class MinePage extends PageState with AutomaticKeepAliveClientMixin{
     return Consumer<UserViewModel>(
       builder: (ctx,userModel,child){
         userViewModel = userModel;
+        if(mineVM == null){
+          mineVM = MineVM(userModel);
+          if(mineVM.userDetailEntity == null && userModel.hasUser){
+            debugPrint('加载详情');
+            mineVM.initData();
+          }
+        }
+
         return ProviderWidget<MineVM>(
-          model: MineVM(userModel),
+          model:mineVM ,
           onModelReady: (model){
             //model.initData();
           },
           builder: (ctx,model,child){
-            if(model.userDetailEntity == null && userModel.hasUser){
-              model.initData();
-            }
+
             mineVM = model;
             return SingleChildScrollView(
               controller: mineVM.controller,

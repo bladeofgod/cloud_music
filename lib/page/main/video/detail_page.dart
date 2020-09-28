@@ -214,7 +214,7 @@ class DetailPage extends PageState with AutomaticKeepAliveClientMixin{
           ShowImageUtil.showImageWithDefaultError(entity.data.creator.avatarUrl + ShowImageUtil.img50
               , getWidthPx(80), getWidthPx(80),borderRadius: getWidthPx(40)),
           getSizeBox(width: getWidthPx(20)),
-          Text('${entity.data.creator.nickname}',style: TextStyle(color: Colors.black,
+          Text('${detailVM.getName(entity.data.creator.nickname)}',style: TextStyle(color: Colors.black,
                 fontSize: getSp(26)),),
           Expanded(
             child: const SizedBox(),

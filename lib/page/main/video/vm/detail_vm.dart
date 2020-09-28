@@ -18,6 +18,9 @@ class DetailVM extends RefreshListViewStateModel<VideoEntity>
 
   DetailVM(this.groupEntity);
 
+  String getName(String name){
+    return name.length > 12 ? name.substring(0,12):name;
+  }
 
   @override
   Future<List<VideoEntity>> loadData({int pageNum}) {
