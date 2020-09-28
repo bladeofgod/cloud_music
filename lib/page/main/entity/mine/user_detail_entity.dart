@@ -17,8 +17,8 @@ class UserDetailEntity{
   bool adValid;
 
   UserDetailEntity.fromJson(Map<String,dynamic> json){
-    userPoint = json['userPoint'] != null ? UserPoint.fromJson(json[userPoint]) : null;
-    profile = json['profile'] != null ? Profile.fromJson(json[profile]) : null;
+    userPoint = json['userPoint'] != null ? UserPoint.fromJson(json['userPoint']) : null;
+    profile = json['profile'] != null ? Profile.fromJson(json['profile']) : null;
     if(json['bindings'] != null){
       bindings = [];
       json['bindings'].map((j){

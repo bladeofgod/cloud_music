@@ -9,6 +9,7 @@ import 'package:cloud_music/base_framework/utils/show_image_util.dart';
 import 'package:cloud_music/base_framework/view_model/app_model/user_view_model.dart';
 import 'package:cloud_music/base_framework/widget_state/page_state.dart';
 import 'package:cloud_music/page/login/login_page.dart';
+import 'package:cloud_music/page/main/entity/user_song_entity.dart';
 import 'package:cloud_music/page/main/mine/vm/mine_vm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -86,7 +87,7 @@ class MinePage extends PageState with AutomaticKeepAliveClientMixin{
       height: getWidthPx(120),width: getWidthPx(710),
       child: Stack(
         alignment: Alignment.centerLeft,
-        children: userViewModel.hasUser
+        children: mineVM.hasUser()
             ? hasUser() : noUser(),
       ),
     );
@@ -138,23 +139,24 @@ class MinePage extends PageState with AutomaticKeepAliveClientMixin{
           children: <Widget>[
             ///vip
             Container(
-              width: getWidthPx(80),height: getWidthPx(30),
+              width: getWidthPx(100),height: getWidthPx(40),
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: Colors.grey,borderRadius: BorderRadius.circular(getWidthPx(15)),
+                color: Colors.grey,borderRadius: BorderRadius.circular(getWidthPx(20)),
               ),
               child: Text('VIP开通',style: TextStyle(color: Colors.white,
-                fontWeight: FontWeight.bold,fontSize: getSp(26)),),
+                fontWeight: FontWeight.bold,fontSize: getSp(24)),),
             ),
+            getSizeBox(width: getWidthPx(10)),
             ///lvl
             Container(
-              width: getWidthPx(60),height: getWidthPx(30),
+              width: getWidthPx(80),height: getWidthPx(40),
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: Colors.grey,borderRadius: BorderRadius.circular(getWidthPx(15)),
+                color: Color.fromRGBO(238, 238, 238, 1),borderRadius: BorderRadius.circular(getWidthPx(20)),
               ),
-              child: Text('Lv.${mineVM.getUserLvl()}',style: TextStyle(color: Colors.white,
-                  fontWeight: FontWeight.bold,fontSize: getSp(26)),),
+              child: Text('Lv.${mineVM.getUserLvl()}',style: TextStyle(color: Colors.black,
+                  fontWeight: FontWeight.bold,fontSize: getSp(24)),),
             ),
 
 
@@ -164,7 +166,7 @@ class MinePage extends PageState with AutomaticKeepAliveClientMixin{
       
       Positioned(
         right: 0,
-        child: Icon(Icons.chevron_right,size: getWidthPx(30),color: Colors.black,),
+        child: Icon(Icons.chevron_right,size: getWidthPx(60),color: Colors.black,),
       ),
 
 
@@ -348,7 +350,9 @@ class MinePage extends PageState with AutomaticKeepAliveClientMixin{
   List<Widget> insertSongList(){
     List<Widget> childs = [];
     if(userViewModel.hasUser && mineVM.songList != null){
-      //todo
+      mineVM.songList.forEach((element) {
+        childs.add(songItemWidget(element));
+      });
       childs.add(addSongsWidget());
 
     }else{
@@ -357,6 +361,44 @@ class MinePage extends PageState with AutomaticKeepAliveClientMixin{
     }
     return childs;
   }
+
+  ///歌单
+  Widget songItemWidget(UserSongEntity entity){
+    return Container(
+      height: getWidthPx(140),width: getWidthPx(670),
+      child: Stack(
+        alignment: Alignment.centerLeft,
+        children: <Widget>[
+          Container(
+            width: getWidthPx(110),height: getWidthPx(110),
+            child: ShowImageUtil.showImageWithDefaultError(
+            entity.coverImgUrl+ShowImageUtil.img200, getWidthPx(110), getWidthPx(110),
+              borderRadius: getWidthPx(20)),
+          ),
+          ///name
+          Positioned(
+            left: getWidthPx(130),top: getWidthPx(25),
+            child: Text('${entity.name}',style: TextStyle(color: Colors.black,fontSize: getSp(30)),),
+          ),
+          ///count
+          Positioned(
+            left: getWidthPx(130),bottom: getWidthPx(25),
+            child: Text('${entity.trackCount}首',style: TextStyle(color: Colors.grey,fontSize: getSp(28)),),
+          ),
+
+          Positioned(
+            right: 0,
+            child: Icon(Icons.more_vert,color:Colors.grey ,size: getWidthPx(50),),
+          ),
+
+
+
+        ],
+      ),
+    );
+  }
+
+  ///导入外部歌单
   Widget addSongsWidget(){
     return Container(
       height: getWidthPx(140),

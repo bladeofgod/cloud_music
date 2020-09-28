@@ -32,6 +32,10 @@ class MineVM extends SingleViewStateModel{
     notifyListeners();
   }
 
+  bool hasUser(){
+    return userViewModel.hasUser&&userDetailEntity != null;
+  }
+
 
   int getUserLvl(){
     return userDetailEntity.level;
@@ -50,7 +54,7 @@ class MineVM extends SingleViewStateModel{
   @override
   Future loadData() {
     List<Future> futures = [];
-    futures.add(BedrockRepositoryProxy().mineApi.getDetailData());
+    futures.add(BedrockRepositoryProxy().mineApi.getDetailData(uid: userViewModel.userId));
     futures.add(BedrockRepositoryProxy().mineApi.getUserLikeSongs(userId: userViewModel.userId));
     futures.add(BedrockRepositoryProxy().mineApi.getUserSongList(userId: userViewModel.userId));
     var result = Future.wait(futures);
