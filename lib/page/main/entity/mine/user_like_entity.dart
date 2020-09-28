@@ -8,8 +8,8 @@ class UserLikeEntity{
 
   List<int> likes = [];
 
-  UserLikeEntity.fromList(dynamic ids){
-    ids.map((id){
+  UserLikeEntity.fromList(List<dynamic> ids){
+    ids.forEach((id){
       likes.add(id);
     });
   }
