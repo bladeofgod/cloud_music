@@ -33,6 +33,8 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 * 其它页面估计也有这种情况
 *
 * news ：  接口返回的数据格式会变，数量也会变...
+*
+* Tips: 我这里只是demo书写随意，实际开发时，应尽量将复杂页面模块，然后局部刷新。
 * */
 
 class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
