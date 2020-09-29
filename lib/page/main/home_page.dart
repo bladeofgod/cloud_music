@@ -10,6 +10,7 @@ import 'package:cloud_music/page/main/drawer/drawer_page.dart';
 import 'package:cloud_music/page/main/mine/mine_page.dart';
 import 'package:cloud_music/page/main/video/video_page.dart';
 import 'package:cloud_music/page/main/village/village_page.dart';
+import 'package:cloud_music/page/main/widget/music_controll_widget.dart';
 import 'package:cloud_music/service_api/bedrock_repository_proxy.dart';
 import 'package:flutter/material.dart';
 
@@ -52,12 +53,7 @@ class HomePage extends PageState{
                   buildBody(),
                   Positioned(
                     bottom: 0,
-                    child: Container(
-                      color: Colors.white,
-                      width: getWidthPx(750),height: bottomPadding,
-                      alignment: Alignment.center,
-                      child: Text('功能区域...待开发'),
-                    ),
+                    child: MusicControllWidget().generateWidget(),
                   ),
                 ],
               )),
