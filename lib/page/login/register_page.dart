@@ -97,6 +97,7 @@ class RegisterPage extends PageState{
         onChanged: (text){
           registerVM.setPWD(text);
         },
+        obscureText: true,
         style: TextStyle(color: Colors.black,fontSize: getSp(32)),
         decoration: InputDecoration(
           border: InputBorder.none,
