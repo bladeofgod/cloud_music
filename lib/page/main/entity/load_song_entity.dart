@@ -8,9 +8,9 @@ class LoadSongEntity{
 
   String coverImgUrl;
   String songName;
-  String songResUrl;
+  int songId;
 
-  LoadSongEntity(this.coverImgUrl, this.songName, this.songResUrl);
+  LoadSongEntity(this.coverImgUrl, this.songName, this.songId);
 }
 
 

@@ -53,7 +53,7 @@ class HomePage extends PageState{
                   buildBody(),
                   Positioned(
                     bottom: 0,
-                    child: MusicControllWidget().generateWidget(),
+                    child: MusicControlWidget().generateWidget(),
                   ),
                 ],
               )),

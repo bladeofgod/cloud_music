@@ -5,47 +5,64 @@
 
 
 
+import 'package:cloud_music/base_framework/ui/widget/provider_widget.dart';
+import 'package:cloud_music/base_framework/utils/show_image_util.dart';
 import 'package:cloud_music/base_framework/widget_state/widget_state.dart';
 import 'package:cloud_music/page/main/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_music/page/main/vm/music_controll_vm.dart';
 
 
-class MusicControllWidget extends WidgetState{
+class MusicControlWidget extends WidgetState{
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border(top: BorderSide(width: getWidthPx(1),
-            color: Color.fromRGBO(238, 238, 238, 1))),
-      ),
-      width: getWidthPx(750),height: HomePage.bottomPadding,
-      //alignment: Alignment.center,
-      child: Stack(
-        children: <Widget>[
-          Icon(Icons.music_note,size: getWidthPx(100),color: Colors.red,),
-          Positioned(
-            top: getWidthPx(10),
-            left: getWidthPx(110),
-            child: Text('music name',style: TextStyle(color: Colors.black,fontSize: getSp(32)),),
+
+    return ProviderWidget(
+      model: musicController,
+      onModelReady: (model){},
+      builder: (ctx,model,child){
+        return Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border(top: BorderSide(width: getWidthPx(1),
+                color: Color.fromRGBO(238, 238, 238, 1))),
           ),
-          Positioned(
-            bottom: getWidthPx(10),
-            left: getWidthPx(110),
-            child: Text('横滑可以切换上下首哦',style: TextStyle(color: Colors.grey,fontSize: getSp(26)),),
+          width: getWidthPx(750),height: HomePage.bottomPadding,
+          //alignment: Alignment.center,
+          child: Stack(
+            children: <Widget>[
+              ShowImageUtil.showImageWithDefaultError(musicController.getMusicImg(),
+                  getWidthPx(100), getWidthPx(100),borderRadius: getWidthPx(50)),
+              Positioned(
+                top: getWidthPx(10),
+                left: getWidthPx(110),
+                child: Text('${musicController.getMusicName()}',
+                  style: TextStyle(color: Colors.black,fontSize: getSp(32)),),
+              ),
+              Positioned(
+                bottom: getWidthPx(10),
+                left: getWidthPx(110),
+                child: Text('横滑可以切换上下首哦',
+                  style: TextStyle(color: Colors.grey,fontSize: getSp(26)),),
+              ),
+              ///play
+              Positioned(
+                right: getWidthPx(100),
+                child: Icon(musicController.musicState == MusicControlState.Playing ?
+                    Icons.pause_circle_outline
+                    :
+                Icons.play_circle_outline,
+                  size: getWidthPx(90),color: Colors.black,),
+              ),
+              ///list
+              Positioned(
+                right: 0,
+                child: Icon(Icons.playlist_play,color: Colors.black,size: getWidthPx(90),),
+              ),
+            ],
           ),
-          ///play
-          Positioned(
-            right: getWidthPx(100),
-            child: Icon(Icons.play_circle_outline,size: getWidthPx(90),color: Colors.black,),
-          ),
-          ///list
-          Positioned(
-            right: 0,
-            child: Icon(Icons.playlist_play,color: Colors.black,size: getWidthPx(90),),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 

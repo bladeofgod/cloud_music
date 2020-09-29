@@ -24,6 +24,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import '../vm/music_controll_vm.dart';
+import '../entity/load_song_entity.dart';
 
 /*
 * 因为数据结构不标准，导致这个页面内的代码有很多冗余
@@ -715,6 +717,9 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
             child: GestureDetector(
               onTap: (){
                 //todo
+                LoadSongEntity entity = LoadSongEntity(resources.uiElement.image.imageUrl,
+                  resources.resourceExtInfo.songData.name,resources.resourceExtInfo.songData.id);
+                musicController.playMusic(entity);
               },
               child: Container(
                 color: Colors.white,
