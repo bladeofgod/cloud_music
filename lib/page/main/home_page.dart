@@ -30,7 +30,7 @@ class HomePage extends PageState{
   @override
   void initState() {
     horPadding = getWidthPx(30);
-    bottomPadding = getWidthPx(100);
+    bottomPadding = getWidthPx(120);
     pageController = PageController(initialPage: 1);
     super.initState();
     pageController.addListener(() {

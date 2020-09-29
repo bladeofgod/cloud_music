@@ -30,29 +30,36 @@ class MusicControlWidget extends WidgetState{
           width: getWidthPx(750),height: HomePage.bottomPadding,
           //alignment: Alignment.center,
           child: Stack(
+            alignment: Alignment.centerLeft,
             children: <Widget>[
-              ShowImageUtil.showImageWithDefaultError(musicController.getMusicImg(),
-                  getWidthPx(100), getWidthPx(100),borderRadius: getWidthPx(50)),
               Positioned(
-                top: getWidthPx(10),
-                left: getWidthPx(110),
+                left: getWidthPx(10),
+                child: ShowImageUtil.showImageWithDefaultError(musicController.getMusicImg(),
+                    getWidthPx(100), getWidthPx(100),borderRadius: getWidthPx(50)),
+              ),
+              Positioned(
+                top: getWidthPx(15),
+                left: getWidthPx(120),
                 child: Text('${musicController.getMusicName()}',
                   style: TextStyle(color: Colors.black,fontSize: getSp(32)),),
               ),
               Positioned(
-                bottom: getWidthPx(10),
-                left: getWidthPx(110),
+                bottom: getWidthPx(15),
+                left: getWidthPx(120),
                 child: Text('横滑可以切换上下首哦',
                   style: TextStyle(color: Colors.grey,fontSize: getSp(26)),),
               ),
               ///play
               Positioned(
                 right: getWidthPx(100),
-                child: Icon(musicController.musicState == MusicControlState.Playing ?
-                    Icons.pause_circle_outline
-                    :
-                Icons.play_circle_outline,
-                  size: getWidthPx(90),color: Colors.black,),
+                child: GestureDetector(
+                  onTap: musicController.playBtnTap,
+                  child: Icon(musicController.musicState == MusicControlState.Playing ?
+                  Icons.pause_circle_outline
+                      :
+                  Icons.play_circle_outline,
+                    size: getWidthPx(90),color: Colors.black,),
+                ),
               ),
               ///list
               Positioned(

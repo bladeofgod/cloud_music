@@ -698,7 +698,10 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
           Positioned(
             left: getWidthPx(150),
             top: getWidthPx(20),
-            child: Text('${resources.uiElement.mainTitle.title}',style: TextStyle(color: Colors.black
+            child: Text('${resources.uiElement.mainTitle.title.length>18
+                ? resources.uiElement.mainTitle.title.substring(0,18)
+                :resources.uiElement.mainTitle.title
+            }',style: TextStyle(color: Colors.black
                 ,fontSize: getSp(30)),),
           ),
           ///sub title

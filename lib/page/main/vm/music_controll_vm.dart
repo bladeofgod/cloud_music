@@ -157,9 +157,19 @@ class _MusicControlVM extends SingleViewStateModel with MusicController{
     if(currentSong == null){
       return '添加歌曲';
     }
-    return currentSong.songName ;
+    return currentSong.songName.length > 18 ? currentSong.songName.substring(0,18) :currentSong.songName ;
   }
 
+
+  void playBtnTap(){
+    if(currentSong != null){
+      if(player.playing){
+        _pause();
+      }else{
+        _resume();
+      }
+    }
+  }
 
 
 
@@ -226,7 +236,7 @@ class MusicController {
       var entry = record.entries.first;
       if(entry.key == currentSongId){
         await player.seek(entry.value);
-        //await player.play();
+        await player.play();
       }else{
         _play();
       }
