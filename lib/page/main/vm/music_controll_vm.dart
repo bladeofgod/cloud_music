@@ -224,12 +224,12 @@ class MusicController {
 
 
   ///播放id和上次播放位置
-  ///暂时考虑只记录一个
+
   Map<int,Duration> record = Map();
 
   ///当前播放的音乐
   int currentSongId = -1;
-
+  ///暂时考虑只记录一个
   switchSong(int songId){
     record.clear();
     currentSongId = songId;
@@ -256,8 +256,12 @@ class MusicController {
     if(record.isNotEmpty){
       var entry = record.entries.first;
       if(entry.key == currentSongId){
-        await player.seek(entry.value);
-        await player.play();
+        if(player.playing){
+          await player.pause();
+        }else{
+          await player.seek(entry.value);
+          await player.play();
+        }
       }else{
         _play();
       }

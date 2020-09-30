@@ -730,9 +730,15 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
             child: GestureDetector(
               onTap: (){
                 //todo
-                LoadSongEntity entity = LoadSongEntity(resources.uiElement.image.imageUrl,
-                    resources.resourceExtInfo.songData.name,resources.resourceExtInfo.songData.id);
-                Provider.of<MusicControlVM>(context,listen: false).playMusic(entity);
+                final MusicControlVM control = Provider.of<MusicControlVM>(context,listen: false);
+                if(control.currentSongId == resources.resourceExtInfo.songData.id){
+                  control.resumeMusic();
+                }else{
+                  LoadSongEntity entity = LoadSongEntity(resources.uiElement.image.imageUrl,
+                      resources.resourceExtInfo.songData.name,resources.resourceExtInfo.songData.id);
+                  control.playMusic(entity);
+                }
+
                 ///基于bedrock的一种局部刷新方式
                 //playBtn.refreshState();
               },
