@@ -15,6 +15,15 @@ import 'package:cloud_music/base_framework/widget_state/page_state.dart';
 
 abstract class WidgetState extends BaseState with WidgetGenerator{
 
+  ///刷新widget sate
+  refreshState({Function task}){
+    if(mounted){
+      setState(task??() {
+
+      });
+    }
+  }
+
 }
 
 

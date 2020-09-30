@@ -58,11 +58,21 @@ class _MusicControlVM extends SingleViewStateModel with MusicController{
     player.positionStream.listen((duration) {
       if(player.playing){
         debugPrint('songs id : $currentSongId ----$duration');
+        debugPrint('all duration ${player.duration}');
         record[currentSongId] = duration;
+        if(player.duration != null){
+          updateMusicProgress(duration.inSeconds/player.duration.inSeconds);
+        }
       }
 
     });
 
+  }
+
+  double progress = 0.0;
+  updateMusicProgress(double p){
+    progress = p.clamp(0.0, 1.0);
+    notifyListeners();
   }
 
 

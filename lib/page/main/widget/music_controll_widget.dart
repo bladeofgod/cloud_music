@@ -9,6 +9,7 @@ import 'package:cloud_music/base_framework/ui/widget/provider_widget.dart';
 import 'package:cloud_music/base_framework/utils/show_image_util.dart';
 import 'package:cloud_music/base_framework/widget_state/widget_state.dart';
 import 'package:cloud_music/page/main/home_page.dart';
+import 'package:cloud_music/page/main/widget/control_bar_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_music/page/main/vm/music_controll_vm.dart';
 
@@ -54,11 +55,12 @@ class MusicControlWidget extends WidgetState{
                 right: getWidthPx(100),
                 child: GestureDetector(
                   onTap: musicController.playBtnTap,
-                  child: Icon(musicController.musicState == MusicControlState.Playing ?
-                  Icons.pause_circle_outline
-                      :
-                  Icons.play_circle_outline,
-                    size: getWidthPx(90),color: Colors.black,),
+                  child: ControlBarBtn(getWidthPx(70),getWidthPx(4),getWidthPx(50)).generateWidget()
+//                  Icon(musicController.musicState == MusicControlState.Playing ?
+//                  Icons.pause_circle_outline
+//                      :
+//                  Icons.play_circle_outline,
+//                    size: getWidthPx(90),color: Colors.black,),
                 ),
               ),
               ///list
