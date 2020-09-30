@@ -21,7 +21,7 @@ class ControlBarBtn extends WidgetState{
 
   @override
   Widget build(BuildContext context) {
-    debugPrint('progress ---- ${musicController.progress}');
+
     return Stack(
       alignment: Alignment.center,
       children: <Widget>[
@@ -57,23 +57,29 @@ class ControlBtnPainter extends CustomPainter{
   double progress = 0.0;
   final double borderWidth;
 
-  ControlBtnPainter(this.progress,this.borderWidth);
+  final Paint p = Paint();
+  final Paint blackPaint = Paint();
 
+  ControlBtnPainter(this.progress,this.borderWidth){
+
+    p.strokeWidth = borderWidth;
+    p.isAntiAlias = true;
+    p.style = PaintingStyle.stroke;
+  }
+
+  final double pi2 = pi*2;
+  final double halfPi = pi/2;
 
   @override
   void paint(Canvas canvas, Size size) {
-    final Paint paint = Paint();
-    paint.color = Colors.red;
-    paint.strokeWidth = borderWidth;
-    paint.isAntiAlias = true;
-    paint.style = PaintingStyle.stroke;
-    debugPrint('size - $size');
+
     Rect rect = Rect.fromCircle(center: Offset(size.width/2,size.height/2),radius: size.width/2);
+    p.color = Colors.black;
+    canvas.drawArc(rect, 0.0, 2*pi, false, p);
     final redRadius = 2*pi * progress;
-    debugPrint('progress :$progress   angle : $redRadius');
-    canvas.drawArc(rect, 0.0, redRadius, false, paint);
-    paint.color = Colors.black;
-    canvas.drawArc(rect, redRadius, 2*pi, false, paint);
+    p.color = Colors.red;
+    canvas.drawArc(rect, 3*halfPi, redRadius, false, p);
+
 
   }
 

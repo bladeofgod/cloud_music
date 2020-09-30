@@ -25,6 +25,7 @@ class _MusicControlVM extends SingleViewStateModel with MusicController{
   ///可以绑定更多状态ICON
   switchControlState(MusicControlState state){
     musicState = state;
+    if(state == MusicControlState.Completed) progress = 0.0;
     notifyListeners();
   }
 
@@ -34,6 +35,7 @@ class _MusicControlVM extends SingleViewStateModel with MusicController{
       if(player.playing){
         switchControlState(MusicControlState.Playing);
       }else{
+        debugPrint('music ${state.processingState}');
         switch (state.processingState) {
           case ProcessingState.none:
             switchControlState(MusicControlState.None);
@@ -48,6 +50,7 @@ class _MusicControlVM extends SingleViewStateModel with MusicController{
             switchControlState(MusicControlState.Ready);
             break;
           case ProcessingState.completed:
+
             switchControlState(MusicControlState.Completed);
             record[currentSongId] = const Duration(milliseconds: 0);
             break;
@@ -57,8 +60,6 @@ class _MusicControlVM extends SingleViewStateModel with MusicController{
     ///播放位置
     player.positionStream.listen((duration) {
       if(player.playing){
-        debugPrint('songs id : $currentSongId ----$duration');
-        debugPrint('all duration ${player.duration}');
         record[currentSongId] = duration;
         if(player.duration != null){
           updateMusicProgress(duration.inSeconds/player.duration.inSeconds);
@@ -72,7 +73,17 @@ class _MusicControlVM extends SingleViewStateModel with MusicController{
   double progress = 0.0;
   updateMusicProgress(double p){
     progress = p.clamp(0.0, 1.0);
+    if(progress == 1)manualComplete();
     notifyListeners();
+  }
+
+  ///不知道是不是因为网易接口原因（未登录无法听整首歌），
+  /// playerStateStream 状态的complete不会触发
+  /// 手动处理一下
+  void manualComplete(){
+    if(player.playing){
+      switchControlState(MusicControlState.Completed);
+    }
   }
 
 
