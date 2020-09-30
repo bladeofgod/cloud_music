@@ -6,6 +6,7 @@
 
 
 import 'package:cloud_music/base_framework/ui/widget/provider_widget.dart';
+import 'package:cloud_music/base_framework/utils/image_helper.dart';
 import 'package:cloud_music/base_framework/utils/show_image_util.dart';
 import 'package:cloud_music/base_framework/widget_state/widget_state.dart';
 import 'package:cloud_music/page/main/home_page.dart';
@@ -55,7 +56,7 @@ class MusicControlWidget extends WidgetState{
               ),
               ///play
               Positioned(
-                right: getWidthPx(100),
+                right: getWidthPx(120),
                 child: GestureDetector(
                   onTap: musicController.playBtnTap,
                   child: ControlBarBtn(getWidthPx(70),getWidthPx(4),getWidthPx(50)).generateWidget()
@@ -68,8 +69,9 @@ class MusicControlWidget extends WidgetState{
               ),
               ///list
               Positioned(
-                right: 0,
-                child: Icon(Icons.playlist_play,color: Colors.black,size: getWidthPx(90),),
+                right: getWidthPx(10),
+                child:Image.asset(ImageHelper.wrapAssetsIcon('icon_song_list'),
+                        width: getWidthPx(60),height: getWidthPx(60),),
               ),
             ],
           ),

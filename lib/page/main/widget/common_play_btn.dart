@@ -24,7 +24,6 @@ class CommonPlayBtn extends WidgetState{
 
     return Consumer<MusicControlVM>(
       builder: (ctx,model,child){
-        debugPrint('$songId == ${model.currentSongId}');
       return (songId == model.currentSongId
           && model.musicState == MusicControlState.Playing)
           ? pause : play;
