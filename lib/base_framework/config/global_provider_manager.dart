@@ -13,6 +13,7 @@ import 'package:cloud_music/base_framework/view_model/app_model/device_model.dar
 import 'package:cloud_music/base_framework/view_model/app_model/locale_model.dart';
 import 'package:cloud_music/base_framework/view_model/app_model/user_view_model.dart';
 import 'package:cloud_music/base_framework/view_model/app_model/app_status_model.dart';
+import 'package:cloud_music/page/main/vm/music_controll_vm.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -30,9 +31,9 @@ List<SingleChildWidget> independentServices = [
   ChangeNotifierProvider<DeviceModel>.value(value: DeviceModel()),//设备model
   //global app cache model
   ChangeNotifierProvider<AppCacheModel>.value(value: AppCacheModel()),//项目缓存model
-//  ///这里应该放入一个购物车
-//  ChangeNotifierProvider<GlobalCartGoodsModel>.value(value:
-//  GlobalCartGoodsModel()),
+  //music control
+  ChangeNotifierProvider<MusicControlVM>.value(value: MusicControlVM()),
+
   ///2020.3.10  目前应该没有购物车等可以与用户绑定,这里将用户model抽到上层
   ChangeNotifierProvider<UserViewModel>.value(value: UserViewModel()),//用户 model
 

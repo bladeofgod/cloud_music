@@ -8,6 +8,8 @@ import 'package:cloud_music/page/main/vm/music_controll_vm.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
+import 'package:provider/provider.dart';
+
 
 class ControlBarBtn extends WidgetState{
 
@@ -22,30 +24,34 @@ class ControlBarBtn extends WidgetState{
   @override
   Widget build(BuildContext context) {
 
-    return Stack(
-      alignment: Alignment.center,
-      children: <Widget>[
-        Container(
-          width: size,height: size,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            shape: BoxShape.circle,
-          ),
+    return Consumer<MusicControlVM>(
+      builder: (ctx,model,child){
+        return Stack(
           alignment: Alignment.center,
-          child:CustomPaint(
-            size: Size(size,size),
-            painter: ControlBtnPainter(musicController.progress,borderSize),
-          ),
-        ),
-        Icon(
-          musicController.musicState == MusicControlState.Playing ?
-          Icons.pause
-              :
-          Icons.play_arrow,
-          size:iconSize,color: musicController.musicState == MusicControlState.Playing
-            ? Colors.red : Colors.black,
-        ),
-      ],
+          children: <Widget>[
+            Container(
+              width: size,height: size,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+              ),
+              alignment: Alignment.center,
+              child:CustomPaint(
+                size: Size(size,size),
+                painter: ControlBtnPainter(model.progress,borderSize),
+              ),
+            ),
+            Icon(
+              model.musicState == MusicControlState.Playing ?
+              Icons.pause
+                  :
+              Icons.play_arrow,
+              size:iconSize,color: model.musicState == MusicControlState.Playing
+                ? Colors.red : Colors.black,
+            ),
+          ],
+        );
+      }
     );
 
   }

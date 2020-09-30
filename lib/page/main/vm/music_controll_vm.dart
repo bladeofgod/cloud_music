@@ -11,12 +11,12 @@ import 'package:cloud_music/service_api/bedrock_repository_proxy.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:just_audio/just_audio.dart';
 
-final _MusicControlVM musicController = _MusicControlVM();
+//final MusicControlVM musicController = MusicControlVM();
 
 
-class _MusicControlVM extends SingleViewStateModel with MusicController{
+class MusicControlVM extends SingleViewStateModel with MusicController{
 
-  _MusicControlVM(){
+  MusicControlVM(){
     init();
   }
 

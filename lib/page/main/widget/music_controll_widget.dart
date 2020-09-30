@@ -12,16 +12,19 @@ import 'package:cloud_music/page/main/home_page.dart';
 import 'package:cloud_music/page/main/widget/control_bar_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_music/page/main/vm/music_controll_vm.dart';
+import 'package:provider/provider.dart';
 
 
 class MusicControlWidget extends WidgetState{
+
+  MusicControlVM musicController;
+
   @override
   Widget build(BuildContext context) {
 
-    return ProviderWidget(
-      model: musicController,
-      onModelReady: (model){},
+    return Consumer<MusicControlVM>(
       builder: (ctx,model,child){
+        if(musicController == null) musicController = model;
         return Container(
           decoration: BoxDecoration(
             color: Colors.white,

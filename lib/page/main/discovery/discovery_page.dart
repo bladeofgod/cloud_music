@@ -9,6 +9,7 @@ import 'package:cloud_music/base_framework/utils/image_helper.dart';
 import 'package:cloud_music/base_framework/utils/show_image_util.dart';
 import 'package:cloud_music/base_framework/view_model/app_model/user_view_model.dart';
 import 'package:cloud_music/base_framework/widget_state/page_state.dart';
+import 'package:cloud_music/base_framework/widget_state/widget_state.dart';
 import 'package:cloud_music/page/main/discovery/discovery_vm.dart';
 import 'package:cloud_music/page/main/discovery/widget/music_calendar.dart';
 import 'package:cloud_music/page/main/entity/blocks/block_1.dart' as block1;
@@ -19,6 +20,7 @@ import 'package:cloud_music/page/main/entity/blocks/block_6.dart' as block6;
 import 'package:cloud_music/page/main/entity/discovery_banner_entity.dart';
 import 'package:cloud_music/page/main/entity/discovery_page_entity.dart' as pageEntity;
 import 'package:cloud_music/page/main/home_page.dart';
+import 'package:cloud_music/page/main/widget/common_play_btn.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -45,6 +47,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
   bool get wantKeepAlive => true;
 
   UserViewModel _userViewModel;
+
   DiscoveryViewModel _discoveryViewModel;
 
   PageController youAndContraoller,b6Controller;
@@ -99,6 +102,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
                   ),
                 );
               }
+              debugPrint('发现页面被刷新了');
               _discoveryViewModel = disVM;
               return buildContent();
             },
@@ -683,6 +687,12 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
   }
   
   Widget pageInnerItem(block2.Resources resources){
+    debugPrint('播放按钮被刷新');
+
+    final WidgetState playBtn = CommonPlayBtn(resources.resourceExtInfo.songData.id,
+        Icon(Icons.play_circle_outline,color: Colors.redAccent,size: getWidthPx(60),),
+        Icon(Icons.pause_circle_outline,color: Colors.redAccent,size: getWidthPx(60),));
+
     return Container(
       width: getWidthPx(750*0.9),height: getWidthPx(140),
       margin: EdgeInsets.only(bottom: getWidthPx(20)),
@@ -721,13 +731,15 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
               onTap: (){
                 //todo
                 LoadSongEntity entity = LoadSongEntity(resources.uiElement.image.imageUrl,
-                  resources.resourceExtInfo.songData.name,resources.resourceExtInfo.songData.id);
-                musicController.playMusic(entity);
+                    resources.resourceExtInfo.songData.name,resources.resourceExtInfo.songData.id);
+                Provider.of<MusicControlVM>(context,listen: false).playMusic(entity);
+                ///基于bedrock的一种局部刷新方式
+                //playBtn.refreshState();
               },
               child: Container(
                 color: Colors.white,
                 margin: EdgeInsets.only(right: getWidthPx(60)),
-                child: Icon(Icons.play_circle_outline,color: Colors.redAccent,size: getWidthPx(60),),
+                child: playBtn.generateWidget(),
               ),
             ),
           ),
