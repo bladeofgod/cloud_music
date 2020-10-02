@@ -5,27 +5,33 @@ import 'package:cloud_music/base_framework/widget_state/widget_state.dart';
 import 'package:cloud_music/page/main/entity/video_entity.dart';
 import 'package:cloud_music/page/main/video/vm/detail_vm.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:provider/provider.dart';
 
 
 class VideoWidget extends WidgetState{
 
-  final VideoEntity entity;
+  final VideoEntity videoEntity;
+  final int index;
 
-  VideoWidget(this.entity);
+  VideoWidget(this.videoEntity,this.index);
 
   DetailVM detailVM;
+
   @override
   void initState() {
+    detailVM = Provider.of<DetailVM>(context,listen: false);
     super.initState();
   }
 
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<DetailVM>(
-      builder: (ctx,model,child){
-        if(detailVM == null) detailVM = model;
+    return Selector<DetailVM,VideoEntity>(
+      selector: (ctx,vm){
+        return vm.list[index];
+      },
+      builder: (ctx,entity,child){
         debugPrint('视频区域刷新了');
         return Stack(
           alignment: Alignment.center,

@@ -116,7 +116,7 @@ class DetailPage extends PageState with AutomaticKeepAliveClientMixin{
       margin: EdgeInsets.only(bottom: getWidthPx(20)),
       child: Column(
         children: <Widget>[
-          coverImg(entity),
+          coverImg(entity,index),
           getSizeBox(height: getWidthPx(10)),
           ///title
           title(entity),
@@ -137,13 +137,13 @@ class DetailPage extends PageState with AutomaticKeepAliveClientMixin{
 
   final double margin = 10;
 
-  coverImg(VideoEntity entity) {
+  coverImg(VideoEntity entity,int index) {
     return Container(
       height: getWidthPx(350),
       child: Stack(
         alignment: Alignment.center,
         children: <Widget>[
-          VideoWidget(entity).generateWidget(),
+          VideoWidget(entity,index).generateWidget(),
 //          ShowImageUtil.showImageWithDefaultError(entity.data.coverUrl + ShowImageUtil.imgBanner
 //              , getWidthPx(710), getWidthPx(400),borderRadius: getHeightPx(20)),
 //          ///play btn
