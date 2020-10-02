@@ -22,6 +22,18 @@ class DetailVM extends RefreshListViewStateModel<VideoEntity>
     return name.length > 12 ? name.substring(0,12):name;
   }
 
+  VideoEntity currentVideo;
+  updateCurrentVideo(VideoEntity entity){
+    if(currentVideo != null && entity.data.vid == currentVideo.data.vid){
+      currentVideo = null;
+    }else{
+      currentVideo = entity;
+    }
+
+    notifyListeners();
+  }
+
+
   @override
   Future<List<VideoEntity>> loadData({int pageNum}) {
     return BedrockRepositoryProxy().videoApi.getGroupDetailVideoList(id: groupEntity.id);

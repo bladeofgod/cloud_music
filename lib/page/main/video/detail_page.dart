@@ -12,6 +12,7 @@ import 'package:cloud_music/page/main/entity/recommend_video_entity.dart';
 import 'package:cloud_music/page/main/entity/video_entity.dart';
 import 'package:cloud_music/page/main/entity/video_group_entity.dart';
 import 'package:cloud_music/page/main/video/vm/detail_vm.dart';
+import 'package:cloud_music/page/main/video/widget/video_widget.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
@@ -83,6 +84,7 @@ class DetailPage extends PageState with AutomaticKeepAliveClientMixin{
                 ),),
               );
             }
+            debugPrint('视频页面刷新了');
             return Container(
               color: Color.fromRGBO(238, 238, 238, 1),
               child: SmartRefresher(
@@ -141,15 +143,16 @@ class DetailPage extends PageState with AutomaticKeepAliveClientMixin{
       child: Stack(
         alignment: Alignment.center,
         children: <Widget>[
-          ShowImageUtil.showImageWithDefaultError(entity.data.coverUrl + ShowImageUtil.imgBanner
-              , getWidthPx(710), getWidthPx(400),borderRadius: getHeightPx(20)),
-          ///play btn
-          GestureDetector(
-            onTap: (){
-              //todo
-            },
-            child: Icon(Icons.play_arrow,color: Colors.white.withOpacity(0.8),size: getWidthPx(80),),
-          ),
+          VideoWidget(entity).generateWidget(),
+//          ShowImageUtil.showImageWithDefaultError(entity.data.coverUrl + ShowImageUtil.imgBanner
+//              , getWidthPx(710), getWidthPx(400),borderRadius: getHeightPx(20)),
+//          ///play btn
+//          GestureDetector(
+//            onTap: (){
+//              //todo
+//            },
+//            child: Icon(Icons.play_arrow,color: Colors.white.withOpacity(0.8),size: getWidthPx(80),),
+//          ),
           ///describe
           if(entity.data.description!= null && entity.data.description.isNotEmpty)
           Positioned(
