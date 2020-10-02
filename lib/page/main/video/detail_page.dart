@@ -7,6 +7,7 @@ import 'package:cloud_music/base_framework/ui/widget/provider_widget.dart';
 import 'package:cloud_music/base_framework/utils/show_image_util.dart';
 import 'package:cloud_music/base_framework/view_model/app_model/user_view_model.dart';
 import 'package:cloud_music/base_framework/widget_state/page_state.dart';
+import 'package:cloud_music/page/login/login_page.dart';
 import 'package:cloud_music/page/main/entity/recommend_video_entity.dart';
 import 'package:cloud_music/page/main/entity/video_entity.dart';
 import 'package:cloud_music/page/main/entity/video_group_entity.dart';
@@ -14,6 +15,7 @@ import 'package:cloud_music/page/main/video/vm/detail_vm.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -56,6 +58,22 @@ class DetailPage extends PageState with AutomaticKeepAliveClientMixin{
               return Container(
                 child: Center(child: CircularProgressIndicator(),),
               );
+            }
+            if(model.unAuthorized){
+              return Container(
+                child: Center(child: RaisedButton(
+                  child: Text('清闲登录'),
+                  onPressed: (){
+                    push(LoginPage())
+                        .whenComplete((){
+                          if(userModel.hasUser){
+                            model.initData();
+                          }
+                    });
+                  }
+                ),),
+              );
+
             }
             if(model.empty){
               return Container(

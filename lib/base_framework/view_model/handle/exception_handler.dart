@@ -47,6 +47,10 @@ class ExceptionHandler{
         //todo
       }
 
+    }else if(e is Exception){
+      if(e is UnAuthorizedException){
+        model.setUnAuthorized();
+      }
     }
   }
 
