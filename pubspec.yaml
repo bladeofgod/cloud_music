@@ -158,7 +158,7 @@ dependencies:
   #flutter_widgets: ^0.1.7+1
   #indexed_list_view: ^1.0.8
 
-  flutter_datetime_picker: ^1.2.8
+  #flutter_datetime_picker: ^1.2.8
 
   #pop dialog  :https://juejin.im/post/5d85b4a06fb9a06af238aef9
   flutter_custom_dialog: ^1.0.19
@@ -177,6 +177,8 @@ dependencies:
   #firebase_messaging: ^6.0.13
   #滚动到制定item的list--- 个人经验，目前最好使的了
   scrollable_positioned_list: ^0.1.6
+
+  fijkplayer: ^0.8.7
 
   #通知插件， https://pub.flutter-io.cn/packages/flutter_local_notifications
   #flutter_local_notifications: ^1.4.2

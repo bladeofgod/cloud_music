@@ -65,6 +65,10 @@ class VideoApi extends BaseApi{
     }
   }
 
+  ///获取播放地址
+  Future<List<VideoUrlEntity>> getVideoUrl({String vid})async{
+
+  }
 
 
 

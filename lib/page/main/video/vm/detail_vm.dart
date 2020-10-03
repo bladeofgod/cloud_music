@@ -11,6 +11,11 @@ import 'package:cloud_music/page/main/entity/video_group_entity.dart';
 import 'package:cloud_music/page/main/video/public_vm.dart';
 import 'package:cloud_music/service_api/bedrock_repository_proxy.dart';
 
+
+enum PlayState{
+  Playing,Stop
+}
+
 class DetailVM extends RefreshListViewStateModel<VideoEntity>
   with PublicVMHandler{
 
@@ -21,6 +26,25 @@ class DetailVM extends RefreshListViewStateModel<VideoEntity>
   String getName(String name){
     return name.length > 12 ? name.substring(0,12):name;
   }
+
+
+  PlayState playState = PlayState.Stop;
+  updateVideoState(PlayState state){
+    playState = state;
+    notifyListeners();
+  }
+
+  ///是否显示封面
+  bool shouldShowCover(VideoEntity entity){
+    if(currentVideo == null) {
+      return true;
+    }else if(entity.data.vid != currentVideo.data.vid){
+      return true;
+    }else{
+      return playState == PlayState.Stop;
+    }
+  }
+
 
   VideoEntity currentVideo;
   updateCurrentVideo(VideoEntity entity){
@@ -33,6 +57,10 @@ class DetailVM extends RefreshListViewStateModel<VideoEntity>
     notifyListeners();
   }
 
+
+  Future<String> getVideoUrl(String vid){
+    return
+  }
 
   @override
   Future<List<VideoEntity>> loadData({int pageNum}) {
