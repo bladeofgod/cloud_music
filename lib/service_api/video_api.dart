@@ -9,6 +9,7 @@ import 'package:cloud_music/base_framework/exception/un_handle_exception.dart';
 import 'package:cloud_music/page/main/entity/recommend_video_entity.dart';
 import 'package:cloud_music/page/main/entity/video_entity.dart';
 import 'package:cloud_music/page/main/entity/video_group_entity.dart';
+import 'package:cloud_music/page/main/entity/video_url_entity.dart';
 import 'package:dio/dio.dart';
 
 import 'base_api.dart';
@@ -67,6 +68,15 @@ class VideoApi extends BaseApi{
 
   ///获取播放地址
   Future<List<VideoUrlEntity>> getVideoUrl({String vid})async{
+    var response = await bedRock.get('/video/url',
+        queryParameters: {'id':vid});
+    if(response == null){
+      return [];
+    }else{
+      return response.data.data['urls'].map<VideoUrlEntity>((json){
+        return VideoUrlEntity.fromJson(json);
+      }).toList();
+    }
 
   }
 
