@@ -34,7 +34,11 @@ class VideoWidget extends WidgetState{
   }
 
   @override
-  void dispose() {
+  void dispose() async{
+    if(detailVM.playState == PlayState.Playing){
+      detailVM.updateVideoState(PlayState.Stop);
+      player.reset();
+    }
     super.dispose();
     player.release();
   }
