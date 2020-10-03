@@ -4,6 +4,7 @@ import 'package:cloud_music/base_framework/utils/show_image_util.dart';
 import 'package:cloud_music/base_framework/widget_state/widget_state.dart';
 import 'package:cloud_music/page/main/entity/video_entity.dart';
 import 'package:cloud_music/page/main/entity/video_url_entity.dart';
+import 'package:cloud_music/page/main/video/public_vm.dart';
 import 'package:cloud_music/page/main/video/vm/detail_vm.dart';
 import 'package:fijkplayer/fijkplayer.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,7 @@ import 'package:provider/provider.dart';
 
 ///看起来，应该给这个widget 单写一个vm
 
-class VideoWidget extends WidgetState{
+class VideoWidget extends WidgetState implements OrderListener{
 
   final FijkPlayer player = FijkPlayer();
 
@@ -40,8 +41,16 @@ class VideoWidget extends WidgetState{
       detailVM.updateVideoState(PlayState.Stop);
       player.reset();
     }
+    detailVM.removeOrderListener(k: entity.data.vid);
     super.dispose();
     player.release();
+  }
+
+  @override
+  void stopVideo() {
+    if(mounted){
+      player?.stop();
+    }
   }
 
 
@@ -51,11 +60,7 @@ class VideoWidget extends WidgetState{
       builder: (ctx,vm,child){
         if(detailVM == null) {
           detailVM = vm;
-          detailVM.addListener(() {
-            if(mounted){
-              player?.reset();
-            }
-          });
+          detailVM.addOrderListener(entity.data.vid,this);
         }
         if(detailVM.needPause(entity, player))player.pause();
         return Stack(
@@ -147,6 +152,8 @@ class VideoWidget extends WidgetState{
 //          });
     });
   }
+
+
 
 }
 

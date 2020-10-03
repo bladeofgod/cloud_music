@@ -12,6 +12,7 @@ import 'package:cloud_music/page/main/entity/video_url_entity.dart';
 import 'package:cloud_music/page/main/video/public_vm.dart';
 import 'package:cloud_music/service_api/bedrock_repository_proxy.dart';
 import 'package:fijkplayer/fijkplayer.dart';
+import 'package:flutter/cupertino.dart';
 
 
 enum PlayState{
@@ -21,22 +22,27 @@ enum PlayState{
 class DetailVM extends RefreshListViewStateModel<VideoEntity>
   with PublicVMHandler{
 
-  final List<OrderListener> orders = [];
+  final Map<String,OrderListener> orders = Map();
 
   final VideoGroupEntity groupEntity;
 
   DetailVM(this.groupEntity);
 
 
-  void addOrderListener(OrderListener listener){
-    orders.add(listener);
+  void addOrderListener(String key,OrderListener listener){
+    orders[key] = listener;
   }
 
   void stopAllVideo(){
-    orders.forEach((element) {
+    orders.values.forEach((element) {
       element.stopVideo();
     });
-    orders.clear();
+    //orders.clear();
+  }
+
+  void removeOrderListener({@required String k}){
+    assert(k != null);
+    orders.removeWhere((key, value) => key == k);
   }
 
 
