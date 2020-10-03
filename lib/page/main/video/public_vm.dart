@@ -6,6 +6,10 @@
 
 class PublicVMHandler{
 
+  String getName(String name){
+    return name.length > 12 ? name.substring(0,12):name;
+  }
+
   String getVideoDuration(int ms){
     int seconds = (ms/1000).floor();
     int minute = (seconds/60).floor();
@@ -41,4 +45,9 @@ class PublicVMHandler{
     return description.length < 20 ? description : description.substring(0,20);
   }
 
+}
+
+
+abstract class OrderListener{
+  void stopVideo();
 }

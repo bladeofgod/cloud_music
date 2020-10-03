@@ -21,13 +21,25 @@ enum PlayState{
 class DetailVM extends RefreshListViewStateModel<VideoEntity>
   with PublicVMHandler{
 
+  final List<OrderListener> orders = [];
+
   final VideoGroupEntity groupEntity;
 
   DetailVM(this.groupEntity);
 
-  String getName(String name){
-    return name.length > 12 ? name.substring(0,12):name;
+
+  void addOrderListener(OrderListener listener){
+    orders.add(listener);
   }
+
+  void stopAllVideo(){
+    orders.forEach((element) {
+      element.stopVideo();
+    });
+    orders.clear();
+  }
+
+
 
 
   PlayState playState = PlayState.Stop;
@@ -53,6 +65,8 @@ class DetailVM extends RefreshListViewStateModel<VideoEntity>
         && entity.data.vid == currentVideo.data.vid
           && player.state == FijkState.started;
   }
+  ///tab bar view's index . not item.
+  //int playIndex = 0;
 
   VideoEntity currentVideo;
   updateCurrentVideo(VideoEntity entity){

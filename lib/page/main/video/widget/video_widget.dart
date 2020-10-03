@@ -16,10 +16,11 @@ class VideoWidget extends WidgetState{
 
   final FijkPlayer player = FijkPlayer();
 
+  //final int parentIndex;///tab view's index
   final VideoEntity entity;
 
 
-  VideoWidget(this.entity);
+  VideoWidget(this.entity,);
 
   DetailVM detailVM;
 
@@ -48,7 +49,14 @@ class VideoWidget extends WidgetState{
   Widget build(BuildContext context) {
     return Consumer<DetailVM>(
       builder: (ctx,vm,child){
-        if(detailVM == null) detailVM = vm;
+        if(detailVM == null) {
+          detailVM = vm;
+          detailVM.addListener(() {
+            if(mounted){
+              player?.reset();
+            }
+          });
+        }
         if(detailVM.needPause(entity, player))player.pause();
         return Stack(
           alignment: Alignment.center,

@@ -38,6 +38,9 @@ class DetailPage extends PageState with AutomaticKeepAliveClientMixin{
     parentController.addListener(() {
       if(mounted){
         currentIndex = parentController.index;
+        ///stop all videos after tab view switched.
+        detailVM.stopAllVideo();
+
       }
     });
     super.initState();
