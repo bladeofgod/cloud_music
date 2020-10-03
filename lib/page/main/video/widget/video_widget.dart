@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
+///看起来，应该给这个widget 单写一个vm
 
 class VideoWidget extends WidgetState{
 
@@ -48,7 +49,7 @@ class VideoWidget extends WidgetState{
         return Stack(
           alignment: Alignment.center,
           children: [
-            FijkView(player: player),
+            FijkView(player: player,fit: FijkFit.fill,),
             ///cover image
             Offstage(
               offstage: !detailVM.shouldShowCover(entity),
@@ -59,12 +60,12 @@ class VideoWidget extends WidgetState{
             Offstage(
               offstage: !detailVM.shouldShowCover(entity),
               child: GestureDetector(
-                  onTap: ()async{
+                  onTap: (){
                     if(detailVM.playState == PlayState.Playing){
                       ///播放状态
                       if(entity.data.vid == detailVM.currentVideo.data.vid){
                         ///暂停
-                        await player.pause();
+                        pauseVideo();
 
                       }else{
                         ///暂停原视频，播放新的
@@ -78,7 +79,7 @@ class VideoWidget extends WidgetState{
                       }else{
                         if(entity.data.vid == detailVM.currentVideo.data.vid){
                           ///继续
-                          await player.start();
+                          resumeVideo();
                         }else{
                           ///播放新的
                           playVideo();
@@ -98,6 +99,14 @@ class VideoWidget extends WidgetState{
         );
       },
     );
+  }
+
+  void pauseVideo()async{
+    await player.pause();
+  }
+
+  void resumeVideo()async{
+    await player.start();
   }
 
   void playVideo(){
