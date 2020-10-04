@@ -1,8 +1,11 @@
 
 import 'package:cloud_music/base_framework/ui/widget/provider_widget.dart';
+import 'package:cloud_music/base_framework/utils/image_helper.dart';
+import 'package:cloud_music/base_framework/utils/show_image_util.dart';
 import 'package:cloud_music/base_framework/view_model/app_model/user_view_model.dart';
 import 'package:cloud_music/base_framework/widget_state/page_state.dart';
 import 'package:cloud_music/page/search/vm/search_vm.dart';
+import 'package:flustars/flustars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +22,7 @@ class SearchPage extends PageState{
         return ProviderWidget<SearchViewModel>(
           model: SearchViewModel(),
           onModelReady: (model){
-            //model.initData();
+            model.initData();
           },
           builder: (ctx,model,child){
             if(model.busy){
@@ -70,7 +73,7 @@ class SearchPage extends PageState{
                 //todo search
                 searchViewModel.updateKeyWord(text);
               },
-              style: TextStyle(color: Colors.black,fontSize: getSp(36)),
+              style: TextStyle(color: Colors.black,fontSize: getSp(40)),
               decoration: InputDecoration(
                 contentPadding:const EdgeInsets.all(0),
                 border: UnderlineInputBorder(
@@ -82,8 +85,8 @@ class SearchPage extends PageState{
                 focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.black)
                 ),// earchViewModel.defaultSearchEntity.showKeyword
-                hintText: 'hello',
-                hintStyle: TextStyle(color: Colors.grey,fontSize: getSp(36)),
+                hintText: '${searchViewModel.defaultSearchEntity.showKeyword}',
+                hintStyle: TextStyle(color: Colors.grey,fontSize: getSp(40)),
               ),
             ),
           ),
@@ -109,11 +112,32 @@ class SearchPage extends PageState{
           ),
           /// hot search
           hotSearch(),
+          ///show all
+          if(searchViewModel.moreThan10())
+          showAll(),
+          getSizeBox(height: getWidthPx(40)),
+          ///zone
+          zoneWidget(),
 
-
-
+          ///blank
+          getSizeBox(height: getWidthPx(100))
         ],
       ),
+    );
+  }
+
+  zoneWidget(){
+    return Container(
+      height: getWidthPx(550),
+      child: GridView.builder(
+        padding: EdgeInsets.all(0),
+        itemCount: searchViewModel.zoneTags.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,mainAxisSpacing: getWidthPx(20),crossAxisSpacing: getWidthPx(20),
+            childAspectRatio: 2.8
+          ), itemBuilder: (ctx,index){
+          return Image.asset(ImageHelper.wrapAssetsIcon(searchViewModel.zoneTags[index]));
+      }),
     );
   }
 
@@ -238,9 +262,63 @@ class SearchPage extends PageState{
   }
 
   hotSearch() {
-    return GridView.builder(
-      scrollDirection: searchViewModel.gridController,
-        gridDelegate: null, itemBuilder: null);
+    return Container(
+      //color: Colors.yellow,
+      height: searchViewModel.showAllHot ?
+      getWidthPx(searchViewModel.getMaxGridHeight()) : getWidthPx(300),
+      child: GridView.builder(
+        padding: EdgeInsets.all(0),
+          physics: NeverScrollableScrollPhysics(),
+          controller: searchViewModel.gridController,
+          itemCount: searchViewModel.showHotList.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,mainAxisSpacing: getWidthPx(20),crossAxisSpacing: 0,
+            childAspectRatio:9 ),
+          itemBuilder: (ctx,index){
+            return hotItem(index);
+          }),
+    );
+  }
+
+  hotItem(int index){
+    bool isHot = index<3;
+    return Container(
+      child: Row(
+        children: [
+          Text('${index+1}',style: TextStyle(color: isHot ? Colors.red
+              :Color.fromRGBO(200, 200, 200, 1),
+            fontSize: getSp(30),),),
+          getSizeBox(width: getWidthPx(20)),
+          Text('${searchViewModel.getHotName(index)}',style: TextStyle(
+            fontSize: getSp(30),
+              color: Colors.black,fontWeight: isHot?FontWeight.bold:FontWeight.normal
+          ),),
+          getSizeBox(width: getWidthPx(20)),
+          if(searchViewModel.getHotTag(index).isNotEmpty)
+            ShowImageUtil.showImageWithDefaultError(searchViewModel.getHotTag(index),
+                getWidthPx(50), getWidthPx(30),boxFit: BoxFit.contain)
+        ],
+      ),
+    );
+  }
+
+  showAll() {
+    return GestureDetector(
+      onTap: searchViewModel.switchShowAll,
+      child: Container(
+        height: getWidthPx(70),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('展开更多热搜',style: TextStyle(
+                color:Color.fromRGBO(200, 200, 200, 1),fontSize: getSp(32)
+            ),),
+            getSizeBox(width: getWidthPx(10)),
+            Icon(Icons.keyboard_arrow_down,size: getWidthPx(32),color: Color.fromRGBO(200, 200, 200, 1),),
+          ],
+        ),
+      ),
+    );
   }
 
 }
