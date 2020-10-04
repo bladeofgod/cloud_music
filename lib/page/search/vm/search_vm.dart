@@ -14,6 +14,8 @@ class SearchViewModel extends SingleViewStateModel{
   final ScrollController scrollController = ScrollController();
 
 
+  List<int> temp = [123,321,123,23,451,65,5,757,875645,23123,53];
+
   DefaultSearchEntity defaultSearchEntity;
   List<HotSearchEntity> hotSearch = [];
   ///搜索建议

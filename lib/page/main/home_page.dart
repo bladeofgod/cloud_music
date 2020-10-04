@@ -11,6 +11,7 @@ import 'package:cloud_music/page/main/mine/mine_page.dart';
 import 'package:cloud_music/page/main/video/video_page.dart';
 import 'package:cloud_music/page/main/village/village_page.dart';
 import 'package:cloud_music/page/main/widget/music_controll_widget.dart';
+import 'package:cloud_music/page/search/search_page.dart';
 import 'package:cloud_music/service_api/bedrock_repository_proxy.dart';
 import 'package:flutter/material.dart';
 
@@ -138,7 +139,7 @@ class HomePage extends PageState{
   Widget searchWidget() {
     return GestureDetector(
       onTap: (){
-        //todo
+        push(SearchPage());
       },
       child: Container(
         color: Colors.white,
