@@ -4,9 +4,13 @@
 import 'package:cloud_music/base_framework/view_model/single_view_state_model.dart';
 import 'package:cloud_music/page/search/entity/default_search_entity.dart';
 import 'package:cloud_music/page/search/entity/hot_search_entity.dart';
+import 'package:cloud_music/page/search/entity/search_history_entity.dart';
 import 'package:cloud_music/page/search/entity/search_suggest_entity.dart';
 import 'package:cloud_music/service_api/bedrock_repository_proxy.dart';
 import 'package:flutter/cupertino.dart';
+
+
+const String _searchHistory = 'search_his';
 
 class SearchViewModel extends SingleViewStateModel{
 
@@ -19,9 +23,27 @@ class SearchViewModel extends SingleViewStateModel{
     'icon_listen_song','icon_singer_category','icon_voice_theater'
   ];
 
-  ///历史假数据
-  List<int> temp = [123,321,123,23,451,65,5,757,875645,23123,53];
+  SearchViewModel(){
+    initSearchHistory();
+  }
 
+  ///历史假数据
+  final List<int> temp = [123,321,123,23,451,65,5,757,875645,23123,53];
+
+  final List<SearchHistoryEntity> searchKeywords = [];
+
+  initSearchHistory(){}
+
+  writeHistory(SearchHistoryEntity entity){
+    if(entity != null ){
+      if(!searchKeywords.any((element) => element.timeStamp == entity.timeStamp)){
+        searchKeywords.add(entity);
+      }
+    }
+  }
+
+
+  ///
   DefaultSearchEntity defaultSearchEntity;
 
   List<HotSearchEntity> showHotList = [];
