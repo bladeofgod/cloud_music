@@ -12,7 +12,7 @@ class SearchViewModel extends SingleViewStateModel{
 
   final TextEditingController textEditingController = TextEditingController();
   final ScrollController scrollController = ScrollController();
-
+  final ScrollController gridController = ScrollController();
 
   List<int> temp = [123,321,123,23,451,65,5,757,875645,23123,53];
 

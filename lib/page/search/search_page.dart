@@ -38,6 +38,7 @@ class SearchPage extends PageState{
               child: Column(
                 children: [
                   appBar(),
+                  getSizeBox(height: getWidthPx(40)),
                   Expanded(child: pageContent()),
                 ],
               ),
@@ -59,22 +60,31 @@ class SearchPage extends PageState{
             child: Icon(Icons.arrow_back,color: Colors.black,size: getWidthPx(40),),
           ),
           getSizeBox(width: getWidthPx(30)),
-          TextField(
-            controller: searchViewModel.textEditingController,
-            onChanged: (text){
-              searchViewModel.updateKeyWord(text);
-            },
-            onSubmitted: (text){
-              //todo search
-              searchViewModel.updateKeyWord(text);
-            },
-            style: TextStyle(color: Colors.black,fontSize: getSp(32)),
-            decoration: InputDecoration(
-              border: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.black,width: getWidthPx(2))
+          Expanded(
+            child: TextField(
+              controller: searchViewModel.textEditingController,
+              onChanged: (text){
+                searchViewModel.updateKeyWord(text);
+              },
+              onSubmitted: (text){
+                //todo search
+                searchViewModel.updateKeyWord(text);
+              },
+              style: TextStyle(color: Colors.black,fontSize: getSp(36)),
+              decoration: InputDecoration(
+                contentPadding:const EdgeInsets.all(0),
+                border: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black)
+                ),//s
+                enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black)
+                ),
+                focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black)
+                ),// earchViewModel.defaultSearchEntity.showKeyword
+                hintText: 'hello',
+                hintStyle: TextStyle(color: Colors.grey,fontSize: getSp(36)),
               ),
-              hintText: '${searchViewModel.defaultSearchEntity.showKeyword}',
-              hintStyle: TextStyle(color: Colors.grey,fontSize: getSp(30)),
             ),
           ),
         ],
@@ -89,8 +99,16 @@ class SearchPage extends PageState{
         children: [
           ///历史
           historyWidget(),
+          getSizeBox(height: getWidthPx(50)),
           ///title
           searchTitle(),
+          getSizeBox(height: getWidthPx(40)),
+          Divider(
+            color: Color.fromRGBO(230, 230, 230, 1),
+            height: getWidthPx(2),
+          ),
+          /// hot search
+          hotSearch(),
 
 
 
@@ -101,60 +119,111 @@ class SearchPage extends PageState{
 
   historyWidget() {
     return Container(
-      height: getWidthPx(140),
-      color: Colors.redAccent,
+      height: getWidthPx(60),width: getWidthPx(690),
+      child: Stack(
+        alignment: Alignment.centerLeft,
+        children: [
+
+          ///list
+          Positioned(
+            left: getWidthPx(100),
+            child: Container(
+              width: getWidthPx(550),height: getWidthPx(60),
+              child: ListView(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                children: searchViewModel.temp.
+                map<Widget>((e){
+                  return Container(
+                    height: getWidthPx(50),
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.symmetric(horizontal: getWidthPx(20)),
+                    margin: EdgeInsets.only(left: getWidthPx(20)),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(getWidthPx(30)),
+                        color: Color.fromRGBO(230, 230, 230, 1)
+                    ),
+                    child: Text('$e',style: TextStyle(color: Colors.black,
+                        fontSize: getSp(30)),),
+                  );
+                }).toList(),
+              ),
+            ),
+          ),
+          Positioned(
+            left: 0,
+            child: Container(
+              height: getWidthPx(60),
+              alignment: Alignment.center,
+              width: getWidthPx(80),
+              decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                        offset: Offset(getWidthPx(20),1),blurRadius: getWidthPx(14),
+                        spreadRadius: getWidthPx(15),
+                        color: Colors.white
+                    )
+                  ]
+              ),child: Text('历史',style: TextStyle(color: Colors.black,
+                fontSize: getSp(30)),),
+            ),
+          ),
+
+          ///btn
+          Positioned(
+            right: 0,
+            child: GestureDetector(
+              child: Container(
+                alignment: Alignment.center,
+                height: getWidthPx(60),
+                width: getWidthPx(60),
+                decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                          offset: Offset(-getWidthPx(14),0),blurRadius: getWidthPx(14),
+                          spreadRadius: getWidthPx(15),
+                          color: Colors.white
+                      )
+                    ]
+                ),
+                child: Icon(Icons.delete_forever,color: Colors.black,size: getWidthPx(30),),
+              ),
+            ),
+          ),
+
+        ],
+      ),
     );
   }
 
   searchTitle() {
     return Container(
-      height: getWidthPx(140),
+      height: getWidthPx(60),width: getWidthPx(690),
       child: Row(
         children: [
           Container(
-            width: getWidthPx(60),
-            decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  offset: Offset(1,1),blurRadius: getWidthPx(10),
-                  color: Colors.grey
-                )
-              ]
-            ),child: Text('热搜榜',style: TextStyle(color: Colors.black,
-            fontSize: getSp(30)),),
+            height: getWidthPx(60),
+            alignment: Alignment.center,
+            width: getWidthPx(100),
+            child: Text('热搜榜',style: TextStyle(color: Colors.black,
+              fontSize: getSp(30)),),
           ),
-          ///list
           Expanded(
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: searchViewModel.temp.
-                map<Widget>((e){
-                  return Container(
-                    height: getWidthPx(60),
-                    margin: EdgeInsets.only(left: getWidthPx(20)),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(getWidthPx(30)),
-                      color: Colors.grey
-                    ),
-                    child: Text('$e',style: TextStyle(color: Colors.black,
-                    fontSize: getSp(30)),),
-                  );
-              }).toList(),
-            ),
+            child: const SizedBox(),
           ),
+
           ///btn
           GestureDetector(
             child: Container(
-              width: getWidthPx(100),
+              alignment: Alignment.center,
+              height: getWidthPx(60),
+              width: getWidthPx(188),
               decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                        offset: Offset(1,1),blurRadius: getWidthPx(10),
-                        color: Colors.grey
-                    )
-                  ]
+                  borderRadius: BorderRadius.circular(getWidthPx(30)),
+                  border: Border.all(color: Color.fromRGBO(230, 230, 230, 1),width: getWidthPx(2)),
               ),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(Icons.play_arrow,color: Colors.black,size: getWidthPx(30),),
                   Text('播放全部',style: TextStyle(color: Colors.black,fontSize: getSp(30)),)
@@ -166,6 +235,12 @@ class SearchPage extends PageState{
         ],
       ),
     );
+  }
+
+  hotSearch() {
+    return GridView.builder(
+      scrollDirection: searchViewModel.gridController,
+        gridDelegate: null, itemBuilder: null);
   }
 
 }
