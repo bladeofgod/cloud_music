@@ -24,10 +24,11 @@ class SearchApi{
   }
   
   ///获取搜索建议
+  /// 我去，这类型老变啊....
 
   Future<SearchSuggestEntity> getSearchSuggest({@required String key})async{
     var response = await bedRock.get('/search/suggest',
-      queryParameters: {'keywords':key});
+      queryParameters: {'keywords':key,'type':'mobile'});
     if(response == null){
       return null;
     }else{

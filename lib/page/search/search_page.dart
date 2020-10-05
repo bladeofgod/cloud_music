@@ -8,11 +8,39 @@ import 'package:cloud_music/page/search/vm/search_vm.dart';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 
 class SearchPage extends PageState{
 
   SearchViewModel searchViewModel;
+
+  final FocusNode _focusNode = FocusNode();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    _focusNode.addListener(() {
+      if(!mounted) return;
+      if(_focusNode.hasFocus){
+        //todo
+        showSuggestOverlay(true);
+      }else{
+        showSuggestOverlay(false);
+      }
+    });
+    super.initState();
+  }
+  @override
+  void dispose() {
+    showSuggestOverlay(false);
+    searchViewModel.textEditingController
+        ..clear()
+        ..dispose();
+    _focusNode.unfocus();
+    _focusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +80,96 @@ class SearchPage extends PageState{
     ));
   }
 
+  bool overlayShow = false;
+
+  void showSuggestOverlay(bool show){
+    if(overlayShow == show){
+      return;
+    }
+    overlayShow = show;
+    if(show){
+      searchViewModel.suggestOverlay = buildSuggestOverlay();
+      Overlay.of(context).insert(searchViewModel.suggestOverlay);
+    }else{
+      _focusNode.unfocus();
+      searchViewModel.resetSuggestState();
+      searchViewModel.suggestOverlay?.remove();
+    }
+  }
+
+  Widget overlayRoot(Widget child){
+    return Positioned(
+      left: getWidthPx(30),top: getWidthPx(180),
+      child: Material(
+        child: GestureDetector(
+          onTap: (){
+            showSuggestOverlay(false);
+          },
+          child: Container(
+            color: Colors.white.withOpacity(0.1),
+            width: getWidthPx(690),height: getWidthPx(1334-180.0),
+            child: Container(
+              alignment: Alignment.center,
+              width: getWidthPx(690),height: getWidthPx(700),
+              child: child,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  OverlayEntry buildSuggestOverlay(){
+    return OverlayEntry(
+      builder: (ctx){
+        if(searchViewModel.suggestState == RequestState.Empty){
+          return overlayRoot(Text('暂时没有搜索建议'));
+        }
+        if(searchViewModel.suggestState == RequestState.Busy){
+          return overlayRoot(CircularProgressIndicator());
+        }
+        final List<Widget> children = [];
+        children.add(suggestItemWrapper(GestureDetector(
+          onTap: searchViewModel.doSearch,
+          child: Text('搜索"${searchViewModel.keyWord}"',style: TextStyle(
+              color: Colors.lightBlueAccent,fontSize: getSp(30)
+          ),
+        ))));
+        children.addAll(searchViewModel.suggestEntity.allMatch
+            .map<Widget>((e){
+          return GestureDetector(
+            onTap: (){
+              //todo
+              showToast(e.keyword);
+              searchViewModel.doSearch(key: e.keyword);
+            },
+            child: suggestItemWrapper(Row(
+              children: [
+                Icon(Icons.search,color:const Color.fromRGBO(200, 200, 200, 1),size: getWidthPx(40),),
+                getSizeBox(width: 20),
+                Text(e.keyword,style: TextStyle(color:const Color.fromRGBO(200, 200, 200, 1),
+                    fontSize: getSp(30)),)
+              ],
+            )),
+          );
+        }).toList());
+        return overlayRoot(ListView(
+          children: children,
+        ));
+
+      }
+    );
+  }
+
+  Widget suggestItemWrapper(child){
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: getWidthPx(30)),
+      alignment: Alignment.centerLeft,
+      height: getWidthPx(60),
+      child: child,
+    );
+  }
+
   Widget appBar(){
     return Container(
       width: getWidthPx(690),height: getWidthPx(160),
@@ -65,13 +183,14 @@ class SearchPage extends PageState{
           getSizeBox(width: getWidthPx(30)),
           Expanded(
             child: TextField(
+              focusNode: _focusNode,
               controller: searchViewModel.textEditingController,
               onChanged: (text){
                 searchViewModel.updateKeyWord(text);
               },
               onSubmitted: (text){
                 //todo search
-                searchViewModel.updateKeyWord(text);
+                searchViewModel.doSearch();
               },
               style: TextStyle(color: Colors.black,fontSize: getSp(40)),
               decoration: InputDecoration(
@@ -101,6 +220,7 @@ class SearchPage extends PageState{
       child: Column(
         children: [
           ///历史
+          if(searchViewModel.searchKeywords.isNotEmpty)
           historyWidget(),
           getSizeBox(height: getWidthPx(50)),
           ///title
@@ -157,7 +277,7 @@ class SearchPage extends PageState{
               child: ListView(
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
-                children: searchViewModel.temp.
+                children: searchViewModel.searchKeywords.
                 map<Widget>((e){
                   return Container(
                     height: getWidthPx(50),
@@ -168,7 +288,7 @@ class SearchPage extends PageState{
                         borderRadius: BorderRadius.circular(getWidthPx(30)),
                         color: Color.fromRGBO(238, 238, 238, 1)
                     ),
-                    child: Text('$e',style: TextStyle(color: Colors.black,
+                    child: Text('${e.keyword}',style: TextStyle(color: Colors.black,
                         fontSize: getSp(30)),),
                   );
                 }).toList(),
@@ -198,6 +318,7 @@ class SearchPage extends PageState{
           Positioned(
             right: 0,
             child: GestureDetector(
+              onTap: searchViewModel.clearHistory,
               child: Container(
                 alignment: Alignment.center,
                 height: getWidthPx(60),

@@ -7,6 +7,8 @@ class SearchHistoryEntity{
   int timeStamp;
   String keyword;
 
+  SearchHistoryEntity(this.timeStamp,this.keyword);
+
   SearchHistoryEntity.fromJson(Map<String,dynamic> json){
     timeStamp = json['timeStamp'];
     keyword = json['keyword'];
