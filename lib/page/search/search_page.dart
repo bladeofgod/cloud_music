@@ -113,7 +113,7 @@ class SearchPage extends PageState{
           /// hot search
           hotSearch(),
           ///show all
-          if(searchViewModel.moreThan10())
+          if(searchViewModel.moreThan10() && !searchViewModel.showAllHot)
           showAll(),
           getSizeBox(height: getWidthPx(40)),
           ///zone
@@ -165,7 +165,7 @@ class SearchPage extends PageState{
                     margin: EdgeInsets.only(left: getWidthPx(20)),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(getWidthPx(30)),
-                        color: Color.fromRGBO(230, 230, 230, 1)
+                        color: Color.fromRGBO(238, 238, 238, 1)
                     ),
                     child: Text('$e',style: TextStyle(color: Colors.black,
                         fontSize: getSp(30)),),
@@ -210,7 +210,7 @@ class SearchPage extends PageState{
                       )
                     ]
                 ),
-                child: Icon(Icons.delete_forever,color: Colors.black,size: getWidthPx(30),),
+                child: Icon(Icons.delete_outline,color: Colors.grey,size: getWidthPx(50),),
               ),
             ),
           ),
