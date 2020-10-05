@@ -111,7 +111,7 @@ class SearchPage extends PageState{
             width: getWidthPx(690),height: getWidthPx(1334-180.0),
             child: Container(
               alignment: Alignment.center,
-              width: getWidthPx(690),height: getWidthPx(600),
+              width: getWidthPx(690),height: getHeightPx(600),
               decoration: BoxDecoration(
                 color: Colors.white,
                 boxShadow: [
