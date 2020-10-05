@@ -61,7 +61,7 @@ class SearchViewModel extends SingleViewStateModel{
 
   writeHistory(SearchHistoryEntity entity){
     if(entity != null ){
-      if(!searchKeywords.any((element) => element.timeStamp == entity.timeStamp)){
+      if(!searchKeywords.any((element) => (element.timeStamp == entity.timeStamp || element.keyword == entity.keyword))){
         searchKeywords.add(entity);
         notifyListeners();
         writeLocal();
