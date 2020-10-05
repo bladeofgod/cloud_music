@@ -34,10 +34,11 @@ class MinePage extends PageState with AutomaticKeepAliveClientMixin{
         userViewModel = userModel;
         if(mineVM == null){
           mineVM = MineVM(userModel);
-          if(mineVM.userDetailEntity == null && userModel.hasUser){
-            debugPrint('加载详情');
-            mineVM.initData();
-          }
+
+        }
+        if(mineVM.userDetailEntity == null && userModel.hasUser){
+          debugPrint('加载详情');
+          mineVM.initData();
         }
 
         return ProviderWidget<MineVM>(
