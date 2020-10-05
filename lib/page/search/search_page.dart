@@ -1,4 +1,5 @@
 
+import 'package:cloud_music/base_framework/ui/widget/progress_widget.dart';
 import 'package:cloud_music/base_framework/ui/widget/provider_widget.dart';
 import 'package:cloud_music/base_framework/utils/image_helper.dart';
 import 'package:cloud_music/base_framework/utils/show_image_util.dart';
@@ -56,7 +57,7 @@ class SearchPage extends PageState{
             if(model.busy){
               return Container(
                 child: Center(
-                  child: CircularProgressIndicator(),
+                  child: Common163MusicLoading().generateWidget(),
                 ),
               );
             }
@@ -134,7 +135,7 @@ class SearchPage extends PageState{
           return overlayRoot(Text('暂时没有搜索建议'));
         }
         if(searchViewModel.suggestState == RequestState.Busy){
-          return overlayRoot(CircularProgressIndicator());
+          return overlayRoot(Common163MusicLoading().generateWidget());
         }
         final List<Widget> children = [];
         children.add(suggestItemWrapper(GestureDetector(

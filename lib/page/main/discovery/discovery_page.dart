@@ -4,6 +4,7 @@
 */
 
 
+import 'package:cloud_music/base_framework/ui/widget/progress_widget.dart';
 import 'package:cloud_music/base_framework/ui/widget/provider_widget.dart';
 import 'package:cloud_music/base_framework/utils/image_helper.dart';
 import 'package:cloud_music/base_framework/utils/show_image_util.dart';
@@ -98,7 +99,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
               if(disVM.busy){
                 return Container(
                   child: Center(
-                    child: CircularProgressIndicator(),
+                    child: Common163MusicLoading().generateWidget(),
                   ),
                 );
               }

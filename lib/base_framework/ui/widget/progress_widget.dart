@@ -113,4 +113,123 @@ class DialogLoadingController extends ChangeNotifier{
   }
 }
 
+class Common163MusicLoading extends WidgetState{
+  final String text;
+
+  Common163MusicLoading({this.text = '加载中...'});
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          CloudMusicLoading(Colors.red, getWidthPx(20), getWidthPx(60)).generateWidget(),
+          getSizeBox(width: getWidthPx(10)),
+          Text(text,style: TextStyle(color: Colors.black,fontSize: getSp(24)),)
+        ],
+      ),
+    );
+  }
+
+}
+
+
+class CloudMusicLoading extends WidgetState {
+  
+  final Color color;
+  final double maxWidth,maxHeight;
+
+  CloudMusicLoading(this.color, this.maxWidth, this.maxHeight);
+  
+  
+  @override
+  void initState() {
+
+    super.initState();
+  }
+  
+  @override
+  void dispose() {
+
+    super.dispose();
+  }
+  
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      //width: getWidthPx(80),
+      height: getWidthPx(60),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          LoadingItem(color,0.1,1.0,getWidthPx(maxWidth),getWidthPx(maxHeight)).generateWidget(),
+          LoadingItem(color,0.4,1.0,getWidthPx(maxWidth),getWidthPx(maxHeight)).generateWidget(),
+          LoadingItem(color,0.7,1.0,getWidthPx(maxWidth),getWidthPx(maxHeight)).generateWidget(),
+          LoadingItem(color,0.4,1.0,getWidthPx(maxWidth),getWidthPx(maxHeight)).generateWidget(),
+
+        ],
+      ),
+    );
+  }
+  wrapper(Widget child){
+    return Container();
+  }
+  
+}
+
+class LoadingItem extends WidgetState with SingleTickerProviderStateMixin{
+
+  final Color color;
+  final double start,end;
+  final double width,height;
+  LoadingItem(this.color, this.start, this.end, this.width, this.height);
+
+  AnimationController controller;
+  Animation<double> animation;
+
+
+  @override
+  void initState() {
+    controller = AnimationController(duration: const Duration(milliseconds: 500),vsync: this);
+    animation = Tween<double>(begin: 0.0,end: 1.0).animate(controller);
+    controller.value = start;
+    super.initState();
+    animation.addListener(() {
+      setState(() {
+
+      });
+    });
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      controller.repeat(reverse: true);
+    });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: color,width: width,height: (animation.value * height).clamp(0.1,height),
+    );
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
 

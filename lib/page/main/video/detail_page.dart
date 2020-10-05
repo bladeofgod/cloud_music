@@ -3,6 +3,7 @@
 * Date : 2020/9/27
 */
 
+import 'package:cloud_music/base_framework/ui/widget/progress_widget.dart';
 import 'package:cloud_music/base_framework/ui/widget/provider_widget.dart';
 import 'package:cloud_music/base_framework/utils/show_image_util.dart';
 import 'package:cloud_music/base_framework/view_model/app_model/user_view_model.dart';
@@ -60,13 +61,13 @@ class DetailPage extends PageState with AutomaticKeepAliveClientMixin{
           builder: (ctx,model,child){
             if(model.busy){
               return Container(
-                child: Center(child: CircularProgressIndicator(),),
+                child: Center(child: Common163MusicLoading().generateWidget(),),
               );
             }
             if(model.unAuthorized){
               return Container(
                 child: Center(child: RaisedButton(
-                  child: Text('清闲登录'),
+                  child: Text('请先登录'),
                   onPressed: (){
                     push(LoginPage())
                         .whenComplete((){

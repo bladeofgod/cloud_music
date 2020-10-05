@@ -4,6 +4,7 @@
 */
 
 
+import 'package:cloud_music/base_framework/ui/widget/progress_widget.dart';
 import 'package:cloud_music/base_framework/ui/widget/provider_widget.dart';
 import 'package:cloud_music/base_framework/view_model/app_model/user_view_model.dart';
 import 'package:cloud_music/base_framework/widget_state/page_state.dart';
@@ -51,7 +52,7 @@ class VideoPage extends PageState with AutomaticKeepAliveClientMixin,
             builder: (ctx,videoModel,child){
               if(videoModel.busy){
                 return Container(
-                  child: Center(child: CircularProgressIndicator(),),
+                  child: Center(child: Common163MusicLoading().generateWidget(),),
                 );
               }
               if(controller == null){

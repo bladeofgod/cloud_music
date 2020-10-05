@@ -5,6 +5,7 @@
 
 import 'dart:math';
 
+import 'package:cloud_music/base_framework/ui/widget/progress_widget.dart';
 import 'package:cloud_music/base_framework/ui/widget/provider_widget.dart';
 import 'package:cloud_music/base_framework/utils/show_image_util.dart';
 import 'package:cloud_music/base_framework/view_model/app_model/user_view_model.dart';
@@ -276,7 +277,7 @@ class VillagePage extends PageState with AutomaticKeepAliveClientMixin,
       return Container(
 
         child: Center(
-          child: CircularProgressIndicator(),
+          child: Common163MusicLoading().generateWidget(),
         ),
       );
     }
