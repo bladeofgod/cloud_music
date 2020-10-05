@@ -106,11 +106,19 @@ class SearchPage extends PageState{
             showSuggestOverlay(false);
           },
           child: Container(
-            color: Colors.white.withOpacity(0.1),
+            color: Color.fromRGBO(255, 255, 255, 0.1),
             width: getWidthPx(690),height: getWidthPx(1334-180.0),
             child: Container(
               alignment: Alignment.center,
-              width: getWidthPx(690),height: getWidthPx(700),
+              width: getWidthPx(690),height: getWidthPx(600),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: getWidthPx(5),color: Color.fromRGBO(200, 200, 200, 1)
+                  ),
+                ]
+              ),
               child: child,
             ),
           ),
@@ -132,7 +140,7 @@ class SearchPage extends PageState{
         children.add(suggestItemWrapper(GestureDetector(
           onTap: searchViewModel.doSearch,
           child: Text('搜索"${searchViewModel.keyWord}"',style: TextStyle(
-              color: Colors.lightBlueAccent,fontSize: getSp(30)
+              color: Colors.lightBlueAccent,fontSize: getSp(32)
           ),
         ))));
         children.addAll(searchViewModel.suggestEntity.allMatch
@@ -146,14 +154,15 @@ class SearchPage extends PageState{
             child: suggestItemWrapper(Row(
               children: [
                 Icon(Icons.search,color:const Color.fromRGBO(200, 200, 200, 1),size: getWidthPx(40),),
-                getSizeBox(width: 20),
+                getSizeBox(width: 10),
                 Text(e.keyword,style: TextStyle(color:const Color.fromRGBO(200, 200, 200, 1),
-                    fontSize: getSp(30)),)
+                    fontSize: getSp(32)),)
               ],
-            )),
+            ),needBorder: true),
           );
         }).toList());
         return overlayRoot(ListView(
+          padding: EdgeInsets.all(0),
           children: children,
         ));
 
@@ -161,11 +170,17 @@ class SearchPage extends PageState{
     );
   }
 
-  Widget suggestItemWrapper(child){
+  Widget suggestItemWrapper(Widget child,{bool needBorder = false}){
     return Container(
       padding: EdgeInsets.symmetric(horizontal: getWidthPx(30)),
       alignment: Alignment.centerLeft,
-      height: getWidthPx(60),
+      height: getWidthPx(90),
+      decoration: BoxDecoration(
+        border: needBorder
+            ?Border(top: BorderSide(color: Color.fromRGBO(230, 230, 230, 1),width: getWidthPx(1)),
+          bottom:  BorderSide(color: Color.fromRGBO(230, 230, 230, 1),width: getWidthPx(1)))
+            :null
+      ),
       child: child,
     );
   }
@@ -261,7 +276,7 @@ class SearchPage extends PageState{
       }),
     );
   }
-
+  ///用渐变也可以 gradient
   historyWidget() {
     return Container(
       height: getWidthPx(60),width: getWidthPx(690),
