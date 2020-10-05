@@ -105,11 +105,12 @@ class SearchPage extends PageState{
           getSizeBox(height: getWidthPx(50)),
           ///title
           searchTitle(),
-          getSizeBox(height: getWidthPx(40)),
+          getSizeBox(height: getWidthPx(30)),
           Divider(
             color: Color.fromRGBO(230, 230, 230, 1),
             height: getWidthPx(2),
           ),
+          getSizeBox(height: getWidthPx(20)),
           /// hot search
           hotSearch(),
           ///show all
