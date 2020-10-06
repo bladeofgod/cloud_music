@@ -31,9 +31,7 @@ class TabBarItem extends WidgetState {
 
   @override
   Widget build(BuildContext context) {
-    if(index == parentVM.pageIndex){
-      debugPrint('text size ${(parentVM.max-(parentVM.textScaleFactor-parentVM.min))}');
-    }
+
     return Text(text,
       textScaleFactor:(index == parentVM.pageIndex
           ?parentVM.textScaleFactor :
