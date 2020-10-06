@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 
 class LogoWidget extends WidgetState with SingleTickerProviderStateMixin{
 
-  List<Widget> list = [];
+  final List<Widget> list = [];
   Timer timer;
   Image logo;
   @override
