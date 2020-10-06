@@ -74,12 +74,12 @@ class WaveWidget extends WidgetState with SingleTickerProviderStateMixin{
     controller = AnimationController(duration: Duration(seconds: 3),vsync: this);
     first = Tween<double>(begin: getWidthPx(180),end: getWidthPx(360)).animate(controller);
     super.initState();
-
-    controller.addStatusListener((status) {
-      if(status == AnimationStatus.completed){
-
-      }
-    });
+//
+//    controller.addStatusListener((status) {
+//      if(status == AnimationStatus.completed){
+//
+//      }
+//    });
     first.addListener(() {
       opacity = (1-first.value/getWidthPx(360)).clamp(0.0, 1.0);
       setState(() {
