@@ -83,8 +83,9 @@ class HomePage extends PageState{
   Widget buildAppBar() {
     return Container(
       //color: Colors.blue,
-      width: getWidthPx(750),height: getWidthPx(160),
-      padding: EdgeInsets.symmetric(horizontal: horPadding),
+      width: getWidthPx(750),height: getWidthPx(180),
+      padding: EdgeInsets.only(left: horPadding,right: horPadding,
+        bottom: getWidthPx(30)),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
