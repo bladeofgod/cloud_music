@@ -166,10 +166,7 @@ class HomePage extends PageState{
   Widget wrapWithNotify(Widget child){
     return NotificationListener<ScrollNotification>(
       child: child,
-      onNotification: (notification){
-        //todo
-        return false;
-      },
+      onNotification: handleNotification,
     );
   }
 
@@ -177,16 +174,21 @@ class HomePage extends PageState{
   bool handleNotification(ScrollNotification notification){
     final ScrollMetrics metrics = notification.metrics;
     final ScrollPosition pos = pageController.position;
+    log('above ${metrics.extentBefore}');
+    log('below ${metrics.extentAfter}');
+    log('inside ${metrics.extentInside}');
     if(metrics.axis == Axis.horizontal){
       if(lastPixels != null){
-        if(metrics.atEdge){
-
+        if(metrics.atEdge ){
+          log('min ${metrics.minScrollExtent} --- max ${metrics.maxScrollExtent}');
           final double dis = metrics.pixels - lastPixels;
           log('juuuuu   ${((pageIndex+1)*pos.viewportDimension)+dis}');
           if(dis <0){
             //to left
+            log('to left');
           }else if(dis > 0){
             //to right
+            log('to right');
           }
           debugPrint('jump to  $dis');
           //pageController.jumpTo(((pageIndex+1)*pos.viewportDimension)+dis);
