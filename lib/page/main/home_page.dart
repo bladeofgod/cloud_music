@@ -174,9 +174,9 @@ class HomePage extends PageState{
   bool handleNotification(ScrollNotification notification){
     final ScrollMetrics metrics = notification.metrics;
     final ScrollPosition pos = pageController.position;
-    log('above ${metrics.extentBefore}');
-    log('below ${metrics.extentAfter}');
-    log('inside ${metrics.extentInside}');
+//    log('above ${metrics.extentBefore}');
+//    log('below ${metrics.extentAfter}');
+//    log('inside ${metrics.extentInside}');
     if(metrics.axis == Axis.horizontal){
       if(lastPixels != null){
         if(metrics.atEdge ){
