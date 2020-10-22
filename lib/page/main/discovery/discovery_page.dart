@@ -55,7 +55,7 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
   
   PageController controller;
 
-  PageController dbContaoller;
+  //PageController dbContaoller;
   int dbIndex = 2;
   double initOffset = -1;
 
@@ -66,19 +66,20 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
     youAndContraoller = PageController(initialPage: 0,viewportFraction: 0.9);
     b6Controller = PageController(initialPage: 0,viewportFraction: 0.9);
     controller = PageController(initialPage: 0,viewportFraction: 1);
-    dbContaoller = PageController(initialPage: 2,viewportFraction: 1/5.5);
-    dbContaoller.addListener(() {
-      if(initOffset == -1) initOffset = dbContaoller.offset;
-      if(dbIndex == 2 && dbContaoller.position.userScrollDirection == ScrollDirection.forward){
-        dbContaoller.jumpTo(initOffset);
-      }
-
-    });
+//    dbContaoller = PageController(initialPage: 2,viewportFraction: 1/5.5);
+//    dbContaoller.addListener(() {
+//      if(initOffset == -1) initOffset = dbContaoller.offset;
+//      if(dbIndex == 2 && dbContaoller.position.userScrollDirection == ScrollDirection.forward){
+//        dbContaoller.jumpTo(initOffset);
+//      }
+//
+//    });
   }
   @override
   void dispose() {
     controller.dispose();
-    dbContaoller.dispose();
+    youAndContraoller.dispose();
+    //dbContaoller.dispose();
     super.dispose();
   }
 
@@ -129,7 +130,8 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
             banner(),
             ///dragon zone  PS: 此处api失效，只能写静态的了。
             getSizeBox(height: getWidthPx(20)),
-            dragonBall(),
+            //dragonBall(),
+            dragonBallList(),
             ///对应接口没找到，自由发挥了
             ///人气推荐  block1
             popSongRecommend(),
@@ -892,16 +894,44 @@ class DiscoveryPage extends PageState with AutomaticKeepAliveClientMixin{
   final double dbSize = 750/5.6;
   final double ballOffset = 30;
 
-  Widget dragonBall(){
+//  Widget dragonBall(){
+//    return Container(
+//      width: getWidthPx(750),height: getWidthPx(750/5),
+//      margin: EdgeInsets.only(top: getWidthPx(20),bottom: getWidthPx(20)),
+//      child: PageView(
+//        onPageChanged: (index)=>dbIndex = index,
+//        controller: dbContaoller,
+//        children: _discoveryViewModel.balls.map((e){
+//          return Container(
+//            alignment: Alignment.centerLeft,
+//            width: getWidthPx(dbSize),height: getWidthPx(dbSize+10),
+//            child: Column(
+//              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//              children: [
+//                Image.asset(ImageHelper.wrapAssetsIcon(e.imgUrl),
+//                  height: getWidthPx(dbSize-ballOffset),
+//                  width: getWidthPx(dbSize-ballOffset),),
+//                Text('${e.title}',style: TextStyle(color: Colors.black,fontSize: getSp(22)),)
+//              ],
+//            ),
+//          );
+//        }).toList(),
+//      ),
+//    );
+//  }
+
+  Widget dragonBallList(){
     return Container(
       width: getWidthPx(750),height: getWidthPx(750/5),
       margin: EdgeInsets.only(top: getWidthPx(20),bottom: getWidthPx(20)),
-      child: PageView(
-        onPageChanged: (index)=>dbIndex = index,
-        controller: dbContaoller,
+      child: ListView(
+        padding: EdgeInsets.zero,
+        scrollDirection: Axis.horizontal,
         children: _discoveryViewModel.balls.map((e){
           return Container(
             alignment: Alignment.centerLeft,
+            margin: EdgeInsets.only(left: _discoveryViewModel.balls.indexOf(e)
+               == 0 ? HomePage.horPadding : 0),
             width: getWidthPx(dbSize),height: getWidthPx(dbSize+10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
