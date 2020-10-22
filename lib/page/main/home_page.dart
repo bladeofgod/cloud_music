@@ -13,6 +13,7 @@ import 'package:cloud_music/page/main/village/village_page.dart';
 import 'package:cloud_music/page/main/widget/music_controll_widget.dart';
 import 'package:cloud_music/page/search/search_page.dart';
 import 'package:cloud_music/service_api/bedrock_repository_proxy.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'discovery/vm/tabbar_vm.dart';
@@ -171,12 +172,16 @@ class HomePage extends PageState{
   }
 
   double lastPixels;
+  Drag drag;
   bool handleNotification(ScrollNotification notification){
     final ScrollMetrics metrics = notification.metrics;
     final ScrollPosition pos = pageController.position;
 //    log('above ${metrics.extentBefore}');
 //    log('below ${metrics.extentAfter}');
 //    log('inside ${metrics.extentInside}');
+    if(notification is ScrollStartNotification){
+      drag = pageController.position.drag(notification.dragDetails, () { });
+    }
     if(metrics.axis == Axis.horizontal){
       if(lastPixels != null){
         if(metrics.atEdge ){
@@ -190,7 +195,13 @@ class HomePage extends PageState{
             //to right
             log('to right');
           }
-          debugPrint('jump to  $dis');
+          if(notification is ScrollUpdateNotification){
+            log('dis  ${notification.scrollDelta}');
+            final details = notification.dragDetails;
+            drag.update(details);
+          }
+          //debugPrint('jump to  $dis');
+
           //pageController.jumpTo(((pageIndex+1)*pos.viewportDimension)+dis);
           //lastPixels = metrics.pixels;
         }else{
