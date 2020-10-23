@@ -180,8 +180,14 @@ class HomePage extends PageState{
 //    log('below ${metrics.extentAfter}');
 //    log('inside ${metrics.extentInside}');
     if(notification is ScrollStartNotification){
-      drag = pageController.position.drag(notification.dragDetails, () { });
+      if(notification.dragDetails == null) return true;
+      if(metrics.atEdge){
+        log('start');
+        drag = pageController.position.drag(notification.dragDetails, () { });
+      }
     }
+//    if(notification is ScrollEndNotification){
+//    }
     if(metrics.axis == Axis.horizontal){
       if(lastPixels != null){
         if(metrics.atEdge ){
@@ -197,6 +203,7 @@ class HomePage extends PageState{
           }
           if(notification is ScrollUpdateNotification){
             log('dis  ${notification.scrollDelta}');
+            if(notification.dragDetails == null) return true;
             final details = notification.dragDetails;
             drag.update(details);
           }
