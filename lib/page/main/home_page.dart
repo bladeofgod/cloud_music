@@ -15,6 +15,7 @@ import 'package:cloud_music/page/search/search_page.dart';
 import 'package:cloud_music/service_api/bedrock_repository_proxy.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 import 'discovery/vm/tabbar_vm.dart';
 
@@ -164,6 +165,52 @@ class HomePage extends PageState{
     );
   }
 
+  Widget wrapWithRaw(Widget child){
+    return RawGestureDetector(
+      child: child,
+      gestures: <Type,GestureRecognizerFactory>{
+        HorizontalDragGestureRecognizer
+            : GestureRecognizerFactoryWithHandlers<HorizontalDragGestureRecognizer>(
+            ()=>HorizontalDragGestureRecognizer(),
+            (HorizontalDragGestureRecognizer instance){
+              instance
+                ..onDown = _handleDragDown
+                ..onStart = _handleDragStart
+                ..onUpdate = _handleDragUpdate
+                ..onEnd = _handleDragEnd
+                ..onCancel = _handleDragCancel;
+
+            }
+        )
+      },
+    );
+  }
+
+  void _handleDragDown(DragDownDetails details) {
+    log('down');
+
+  }
+
+  void _handleDragStart(DragStartDetails details) {
+    log('start');
+
+  }
+
+  void _handleDragUpdate(DragUpdateDetails details) {
+    log('update');
+
+  }
+
+  void _handleDragEnd(DragEndDetails details) {
+    log('end');
+
+  }
+
+  void _handleDragCancel() {
+    log('cancel');
+
+  }
+
   Widget wrapWithNotify(Widget child){
     return NotificationListener<ScrollNotification>(
       child: child,
@@ -171,53 +218,111 @@ class HomePage extends PageState{
     );
   }
 
+
+  double after,before;
+
   double lastPixels;
   Drag drag;
+  DragStartDetails dragStartDetails;
+
+  bool canBubble = true;
+
   bool handleNotification(ScrollNotification notification){
     final ScrollMetrics metrics = notification.metrics;
     final ScrollPosition pos = pageController.position;
 //    log('above ${metrics.extentBefore}');
 //    log('below ${metrics.extentAfter}');
 //    log('inside ${metrics.extentInside}');
-    if(notification is ScrollStartNotification){
-      if(notification.dragDetails == null) return true;
-      if(metrics.atEdge){
-        log('start');
-        drag = pageController.position.drag(notification.dragDetails, () { });
-      }
+    //log('${metrics.pixels}');
+    if(notification is ScrollEndNotification){
+      log('end');
+      canBubble = notification.metrics.atEdge;
+      drag = null;
+      dragPosition = null;
     }
-//    if(notification is ScrollEndNotification){
-//    }
     if(metrics.axis == Axis.horizontal){
-      if(lastPixels != null){
-        if(metrics.atEdge ){
-          log('min ${metrics.minScrollExtent} --- max ${metrics.maxScrollExtent}');
-          final double dis = metrics.pixels - lastPixels;
-          log('juuuuu   ${((pageIndex+1)*pos.viewportDimension)+dis}');
-          if(dis <0){
-            //to left
-            log('to left');
-          }else if(dis > 0){
-            //to right
-            log('to right');
-          }
-          if(notification is ScrollUpdateNotification){
-            log('dis  ${notification.scrollDelta}');
-            if(notification.dragDetails == null) return true;
-            final details = notification.dragDetails;
-            drag.update(details);
-          }
-          //debugPrint('jump to  $dis');
+      if(notification is ScrollStartNotification){
+        log('start');
+        if(notification.dragDetails == null) return true;
 
-          //pageController.jumpTo(((pageIndex+1)*pos.viewportDimension)+dis);
-          //lastPixels = metrics.pixels;
-        }else{
-          lastPixels = metrics.pixels;
+        dragStartDetails = notification.dragDetails;
+//      if(metrics.atEdge){
+//        log('start');
+//        drag = pageController.position.drag(notification.dragDetails, () { });
+//        drag = null;
+//      }
+      }
+      ///滑动到边缘，例如最小边缘时，继续向右滑动，此时不会触发update
+      ///只会触发 start和 end
+//      if(notification is ScrollUpdateNotification){
+////        log('after  : ${metrics.extentAfter}');
+////        log('before : ${metrics.extentBefore}');
+//        canBubble = false;
+//      }
+      ///超边界继续滑动，抬起后会回调一次
+      if(notification is UserScrollNotification){
+        log('user  : ${notification.direction}');
+        if(metrics.pixels == metrics.minScrollExtent && notification.direction == ScrollDirection.forward){
+          if(drag == null ){
+            drag = pageController.position.drag(dragStartDetails, () {
+              drag = null;
+            });
+          }
+
+        }else if(metrics.pixels == metrics.maxScrollExtent && notification.direction == ScrollDirection.reverse){
+          if(drag == null ){
+            drag = pageController.position.drag(dragStartDetails, () {
+              drag = null;
+            });
+          }
         }
 
-      }else{
-        lastPixels = metrics.pixels;
       }
+      //log('$canBubble');
+//      if(canBubble){
+//        if(metrics.atEdge){
+//          log('edge');
+//          if(dragStartDetails == null ) return true;
+//          drag = pageController.position.drag(dragStartDetails, () {
+//            log('cancel');
+//            drag = null;
+//          });
+//        }
+//        log(this.runtimeType.toString());
+//
+//      }
+//      if(lastPixels != null){
+//        if(metrics.atEdge ){
+//          if(drag == null) return true;
+//          //log('min ${metrics.minScrollExtent} --- max ${metrics.maxScrollExtent}');
+//          final double dis = metrics.pixels - lastPixels;
+//          //log('juuuuu   ${((pageIndex+1)*pos.viewportDimension)+dis}');
+//          if(dis <0){
+//
+//            //to right
+//            log('to right');
+//          }else if(dis > 0){
+//            //to left
+//            log('to left');
+//
+//          }
+////          if(notification is ScrollUpdateNotification){
+////            //log('dis  ${notification.scrollDelta}');
+////            if(notification.dragDetails == null) return true;
+////            final details = notification.dragDetails;
+////            drag.update(details);
+////          }
+//          //debugPrint('jump to  $dis');
+//
+//          //pageController.jumpTo(((pageIndex+1)*pos.viewportDimension)+dis);
+//          lastPixels = metrics.pixels;
+//        }else{
+//          lastPixels = metrics.pixels;
+//        }
+//
+//      }else{
+//        lastPixels = metrics.pixels;
+//      }
     }
 //    log('${metrics.pixels}');
 //    log('${metrics.axisDirection}');
