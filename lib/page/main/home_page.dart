@@ -165,52 +165,6 @@ class HomePage extends PageState{
     );
   }
 
-  Widget wrapWithRaw(Widget child){
-    return RawGestureDetector(
-      child: child,
-      gestures: <Type,GestureRecognizerFactory>{
-        HorizontalDragGestureRecognizer
-            : GestureRecognizerFactoryWithHandlers<HorizontalDragGestureRecognizer>(
-            ()=>HorizontalDragGestureRecognizer(),
-            (HorizontalDragGestureRecognizer instance){
-              instance
-                ..onDown = _handleDragDown
-                ..onStart = _handleDragStart
-                ..onUpdate = _handleDragUpdate
-                ..onEnd = _handleDragEnd
-                ..onCancel = _handleDragCancel;
-
-            }
-        )
-      },
-    );
-  }
-
-  void _handleDragDown(DragDownDetails details) {
-    log('down');
-
-  }
-
-  void _handleDragStart(DragStartDetails details) {
-    log('start');
-
-  }
-
-  void _handleDragUpdate(DragUpdateDetails details) {
-    log('update');
-
-  }
-
-  void _handleDragEnd(DragEndDetails details) {
-    log('end');
-
-  }
-
-  void _handleDragCancel() {
-    log('cancel');
-
-  }
-
   Widget wrapWithNotify(Widget child){
     return NotificationListener<ScrollNotification>(
       child: child,
@@ -274,6 +228,54 @@ class HomePage extends PageState{
     return true;
 
   }
+
+
+//  Widget wrapWithRaw(Widget child){
+//    return RawGestureDetector(
+//      child: child,
+//      gestures: <Type,GestureRecognizerFactory>{
+//        HorizontalDragGestureRecognizer
+//            : GestureRecognizerFactoryWithHandlers<HorizontalDragGestureRecognizer>(
+//                ()=>HorizontalDragGestureRecognizer(),
+//                (HorizontalDragGestureRecognizer instance){
+//              instance
+//                ..onDown = _handleDragDown
+//                ..onStart = _handleDragStart
+//                ..onUpdate = _handleDragUpdate
+//                ..onEnd = _handleDragEnd
+//                ..onCancel = _handleDragCancel;
+//
+//            }
+//        )
+//      },
+//    );
+//  }
+//
+//  void _handleDragDown(DragDownDetails details) {
+//    log('down');
+//
+//  }
+//
+//  void _handleDragStart(DragStartDetails details) {
+//    log('start');
+//
+//  }
+//
+//  void _handleDragUpdate(DragUpdateDetails details) {
+//    log('update');
+//
+//  }
+//
+//  void _handleDragEnd(DragEndDetails details) {
+//    log('end');
+//
+//  }
+//
+//  void _handleDragCancel() {
+//    log('cancel');
+//
+//  }
+
 
   void log(String info){
     debugPrint('notification----$info');
