@@ -229,11 +229,6 @@ class HomePage extends PageState{
 
   bool handleNotification(ScrollNotification notification){
     final ScrollMetrics metrics = notification.metrics;
-    final ScrollPosition pos = pageController.position;
-//    log('above ${metrics.extentBefore}');
-//    log('below ${metrics.extentAfter}');
-//    log('inside ${metrics.extentInside}');
-    //log('${metrics.pixels}');
     if(notification is ScrollEndNotification){
       log('end');
       canBubble = notification.metrics.atEdge;
@@ -246,11 +241,6 @@ class HomePage extends PageState{
         if(notification.dragDetails == null) return true;
 
         dragStartDetails = notification.dragDetails;
-//      if(metrics.atEdge){
-//        log('start');
-//        drag = pageController.position.drag(notification.dragDetails, () { });
-//        drag = null;
-//      }
       }
       ///滑动到边缘，例如最小边缘时，继续向右滑动，此时不会触发update
       ///只会触发 start和 end
@@ -278,55 +268,9 @@ class HomePage extends PageState{
         }
 
       }
-      //log('$canBubble');
-//      if(canBubble){
-//        if(metrics.atEdge){
-//          log('edge');
-//          if(dragStartDetails == null ) return true;
-//          drag = pageController.position.drag(dragStartDetails, () {
-//            log('cancel');
-//            drag = null;
-//          });
-//        }
-//        log(this.runtimeType.toString());
-//
-//      }
-//      if(lastPixels != null){
-//        if(metrics.atEdge ){
-//          if(drag == null) return true;
-//          //log('min ${metrics.minScrollExtent} --- max ${metrics.maxScrollExtent}');
-//          final double dis = metrics.pixels - lastPixels;
-//          //log('juuuuu   ${((pageIndex+1)*pos.viewportDimension)+dis}');
-//          if(dis <0){
-//
-//            //to right
-//            log('to right');
-//          }else if(dis > 0){
-//            //to left
-//            log('to left');
-//
-//          }
-////          if(notification is ScrollUpdateNotification){
-////            //log('dis  ${notification.scrollDelta}');
-////            if(notification.dragDetails == null) return true;
-////            final details = notification.dragDetails;
-////            drag.update(details);
-////          }
-//          //debugPrint('jump to  $dis');
-//
-//          //pageController.jumpTo(((pageIndex+1)*pos.viewportDimension)+dis);
-//          lastPixels = metrics.pixels;
-//        }else{
-//          lastPixels = metrics.pixels;
-//        }
-//
-//      }else{
-//        lastPixels = metrics.pixels;
-//      }
+
     }
-//    log('${metrics.pixels}');
-//    log('${metrics.axisDirection}');
-//    log('${metrics.atEdge}');
+
 
     return true;
 
