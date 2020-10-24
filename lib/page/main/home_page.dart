@@ -251,7 +251,6 @@ class HomePage extends PageState{
 //      }
       ///超边界继续滑动，抬起后会回调一次
       if(notification is UserScrollNotification){
-        log('user  : ${notification.direction}');
         if(metrics.pixels == metrics.minScrollExtent && notification.direction == ScrollDirection.forward){
           if(drag == null ){
             drag = pageController.position.drag(dragStartDetails, () {
