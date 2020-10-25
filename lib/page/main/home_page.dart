@@ -179,13 +179,11 @@ class HomePage extends PageState{
   Drag drag;
   DragStartDetails dragStartDetails;
 
-  bool canBubble = true;
 
   bool handleNotification(ScrollNotification notification){
     final ScrollMetrics metrics = notification.metrics;
     if(notification is ScrollEndNotification){
       log('end');
-      canBubble = notification.metrics.atEdge;
       drag = null;
       dragPosition = null;
     }
@@ -199,12 +197,13 @@ class HomePage extends PageState{
       ///滑动到边缘，例如最小边缘时，继续向右滑动，此时不会触发update
       ///只会触发 start和 end
 //      if(notification is ScrollUpdateNotification){
+//        log('update');
 ////        log('after  : ${metrics.extentAfter}');
 ////        log('before : ${metrics.extentBefore}');
-//        canBubble = false;
 //      }
-      ///超边界继续滑动，抬起后会回调一次
+
       if(notification is UserScrollNotification){
+        log('user');
         if(metrics.pixels == metrics.minScrollExtent && notification.direction == ScrollDirection.forward){
           if(drag == null ){
             drag = pageController.position.drag(dragStartDetails, () {
