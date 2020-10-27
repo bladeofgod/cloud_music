@@ -179,20 +179,47 @@ class HomePage extends PageState{
   Drag drag;
   DragStartDetails dragStartDetails;
 
+  bool onEdge = false;
 
   bool handleNotification(ScrollNotification notification){
     final ScrollMetrics metrics = notification.metrics;
-    if(notification is ScrollEndNotification){
-      log('end');
-      drag = null;
-      dragPosition = null;
-    }
+
     if(metrics.axis == Axis.horizontal){
+      if(notification is ScrollEndNotification){
+        log('end');
+        //drag = null;
+        dragPosition = null;
+        onEdge = metrics.atEdge;
+//        if(metrics.atEdge){
+//          log(' at edge');
+//          if(drag == null ){
+//            drag = pageController.position.drag(dragStartDetails, () {
+//              //drag = null;
+//            });
+//            drag.cancel();
+//          }
+//        }
+        return true;
+      }
       if(notification is ScrollStartNotification){
         log('start');
+        onEdge = metrics.atEdge;
         if(notification.dragDetails == null) return true;
-
         dragStartDetails = notification.dragDetails;
+        return true;
+      }
+      if(notification is ScrollUpdateNotification){
+        onEdge = metrics.atEdge;
+      }
+      if(notification is OverscrollNotification){
+//        if(notification.dragDetails == null) return true;
+//        drag.update(notification.dragDetails);
+      log('$onEdge');
+      if(!onEdge) return true;
+        drag = pageController.position.drag(dragStartDetails, () {
+          //drag = null;
+        });
+        onEdge = false;
       }
       ///滑动到边缘，例如最小边缘时，继续向右滑动，此时不会触发update
       ///只会触发 start和 end
@@ -202,24 +229,24 @@ class HomePage extends PageState{
 ////        log('before : ${metrics.extentBefore}');
 //      }
 
-      if(notification is UserScrollNotification){
-        log('user');
-        if(metrics.pixels == metrics.minScrollExtent && notification.direction == ScrollDirection.forward){
-          if(drag == null ){
-            drag = pageController.position.drag(dragStartDetails, () {
-              drag = null;
-            });
-          }
-
-        }else if(metrics.pixels == metrics.maxScrollExtent && notification.direction == ScrollDirection.reverse){
-          if(drag == null ){
-            drag = pageController.position.drag(dragStartDetails, () {
-              drag = null;
-            });
-          }
-        }
-
-      }
+//      if(notification is UserScrollNotification){
+//        log('user');
+//        if(metrics.pixels == metrics.minScrollExtent && notification.direction == ScrollDirection.forward){
+//          if(drag == null ){
+//            drag = pageController.position.drag(dragStartDetails, () {
+//              drag = null;
+//            });
+//          }
+//
+//        }else if(metrics.pixels == metrics.maxScrollExtent && notification.direction == ScrollDirection.reverse){
+//          if(drag == null ){
+//            drag = pageController.position.drag(dragStartDetails, () {
+//              drag = null;
+//            });
+//          }
+//        }
+//
+//      }
 
     }
 
