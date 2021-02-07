@@ -49,7 +49,7 @@ class LoginPage extends PageState{
                   children: <Widget>[
                     getSizeBox(height: getWidthPx(100)),
                     LogoWidget().generateWidget(),
-                    getSizeBox(height: getWidthPx(400)),
+                    getSizeBox(height: getWidthPx(260)),
                     GestureDetector(
                       onTap: (){
                         if(!isAgree){

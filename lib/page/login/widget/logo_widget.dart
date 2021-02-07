@@ -44,7 +44,7 @@ class LogoWidget extends WidgetState with SingleTickerProviderStateMixin{
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: getWidthPx(500),height: getWidthPx(500),
+      width: getWidthPx(500),height: getWidthPx(400),
       child: Stack(
         alignment: Alignment.center,
         children: list,
